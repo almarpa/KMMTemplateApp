@@ -3,6 +3,7 @@ agp = "8.5.2"
 android-compileSdk = "35"
 android-minSdk = "24"
 android-targetSdk = "35"
+
 androidx-activityCompose = "1.9.3"
 androidx-appcompat = "1.7.0"
 androidx-constraintlayout = "2.2.0"
@@ -11,23 +12,36 @@ androidx-espresso-core = "3.6.1"
 androidx-lifecycle = "2.8.4"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
+
 compose-multiplatform = "1.7.0"
+compose-plugin = "1.7.0"
+compose = "1.7.5"
+compose-navigation = "2.8.0-alpha10"
+
+kotlinx-coroutines = "1.9.0"
+kotlinx-datetime = "0.6.1"
+kotlinx-serialization = "1.7.3"
+
+gson = "2.10.1"
 junit = "4.13.2"
 kotlin = "2.1.0"
-kotlinx-coroutines = "1.9.0"
-navigationCompose = "2.8.0-alpha10"
-kotlinSerialization = "1.7.3"
+multiplatformSettings = "1.1.1"
 koin = "4.0.0"
 ktor = "3.0.0"
 coil3 = "3.0.0-rc02"
-ksp = "2.0.20-1.0.24"
+ksp = "2.0.21-1.0.28"
 sqlite = "2.5.0-alpha11"
 room = "2.7.0-alpha11"
+datastore-version = "1.1.1"
+constraint-layout-version = "0.4.0"
+compottie = "2.0.0-rc02"
+napier = "2.6.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
 androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-junit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-espresso-core" }
@@ -37,16 +51,19 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 
-jetbrains-compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref= "navigationCompose"}
-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+koin-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation", version.ref = "koin" }
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
@@ -58,19 +75,33 @@ ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
 coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil3" }
-coil-network-ktor2 = { module = "io.coil-kt.coil3:coil-network-ktor2", version.ref = "coil3" }
 coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil3" }
-coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil3" }
 
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 
+compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+
+jetbrains-compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref= "compose-navigation"}
+multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
+jetpack-datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore-version" }
+constraint-layout = { module = "tech.annexflow.compose:constraintlayout-compose-multiplatform", version.ref = "constraint-layout-version" }
+com-google-code-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+
+compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
+compottie-dot = { module = "io.github.alexzhirkevich:compottie-dot", version.ref = "compottie" }
+compottie-network = { module = "io.github.alexzhirkevich:compottie-network", version.ref = "compottie" }
+compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottie" }
+
+napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
-composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+#composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -88,7 +119,136 @@ ktor = [
 coil = [
     "coil-compose",
     "coil-compose-core",
-    "coil-network-ktor2",
     "coil-network-ktor3",
-    "coil-mp"
 ]
+
+layer-core-common = [
+    "kotlinx-coroutines-core",
+    "kotlinx-serialization-json",
+    "kotlinx-datetime",
+    "koin-core",
+    "multiplatformSettings",
+    "com-google-code-gson",
+    "kotlin-stdlib",
+    "napier",
+]
+
+layer-core-ui = [
+    "kotlinx-coroutines-core",
+    "kotlinx-serialization-json",
+    "kotlinx-datetime",
+    "multiplatformSettings",
+    "koin-core",
+    "koin-compose",
+    "koin-navigation",
+    "koin-compose-viewmodel",
+    "constraint-layout",
+    "com-google-code-gson",
+    "kotlin-stdlib",
+    "coil-compose",
+    "coil-compose-core",
+    "coil-network-ktor3",
+    "ktor-client-core",
+    "compottie",
+    "compottie-dot",
+    "compottie-network",
+    "compottie-resources",
+    "napier",
+]
+
+android-core = [
+    "kotlinx-coroutines-android",
+    "koin-android",
+    "kotlin-stdlib",
+    "androidx-core-ktx",
+    "napier",
+]
+
+android-core-ui = [
+    "androidx-appcompat",
+    "androidx-activity-compose",
+    "compose-uitooling",
+    "kotlinx-coroutines-android",
+    "koin-android",
+    "com-google-code-gson",
+    "kotlin-stdlib",
+    "androidx-material",
+    "napier",
+]
+
+layer-core-viewmodels = [
+    "androidx-lifecycle-viewmodel",
+    "kotlinx-coroutines-core",
+    "kotlinx-serialization-json",
+    "kotlinx-datetime",
+    "multiplatformSettings",
+    "koin-core",
+    "com-google-code-gson",
+    "kotlin-stdlib",
+    "koin-compose",
+    "koin-compose-viewmodel",
+    "napier",
+]
+#
+#layer-core-ui = [
+#    "composeImageLoader",
+#    "kotlinx-coroutines-core",
+#    "composeIcons-featherIcons",
+#    "kotlinx-serialization-json",
+#    "kotlinx-datetime",
+#    "multiplatformSettings",
+#    "koin-core",
+#    "koin-compose",
+#    "koin-navigation",
+#    "koin-compose-viewmodel",
+#    "constraint-layout",
+#    "com-google-code-gson",
+#    "kotlin-stdlib",
+#    "coil-compose",
+#    "coil-network",
+#    "ktor-client-core",
+#    "compottie",
+#    "compottie-dot",
+#    "compottie-network",
+#    "compottie-resources",
+#]
+#
+#layer-data-datasources-core = [
+#    "napier",
+#    "kotlinx-coroutines-core",
+#    "kotlinx-serialization-json",
+#    "kotlinx-datetime",
+#    "multiplatformSettings",
+#    "koin-core",
+#    "ktor-client-core",
+#    "ktor-client-content-negotiation",
+#    "ktor-client-logging",
+#    "ktor-client-serialization",
+#    "ktorfit-converter-call",
+#    "ktorfit-converter-flow",
+#    "ktor-serialization-kotlinx-json",
+#    "ktorfit-lib",
+#    "jetpack-datastore",
+#    "sqlDelight-driver-coroutines-extensions",
+#    "com-google-code-gson",
+#    "kotlin-stdlib",
+#]
+#
+#ios-core = [
+#    "touchlab-stately-iso-collections",
+#    "touchlab-stately-isolate"
+#]
+#
+#android-data-core = [
+#    "kotlinx-coroutines-android",
+#    "ktor-client-okhttp",
+#    "sqlDelight-driver-android",
+#    "koin-core-android",
+#    "com-google-code-gson",
+#    "kotlin-stdlib",
+#]
+#
+#ios-data-core = [
+#    "ktor-client-ios",
+#    "sqlDelight-driver-native"
+#]

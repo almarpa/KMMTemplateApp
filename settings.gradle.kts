@@ -1,4 +1,4 @@
-rootProject.name = "KotlinProject"
+rootProject.name = "KMMTemplateApp"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -29,3 +29,7 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
+include(":shared:core:common")
+include(":shared:core:du")
+include(":shared:core:ui")
+include(":shared:core:viewModels")
