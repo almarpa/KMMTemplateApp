@@ -7,7 +7,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = BuildVersion.environment.jvmTarget
+                jvmTarget = "17"
             }
         }
     }
@@ -18,7 +18,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "core.di"
+            baseName = "coreDi"
             isStatic = true
         }
     }
@@ -26,20 +26,25 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.shared.core.common)
-            implementation(projects.shared.data.datasourcesCore)
-            implementation(projects.shared.data.repository)
-            implementation(projects.shared.domain.usecases)
-            implementation(projects.shared.presentation.viewmodels)
-            implementation(libs.bundles.layer.core.common)
+            // TODO:
+            // implementation(projects.shared.data.datasourcesCore)
+            // implementation(projects.shared.data.repository)
+            // implementation(projects.shared.domain.usecases)
+            // implementation(projects.shared.presentation.ui)
+            implementation(libs.bundles.core.common)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.bundles.android.core)
         }
     }
 }
 
 android {
-    namespace = "${BuildVersion.environment.applicationId}.core.di"
-    compileSdk = BuildVersion.android.compileSdk
+    namespace = "${libs.versions.applicationId.get()}.core.di"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = BuildVersion.android.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     sourceSets["main"].apply {
@@ -47,7 +52,7 @@ android {
         res.srcDirs("src/androidMain/resources")
     }
     compileOptions {
-        sourceCompatibility = BuildVersion.environment.javaVersion
-        targetCompatibility = BuildVersion.environment.javaVersion
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }

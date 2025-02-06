@@ -8,7 +8,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = BuildVersion.environment.jvmTarget
+                jvmTarget = "17"
             }
         }
     }
@@ -26,21 +26,20 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.bundles.layer.core.common)
+            implementation(libs.bundles.core.common)
         }
 
         androidMain.dependencies {
             implementation(libs.bundles.android.core)
-
         }
     }
 }
 
 android {
-    namespace = "${BuildVersion.environment.applicationId}.core.common"
-    compileSdk = BuildVersion.android.compileSdk
+    namespace = "${libs.versions.applicationId.get()}.core.common"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = BuildVersion.android.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     sourceSets["main"].apply {
@@ -48,11 +47,7 @@ android {
         res.srcDirs("src/androidMain/resources")
     }
     compileOptions {
-        sourceCompatibility = BuildVersion.environment.javaVersion
-        targetCompatibility = BuildVersion.environment.javaVersion
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-}
-
-tasks.register("testClasses") {
-    println("Dummy classes")
 }

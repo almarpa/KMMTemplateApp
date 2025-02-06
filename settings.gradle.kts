@@ -28,8 +28,11 @@ dependencyResolutionManagement {
     }
 }
 
+// Modules
 include(":composeApp")
+
 include(":shared:core:common")
-include(":shared:core:du")
+include(":shared:core:di")
 include(":shared:core:ui")
-include(":shared:core:viewModels")
+
+include(":shared:presentation:ui")
