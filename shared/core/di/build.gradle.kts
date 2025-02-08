@@ -28,9 +28,8 @@ kotlin {
             implementation(projects.shared.core.common)
             implementation(projects.shared.data.datasources)
             implementation(projects.shared.data.repository)
-            // TODO:implementation(projects.shared.domain.usecases)
-            // implementation(projects.shared.presentation.ui)
-            
+            implementation(projects.shared.domain.usecases)
+
             implementation(libs.bundles.core.common)
         }
 

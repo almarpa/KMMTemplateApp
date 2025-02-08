@@ -5,10 +5,10 @@ import com.almarpa.kmmtemplateapp.presentation.ui.di.PresentationViewModelDepend
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext
 
-class CustomApplication : Application() {
+class MyApp : Application() {
     override fun onCreate() {
         GlobalContext.startKoin {
-            androidContext(this@CustomApplication)
+            androidContext(this@MyApp)
             modules(PresentationViewModelDependencyInjector.modules)
         }
 

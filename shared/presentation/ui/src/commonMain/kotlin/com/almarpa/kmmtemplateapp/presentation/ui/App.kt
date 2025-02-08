@@ -9,11 +9,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.almarpa.kmmtemplateapp.core.common.platform.getPlatform
+import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.DeviceViewModel
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.app_name
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 @Preview
 @Composable
@@ -25,9 +28,15 @@ fun App() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                val viewModel = koinViewModel<DeviceViewModel>()
+                val deviceId = viewModel.uiState.collectAsStateWithLifecycle()
+
                 val platform = getPlatform()
                 val appName = stringResource(Res.string.app_name)
-                Text("$appName ${platform.platformData}")
+
+                Text(appName)
+                Text("${platform.platformData}")
+                Text("Device: ${deviceId.value}")
             }
         }
     }

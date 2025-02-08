@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
-class KmmViewModel : ViewModel() {
+open class KmmViewModel : ViewModel() {
     fun CoroutineScope.safeLaunch(
         onStart: () -> Unit,
         onFinish: () -> Unit,

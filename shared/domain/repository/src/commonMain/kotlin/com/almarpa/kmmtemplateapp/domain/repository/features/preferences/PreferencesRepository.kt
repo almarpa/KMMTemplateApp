@@ -1,4 +1,4 @@
-package com.almarpa.kmmtemplateapp.data.repository.features.preferences
+package com.almarpa.kmmtemplateapp.domain.repository.features.preferences
 
 import kotlinx.coroutines.flow.Flow
 

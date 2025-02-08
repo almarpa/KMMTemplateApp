@@ -51,6 +51,7 @@ kotlin {
 android {
     namespace = "${libs.versions.applicationId.get()}.core.ui"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
+
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
@@ -64,7 +65,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    
+
     buildFeatures {
         compose = true
     }

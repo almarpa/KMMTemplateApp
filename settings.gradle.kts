@@ -39,4 +39,8 @@ include(":shared:data:datasources")
 include(":shared:data:models")
 include(":shared:data:repository")
 
+include(":shared:domain:models")
+include(":shared:domain:repository")
+include(":shared:domain:usecases")
+
 include(":shared:presentation:ui")

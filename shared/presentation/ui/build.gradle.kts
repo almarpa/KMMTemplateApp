@@ -37,15 +37,13 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(compose.components.resources)
 
-            implementation(libs.bundles.core.ui)
-
-            implementation(projects.shared.core.ui)
             implementation(projects.shared.core.common)
             implementation(projects.shared.core.di)
+            implementation(projects.shared.core.ui)
+            implementation(projects.shared.domain.models)
+            implementation(projects.shared.domain.usecases)
 
-            // TODO:
-            // implementation(projects.shared.domain.models)
-            // implementation(projects.shared.domain.usecases)
+            implementation(libs.bundles.core.ui)
         }
 
         androidMain {

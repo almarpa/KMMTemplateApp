@@ -20,7 +20,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "DataRepository"
+            baseName = "domain.repository"
             isStatic = true
         }
     }
@@ -28,27 +28,25 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.shared.core.common)
-            implementation(projects.shared.data.models)
-            implementation(projects.shared.data.datasources)
-            implementation(projects.shared.domain.repository)
             implementation(projects.shared.domain.models)
 
             implementation(libs.bundles.core.common)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
 
         androidMain.dependencies {
             implementation(libs.bundles.android.core)
         }
 
-        commonTest.dependencies {
-            implementation(kotlin("test"))
-        }
+        iosMain.dependencies {}
     }
 }
 
-
 android {
-    namespace = "${libs.versions.applicationId.get()}.data.repository"
+    namespace = "${libs.versions.applicationId.get()}.domain.repository"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
