@@ -2,7 +2,7 @@
 agp = "8.3.2"
 
 android-compileSdk = "35"
-android-minSdk = "24"
+android-minSdk = "26"
 applicationId = "com.almarpa.kmptemplateapp"
 
 androidx-activityCompose = "1.9.3"
@@ -62,7 +62,7 @@ compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-pre
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 compose-runtime-android = { module = "androidx.compose.runtime:runtime-android", version.ref = "compose" }
-jetbrains-compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref= "compose-navigation"}
+jetbrains-compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "compose-navigation" }
 
 # Koin
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
@@ -80,8 +80,8 @@ ktor-client-core-jvm = { module = "io.ktor:ktor-client-core-jvm", version.ref = 
 ktor-client-curl = { module = "io.ktor:ktor-client-curl", version.ref = "ktor" }
 ktor-client-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
-ktorfit-converter-flow = { module = "de.jensklingenberg.ktorfit:ktorfit-converters-flow", version.ref = "ktorfit-converter"}
-ktorfit-converter-call = { module = "de.jensklingenberg.ktorfit:ktorfit-converters-call", version.ref = "ktorfit-converter"}
+ktorfit-converter-flow = { module = "de.jensklingenberg.ktorfit:ktorfit-converters-flow", version.ref = "ktorfit-converter" }
+ktorfit-converter-call = { module = "de.jensklingenberg.ktorfit:ktorfit-converters-call", version.ref = "ktorfit-converter" }
 ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
@@ -148,6 +148,7 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
 
 [bundles]
 
@@ -179,7 +180,6 @@ core-data = [
     "jetpack-datastore",
     "com-google-code-gson",
     "kotlin-stdlib",
-    "androidx-room-compiler",
     "androidx-room-runtime",
     "sqlite-bundled",
 ]

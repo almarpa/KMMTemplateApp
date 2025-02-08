@@ -26,11 +26,11 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.shared.core.common)
-            // TODO:
-            // implementation(projects.shared.data.datasourcesCore)
-            // implementation(projects.shared.data.repository)
-            // implementation(projects.shared.domain.usecases)
+            implementation(projects.shared.data.datasources)
+            implementation(projects.shared.data.repository)
+            // TODO:implementation(projects.shared.domain.usecases)
             // implementation(projects.shared.presentation.ui)
+            
             implementation(libs.bundles.core.common)
         }
 
@@ -43,6 +43,7 @@ kotlin {
 android {
     namespace = "${libs.versions.applicationId.get()}.core.di"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
+
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
@@ -51,6 +52,7 @@ android {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDirs("src/androidMain/resources")
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

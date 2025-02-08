@@ -1,15 +1,15 @@
 package com.almarpa.kmmtemplateapp.core.di
 
 import com.almarpa.kmmtemplateapp.core.common.di.KoinModuleLoader
+import com.almarpa.kmmtemplateapp.data.datasources.core.di.DataSourceDependencyInjector
+import com.almarpa.kmmtemplateapp.data.repository.di.DataRepositoryDependencyInjector
 import org.koin.core.module.Module
 
 object CoreDiDependencyInjector : KoinModuleLoader {
     override val modules: List<Module>
-        get() = emptyList()
-            // TODO:
-//            DataSourceCoreDependencyInjector.modules,
-//            DataRepositoryDependencyInjector.modules,
-//            DomainUseCasesDependencyInjector.modules,
-//            PresentationViewModelsDependencyInjector.modules,
-//        ).flatten()
+        get() = listOf(
+            DataSourceDependencyInjector.modules,
+            DataRepositoryDependencyInjector.modules,
+// TODO:    DomainUseCasesDependencyInjector.modules,
+        ).flatten()
 }

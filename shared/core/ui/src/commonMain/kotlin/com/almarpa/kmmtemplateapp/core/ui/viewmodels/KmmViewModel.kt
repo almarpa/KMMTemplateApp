@@ -1,4 +1,4 @@
-package com.almarpa.kmmtemplateapp.core.viewmodels
+package com.almarpa.kmmtemplateapp.core.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import io.github.aakira.napier.Napier

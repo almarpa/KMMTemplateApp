@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.ksp)
 }
 
@@ -19,13 +20,14 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "CoreCommon"
+            baseName = "DataModels"
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.shared.core.common)
             implementation(libs.bundles.core.common)
         }
 
@@ -35,8 +37,9 @@ kotlin {
     }
 }
 
+
 android {
-    namespace = "${libs.versions.applicationId.get()}.core.common"
+    namespace = "${libs.versions.applicationId.get()}.data.models"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
@@ -47,7 +50,7 @@ android {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDirs("src/androidMain/resources")
     }
-    
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
