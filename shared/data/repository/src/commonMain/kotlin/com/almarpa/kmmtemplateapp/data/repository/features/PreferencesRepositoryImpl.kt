@@ -1,7 +1,7 @@
-package com.almarpa.kmmtemplateapp.data.repository.features.preferences
+package com.almarpa.kmmtemplateapp.data.repository.features
 
 import com.almarpa.kmmtemplateapp.data.datasources.core.local.preferences.AppPreferences
-import com.almarpa.kmmtemplateapp.domain.repository.features.preferences.PreferencesRepository
+import com.almarpa.kmmtemplateapp.domain.repository.PreferencesRepository
 import kotlinx.coroutines.flow.Flow
 
 class PreferencesRepositoryImpl(private val preferences: AppPreferences) : PreferencesRepository {

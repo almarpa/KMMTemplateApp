@@ -1,6 +1,9 @@
 package com.almarpa.kmmtemplateapp.data.datasources.core.di
 
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.almarpa.kmmtemplateapp.core.common.di.KoinModuleLoader
+import com.almarpa.kmmtemplateapp.data.datasources.core.local.db.DatabaseFactory
+import com.almarpa.kmmtemplateapp.data.datasources.core.local.db.PokemonDataBase
 import com.almarpa.kmmtemplateapp.data.datasources.core.local.preferences.AppPreferences
 import com.almarpa.kmmtemplateapp.data.datasources.core.local.preferences.AppPreferencesImpl
 import com.almarpa.kmmtemplateapp.data.datasources.core.remote.PokemonApi
@@ -24,6 +27,13 @@ object DataSourceDependencyInjector : KoinModuleLoader {
                             .createPokemonApi()
                     }
                     single<AppPreferences> { AppPreferencesImpl(get()) }
+                    
+                    single {
+                        get<DatabaseFactory>().create()
+                            .setDriver(BundledSQLiteDriver())
+                            .build()
+                    }
+                    single { get<PokemonDataBase>().pokemonDao }
                 }
             )
         ).toList()

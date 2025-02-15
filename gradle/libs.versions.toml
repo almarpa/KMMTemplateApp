@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.2"
+agp = "8.5.2"
 kotlin = "2.0.21"
 
 android-compileSdk = "35"
@@ -27,11 +27,11 @@ kotlinx-serialization = "1.7.3"
 
 koin = "4.0.0"
 ktor = "3.0.0"
-ktorfit = "2.2.0"
+ktorfit = "2.1.0"
 ktorfit-converter = "1.11.0"
-ksp = "2.0.21-1.0.28"
-room = "2.7.0-alpha11"
+ksp = "2.0.20-1.0.24"
 sqlite = "2.5.0-alpha11"
+room = "2.7.0-alpha11"
 datastore-version = "1.1.1"
 gson = "2.10.1"
 coil3 = "3.0.0-rc02"
@@ -211,7 +211,6 @@ android-data-core = [
     "kotlinx-coroutines-android",
     "ktor-client-okhttp",
     "com-google-code-gson",
-    "kotlin-stdlib",
 ]
 
 ios-data-core = [

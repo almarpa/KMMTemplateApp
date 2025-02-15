@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.almarpa.kmmtemplateapp.core.common.platform.getPlatform
-import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.DeviceViewModel
+import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonViewModel
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.app_name
 import org.jetbrains.compose.resources.stringResource
@@ -28,15 +28,15 @@ fun App() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                val viewModel = koinViewModel<DeviceViewModel>()
-                val deviceId = viewModel.uiState.collectAsStateWithLifecycle()
+                val viewModel = koinViewModel<PokemonViewModel>()
+                val pokemonCount = viewModel.uiState.collectAsStateWithLifecycle()
 
                 val platform = getPlatform()
                 val appName = stringResource(Res.string.app_name)
 
                 Text(appName)
                 Text("${platform.platformData}")
-                Text("Device: ${deviceId.value}")
+                Text("Pokemons: ${pokemonCount.value}")
             }
         }
     }

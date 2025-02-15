@@ -1,6 +1,6 @@
-package com.almarpa.kmmtemplateapp.domain.usecases.features.preferences
+package com.almarpa.kmmtemplateapp.domain.usecases.features
 
-import com.almarpa.kmmtemplateapp.domain.repository.features.preferences.PreferencesRepository
+import com.almarpa.kmmtemplateapp.domain.repository.PreferencesRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetDeviceIdUseCase(private val repository: PreferencesRepository) {

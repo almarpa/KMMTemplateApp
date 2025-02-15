@@ -33,6 +33,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.shared.core.common)
             implementation(projects.shared.data.models)
+            implementation(projects.shared.domain.models)
 
             implementation(libs.bundles.core.common)
             implementation(libs.bundles.core.data)
@@ -50,17 +51,25 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
         }
-    }
 
-    dependencies {
-        ksp(libs.androidx.room.compiler)
-    }
+        dependencies {
+            // ksp(libs.androidx.room.compiler) Not working, alternative below
+            add("kspAndroid", libs.androidx.room.compiler)
+            add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+            add("kspIosX64", libs.androidx.room.compiler)
+            add("kspIosArm64", libs.androidx.room.compiler)
+        }
 
-    room {
-        schemaDirectory("$projectDir/schemas")
+        room {
+            schemaDirectory("$projectDir/schemas")
+        }
+
+        ktorfit {
+            errorCheckingMode = ErrorCheckingMode.ERROR
+            generateQualifiedTypeName = true
+        }
     }
 }
-
 
 android {
     namespace = "${libs.versions.applicationId.get()}.data.datasources"
@@ -79,9 +88,4 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-}
-
-ktorfit {
-    errorCheckingMode = ErrorCheckingMode.ERROR
-    generateQualifiedTypeName = true
 }

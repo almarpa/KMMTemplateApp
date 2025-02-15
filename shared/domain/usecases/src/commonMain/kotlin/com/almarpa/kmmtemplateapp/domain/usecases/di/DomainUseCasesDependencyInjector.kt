@@ -1,8 +1,10 @@
 package com.almarpa.kmmtemplateapp.domain.usecases.di
 
 import com.almarpa.kmmtemplateapp.core.common.di.KoinModuleLoader
-import com.almarpa.kmmtemplateapp.domain.usecases.features.preferences.GetDeviceIdUseCase
-import com.almarpa.kmmtemplateapp.domain.usecases.features.preferences.SetDeviceIdUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.AddPokemonUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.GetDeviceIdUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.SetDeviceIdUseCase
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
@@ -13,6 +15,8 @@ object DomainUseCasesDependencyInjector : KoinModuleLoader {
             module {
                 factoryOf(::GetDeviceIdUseCase)
                 factoryOf(::SetDeviceIdUseCase)
+                factoryOf(::GetPokemonUseCase)
+                factoryOf(::AddPokemonUseCase)
             }
         )
 }
