@@ -11,6 +11,7 @@ import com.almarpa.kmmtemplateapp.data.models.entities.PokemonEntity
 @Database(
     entities = [PokemonEntity::class],
     version = 1,
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 @ConstructedBy(DatabaseConstructor::class)
