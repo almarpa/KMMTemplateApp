@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.room)
     alias(libs.plugins.ksp)
 }
 
@@ -28,11 +29,17 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.shared.core.common)
-            implementation(libs.bundles.core.common)
+
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.kotlinx.serialization.json)
         }
 
-        androidMain.dependencies {
-            implementation(libs.bundles.android.core)
+        androidMain.dependencies {}
+
+        iosMain.dependencies {}
+
+        room {
+            schemaDirectory("$projectDir/schemas")
         }
     }
 }

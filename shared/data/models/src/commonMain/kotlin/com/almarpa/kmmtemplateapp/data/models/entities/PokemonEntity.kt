@@ -1,4 +1,4 @@
-package com.almarpa.kmmtemplateapp.data.datasources.core.local.db.entities
+package com.almarpa.kmmtemplateapp.data.models.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

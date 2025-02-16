@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.almarpa.kmmtemplateapp.data.datasources.core.local.db.entities.PokemonEntity
+import com.almarpa.kmmtemplateapp.data.models.entities.PokemonEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -1,4 +1,4 @@
-package com.almarpa.kmmtemplateapp.data.datasources.core.local.db
+package com.almarpa.kmmtemplateapp.data.datasources.core.local.db.converters
 
 import androidx.room.TypeConverter
 import com.almarpa.kmmtemplateapp.domain.models.Move
