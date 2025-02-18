@@ -1,8 +1,8 @@
 package com.almarpa.kmmtemplateapp.core.common.serializers
 
-import com.almarpa.kmmtemplateapp.core.common.extensions.format
-import com.almarpa.kmmtemplateapp.core.common.extensions.toLocalDate
-import com.almarpa.kmmtemplateapp.core.common.extensions.supportedDateFormat
+import com.almarpa.kmmtemplateapp.core.common.utils.format
+import com.almarpa.kmmtemplateapp.core.common.utils.supportedDateFormat
+import com.almarpa.kmmtemplateapp.core.common.utils.toLocalDate
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

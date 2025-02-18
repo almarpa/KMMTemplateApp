@@ -1,10 +1,10 @@
 package com.almarpa.kmmtemplateapp.data.repository.features
 
-import com.almarpa.kmmtemplateapp.data.datasources.core.local.db.dao.PokemonDao
-import com.almarpa.kmmtemplateapp.data.datasources.core.remote.api.PokemonApi
-import com.almarpa.kmmtemplateapp.data.repository.features.mappers.map
-import com.almarpa.kmmtemplateapp.data.repository.features.mappers.toDomain
-import com.almarpa.kmmtemplateapp.data.repository.features.mappers.toEntity
+import com.almarpa.kmmtemplateapp.data.datasources.local.features.PokemonLocalDataSource
+import com.almarpa.kmmtemplateapp.data.datasources.remote.features.PokemonRemoteDataSource
+import com.almarpa.kmmtemplateapp.data.repository.mappers.map
+import com.almarpa.kmmtemplateapp.data.repository.mappers.toDomain
+import com.almarpa.kmmtemplateapp.data.repository.mappers.toEntity
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.domain.repository.PokemonRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,37 +13,55 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
 class PokemonRepositoryImpl(
-    private val api: PokemonApi,
-    private val dao: PokemonDao,
+    private val pokemonRemoteDataSource: PokemonRemoteDataSource,
+    private val pokemonLocalDataSource: PokemonLocalDataSource
 ) : PokemonRepository {
 
-    companion object {
-        private const val POKEMON_RESULTS_LIMIT = 1302
-        private const val POKEMON_RESULTS_OFFSET = 0
-        private const val REMOTE_REFRESHING_DAYS = 7L
-    }
-
     override fun fetchPokemonList(): Flow<List<Pokemon>> = flow {
-        val localData = dao.getAll().firstOrNull()
-        if (localData.isNullOrEmpty()) {
-            emit(localData!!.map { it.toDomain() })
-            return@flow
+        with(pokemonLocalDataSource.fetchPokemons().firstOrNull()) {
+            if (!isNullOrEmpty()) {
+                emit(map { it.toDomain() })
+                return@flow
+            }
         }
 
         try {
-            val response = api.getPokemons(POKEMON_RESULTS_LIMIT, POKEMON_RESULTS_OFFSET)
-            val pokemonList = response.map().results.map { it.toEntity() }
-            dao.insertAll(pokemonList)
-            emit(pokemonList.map { it.toDomain() })
+            val pokemonList = pokemonRemoteDataSource.fetchPokemons().map { pokemonResponse ->
+                pokemonResponse.map()
+            }.also {
+                pokemonLocalDataSource.savePokemons(it.map { pokemon -> pokemon.toEntity() })
+            }
+            emit(pokemonList)
         } catch (e: Exception) {
             e.printStackTrace()
             emit(emptyList())
         }
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun addPokemon(pokemon: Pokemon) =
-        this.dao.insert(pokemon.toEntity())
+    override fun getTeamMembers(): Flow<List<Pokemon>> =
+        pokemonLocalDataSource.getTeamMembers().map { pokemonList ->
+            pokemonList.map { it.toDomain() }
+        }.flowOn(Dispatchers.IO)
+
+    override fun searchPokemonByName(name: String): Flow<List<Pokemon>> =
+        pokemonLocalDataSource.searchPokemonByName(name.lowercase()).map { pokemonList ->
+            pokemonList.map { it.toDomain() }
+        }.flowOn(Dispatchers.IO)
+
+    override suspend fun addPokemonToTeam(pokemon: Pokemon) {
+        withContext(Dispatchers.IO) {
+            pokemonLocalDataSource.addPokemonToTeam(pokemon.toEntity())
+        }
+    }
+
+    override suspend fun createPokemon(pokemon: Pokemon) {
+        withContext(Dispatchers.IO) {
+            pokemonLocalDataSource.createPokemon(pokemon.toEntity())
+        }
+    }
 }
 

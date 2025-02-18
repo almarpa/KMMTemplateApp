@@ -29,6 +29,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.shared.core.common)
+            implementation(projects.shared.domain.models)
 
             implementation(libs.androidx.room.runtime)
             implementation(libs.kotlinx.serialization.json)
