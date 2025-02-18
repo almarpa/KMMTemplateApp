@@ -1,9 +1,9 @@
-package com.almarpa.kmmtemplateapp.data.repository.features.mappers
+package com.almarpa.kmmtemplateapp.data.repository.mappers
 
 import com.almarpa.kmmtemplateapp.data.models.entities.PokemonEntity
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 
-fun PokemonEntity.toDomain() = Pokemon(
+fun Pokemon.toEntity() = PokemonEntity(
     id = id,
     url = url,
     name = name,
