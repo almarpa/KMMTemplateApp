@@ -10,7 +10,6 @@ import com.almarpa.kmmtemplateapp.domain.repository.PokemonRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -22,23 +21,18 @@ class PokemonRepositoryImpl(
 ) : PokemonRepository {
 
     override fun fetchPokemonList(): Flow<List<Pokemon>> = flow {
-        with(pokemonLocalDataSource.fetchPokemons().firstOrNull()) {
-            if (!isNullOrEmpty()) {
-                emit(map { it.toDomain() })
-                return@flow
+        pokemonLocalDataSource.fetchPokemons().collect { localData ->
+            if (localData.isNotEmpty()) {
+                emit(localData.map { it.toDomain() })
+            } else {
+                try {
+                    val remoteData = pokemonRemoteDataSource.fetchPokemons()
+                    val pokemonListResponse = remoteData.map { it.map() }
+                    pokemonLocalDataSource.savePokemons(pokemonListResponse.map { it.toEntity() })
+                } catch (e: Exception) {
+                    emit(emptyList<Pokemon>())
+                }
             }
-        }
-
-        try {
-            val pokemonList = pokemonRemoteDataSource.fetchPokemons().map { pokemonResponse ->
-                pokemonResponse.map()
-            }.also {
-                pokemonLocalDataSource.savePokemons(it.map { pokemon -> pokemon.toEntity() })
-            }
-            emit(pokemonList)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            emit(emptyList())
         }
     }.flowOn(Dispatchers.IO)
 

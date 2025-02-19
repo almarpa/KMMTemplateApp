@@ -1,4 +1,4 @@
-package com.almarpa.kmmtemplateapp.core.common.utils
+package com.almarpa.kmmtemplateapp.core.common.extensions
 
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate

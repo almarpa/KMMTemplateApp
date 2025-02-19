@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTime::class)
 
-package com.almarpa.kmmtemplateapp.core.common.utils
+package com.almarpa.kmmtemplateapp.core.common.extensions
 
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek

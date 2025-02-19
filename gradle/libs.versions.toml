@@ -154,6 +154,7 @@ core-common = [
     "kotlinx-datetime",
     "koin-core",
     "koin-annotations",
+    "ktor-client-core",
     "com-google-code-gson",
     "kotlin-stdlib",
     "multiplatformSettings",
