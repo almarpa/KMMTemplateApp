@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class PokemonResultResponse(
+data class PokemonResultResponse(
     @SerialName("count")
     var count: Int,
     @SerialName("next")

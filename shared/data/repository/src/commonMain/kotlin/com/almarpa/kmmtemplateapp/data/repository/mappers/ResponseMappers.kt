@@ -27,16 +27,16 @@ import com.almarpa.kmmtemplateapp.domain.models.TypeXX
 import com.almarpa.kmmtemplateapp.domain.models.enums.PokemonTypeEnum
 import com.almarpa.kmmtemplateapp.domain.models.enums.StatNameEnum
 
-fun PokemonResultResponse.map(): PokemonResult {
+fun PokemonResultResponse.toDomain(): PokemonResult {
     return PokemonResult(
         count = count,
         next = next,
         previous = previous,
-        results = results.map { pokemonResponse -> pokemonResponse.map() },
+        results = results.map { pokemonResponse -> pokemonResponse.toDomain() },
     )
 }
 
-fun PokemonResponse.map(): Pokemon {
+fun PokemonResponse.toDomain(): Pokemon {
     return Pokemon(
         id = url.trimEnd('/').split("/").last().toInt(),
         name = name,
@@ -49,7 +49,7 @@ fun PokemonResponse.map(): Pokemon {
     )
 }
 
-fun PokemonDetailsResponse.map(): PokemonDetails {
+fun PokemonDetailsResponse.toDomain(): PokemonDetails {
     return PokemonDetails(
         id = id,
         name = name,
@@ -58,48 +58,48 @@ fun PokemonDetailsResponse.map(): PokemonDetails {
         height = height,
         weight = weight,
         imageURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png",
-        stats = stats.map { inner -> inner.map() },
-        types = types.map { inner -> inner.map() },
+        stats = stats.map { inner -> inner.toDomain() },
+        types = types.map { inner -> inner.toDomain() },
         isDefault = false,
         locationAreaEncounters = "",
-        species = species.map(),
-        sprites = sprites.map(),
+        species = species.toDomain(),
+        sprites = sprites.toDomain(),
         abilities = listOf(),
-        moves = moves.map { inner -> inner.map() },
-        forms = forms.map { inner -> inner.map() },
+        moves = moves.map { inner -> inner.toDomain() },
+        forms = forms.map { inner -> inner.toDomain() },
     )
 }
 
-fun StatXResponse.map() = StatX(
+fun StatXResponse.toDomain() = StatX(
     name = StatNameEnum.from(name),
     url = url
 )
 
-fun MoveResponse.map() = Move(
-    move = moveResponseX.map()
+fun MoveResponse.toDomain() = Move(
+    move = moveResponseX.toDomain()
 )
 
-fun FormResponse.map() = Form(
+fun FormResponse.toDomain() = Form(
     name = name,
     url = url,
 )
 
-fun MoveResponseX.map() = MoveX(
+fun MoveResponseX.toDomain() = MoveX(
     name = name,
     url = url
 )
 
-fun TypeXXResponse.map() = TypeXX(
+fun TypeXXResponse.toDomain() = TypeXX(
     name = PokemonTypeEnum.from(name),
     url = url
 )
 
-fun TypeResponseX.map() = TypeX(
+fun TypeResponseX.toDomain() = TypeX(
     slot = slot,
-    typeXX = typeXXResponse.map()
+    typeXX = typeXXResponse.toDomain()
 )
 
-fun SpritesResponse.map() = Sprites(
+fun SpritesResponse.toDomain() = Sprites(
     backDefault = backDefault,
     backFemale = backFemale,
     backShiny = backShiny,
@@ -110,13 +110,13 @@ fun SpritesResponse.map() = Sprites(
     frontShinyFemale = frontShinyFemale
 )
 
-fun SpeciesResponse.map() = Species(
+fun SpeciesResponse.toDomain() = Species(
     name = name,
     url = url,
 )
 
-fun StatResponse.map() = Stat(
+fun StatResponse.toDomain() = Stat(
     baseStat = baseStat,
     effort = effort,
-    statX = statX.map(),
+    statX = statX.toDomain(),
 )

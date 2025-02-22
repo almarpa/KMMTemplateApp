@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class PokemonResponse(
+data class PokemonResponse(
     @SerialName("name")
     var name: String,
     @SerialName("url")

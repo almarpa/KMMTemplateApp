@@ -1,8 +1,9 @@
 package com.almarpa.kmmtemplateapp.data.repository.features
 
+import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.onError
+import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.onSuccess
 import com.almarpa.kmmtemplateapp.data.datasources.local.features.PokemonLocalDataSource
 import com.almarpa.kmmtemplateapp.data.datasources.remote.features.PokemonRemoteDataSource
-import com.almarpa.kmmtemplateapp.data.repository.mappers.map
 import com.almarpa.kmmtemplateapp.data.repository.mappers.toDomain
 import com.almarpa.kmmtemplateapp.data.repository.mappers.toEntity
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
@@ -21,17 +22,21 @@ class PokemonRepositoryImpl(
 ) : PokemonRepository {
 
     override fun fetchPokemonList(): Flow<List<Pokemon>> = flow {
-        pokemonLocalDataSource.fetchPokemons().collect { localData ->
-            if (localData.isNotEmpty()) {
-                emit(localData.map { it.toDomain() })
+        pokemonLocalDataSource.fetchPokemons().collect { localPokemonList ->
+            if (localPokemonList.isNotEmpty()) {
+                emit(localPokemonList.map { pokemonEntity -> pokemonEntity.toDomain() })
             } else {
-                try {
-                    val remoteData = pokemonRemoteDataSource.fetchPokemons()
-                    val pokemonListResponse = remoteData.map { it.map() }
-                    pokemonLocalDataSource.savePokemons(pokemonListResponse.map { it.toEntity() })
-                } catch (e: Exception) {
-                    emit(emptyList<Pokemon>())
-                }
+                pokemonRemoteDataSource.fetchPokemons()
+                    .onSuccess { pokemonResult ->
+                        pokemonResult.results.map { remotePokemon ->
+                            remotePokemon.toDomain()
+                        }.also { pokemonList ->
+                            pokemonLocalDataSource.savePokemons(pokemonList.map { it.toEntity() })
+                        }
+                    }.onError { e ->
+                        // TODO: pass Result in flow
+                        throw (e)
+                    }
             }
         }
     }.flowOn(Dispatchers.IO)

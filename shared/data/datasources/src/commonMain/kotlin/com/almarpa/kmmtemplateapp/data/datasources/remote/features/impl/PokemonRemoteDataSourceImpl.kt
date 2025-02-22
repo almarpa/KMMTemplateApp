@@ -1,41 +1,29 @@
 package com.almarpa.kmmtemplateapp.data.datasources.remote.features.impl
 
+import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
+import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.Result
+import com.almarpa.kmmtemplateapp.core.common.extensions.safeCall
 import com.almarpa.kmmtemplateapp.data.datasources.remote.api.PokemonApi
 import com.almarpa.kmmtemplateapp.data.datasources.remote.features.PokemonRemoteDataSource
 import com.almarpa.kmmtemplateapp.data.models.response.PokemonDetailsResponse
-import com.almarpa.kmmtemplateapp.data.models.response.PokemonResponse
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.withContext
+import com.almarpa.kmmtemplateapp.data.models.response.PokemonResultResponse
 
-class PokemonRemoteDataSourceImpl(
-    private val api: PokemonApi,
-    private val ioDispatcher: CoroutineDispatcher
-) : PokemonRemoteDataSource {
+class PokemonRemoteDataSourceImpl(private val api: PokemonApi) : PokemonRemoteDataSource {
 
     companion object {
         private const val POKEMON_RESULTS_LIMIT = 1302
         private const val POKEMON_RESULTS_OFFSET = 0
     }
 
-    override suspend fun fetchPokemons(): List<PokemonResponse> {
-        return withContext(ioDispatcher) {
-            try {
-                api.getPokemons(POKEMON_RESULTS_LIMIT, POKEMON_RESULTS_OFFSET).results
-            } catch (e: Exception) {
-                e.printStackTrace()
-                throw e // TODO: create Error Handler
-            }
+    override suspend fun fetchPokemons(): Result<PokemonResultResponse, AppError> {
+        return safeCall<PokemonResultResponse> {
+            api.getPokemons(POKEMON_RESULTS_LIMIT, POKEMON_RESULTS_OFFSET)
         }
     }
 
-    override suspend fun getPokemonDetails(pokemonID: Int): PokemonDetailsResponse {
-        return withContext(ioDispatcher) {
-            try {
-                api.getPokemon(pokemonID)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                throw e // TODO: create Error Handler
-            }
+    override suspend fun getPokemonDetails(pokemonID: Int): Result<PokemonDetailsResponse, AppError> {
+        return safeCall<PokemonDetailsResponse> {
+            api.getPokemons(POKEMON_RESULTS_LIMIT, POKEMON_RESULTS_OFFSET)
         }
     }
 }
