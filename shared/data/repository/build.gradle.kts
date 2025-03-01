@@ -28,7 +28,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.shared.core.common)
-            implementation(projects.shared.data.models)
             implementation(projects.shared.data.datasources)
             implementation(projects.shared.domain.repository)
             implementation(projects.shared.domain.models)

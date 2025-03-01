@@ -32,7 +32,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.shared.core.common)
-            implementation(projects.shared.data.models)
             implementation(projects.shared.domain.models)
 
             implementation(libs.bundles.core.common)

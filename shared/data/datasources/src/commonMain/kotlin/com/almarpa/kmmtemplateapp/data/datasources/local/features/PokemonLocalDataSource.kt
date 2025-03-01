@@ -1,6 +1,6 @@
 package com.almarpa.kmmtemplateapp.data.datasources.local.features
 
-import com.almarpa.kmmtemplateapp.data.models.entities.PokemonEntity
+import com.almarpa.kmmtemplateapp.data.datasources.models.entities.PokemonEntity
 import kotlinx.coroutines.flow.Flow
 
 interface PokemonLocalDataSource {

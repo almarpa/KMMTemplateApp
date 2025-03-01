@@ -1,8 +1,8 @@
-package com.almarpa.kmmtemplateapp.data.models.response
+package com.almarpa.kmmtemplateapp.data.datasources.models.response
 
 import kotlinx.serialization.SerialName
 
-data class SpeciesResponse(
+data class FormResponse(
     @SerialName("name")
     val name: String,
     @SerialName("url")

@@ -2,7 +2,7 @@ package com.almarpa.kmmtemplateapp.data.datasources.local.features.impl
 
 import com.almarpa.kmmtemplateapp.data.datasources.local.db.dao.PokemonDao
 import com.almarpa.kmmtemplateapp.data.datasources.local.features.PokemonLocalDataSource
-import com.almarpa.kmmtemplateapp.data.models.entities.PokemonEntity
+import com.almarpa.kmmtemplateapp.data.datasources.models.entities.PokemonEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

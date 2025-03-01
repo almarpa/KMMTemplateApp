@@ -5,8 +5,8 @@ import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.Result
 import com.almarpa.kmmtemplateapp.core.common.extensions.safeCall
 import com.almarpa.kmmtemplateapp.data.datasources.remote.api.PokemonApi
 import com.almarpa.kmmtemplateapp.data.datasources.remote.features.PokemonRemoteDataSource
-import com.almarpa.kmmtemplateapp.data.models.response.PokemonDetailsResponse
-import com.almarpa.kmmtemplateapp.data.models.response.PokemonResultResponse
+import com.almarpa.kmmtemplateapp.data.datasources.models.response.PokemonDetailsResponse
+import com.almarpa.kmmtemplateapp.data.datasources.models.response.PokemonResultResponse
 
 class PokemonRemoteDataSourceImpl(private val api: PokemonApi) : PokemonRemoteDataSource {
 

@@ -1,4 +1,4 @@
-package com.almarpa.kmmtemplateapp.data.models.response
+package com.almarpa.kmmtemplateapp.data.datasources.models.response
 
 import kotlinx.serialization.SerialName
 
