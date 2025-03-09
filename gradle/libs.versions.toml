@@ -40,6 +40,7 @@ compottie = "2.0.0-rc02"
 multiplatformSettings = "1.1.1"
 napier = "2.6.1"
 junit = "4.13.2"
+palette = "1.0.0"
 
 [libraries]
 
@@ -96,6 +97,7 @@ com-google-code-gson = { module = "com.google.code.gson:gson", version.ref = "gs
 # Coil
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
 coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil3" }
+#coil-image-loader = { module = "io.coil-kt:coil-image-loader", version.ref = "coil3" }
 coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil3" }
 
 # Room
@@ -132,6 +134,9 @@ compose-material-icons = { module = "androidx.compose.material:material-icons-ex
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+# Android
+palette = { group = "androidx.palette", name = "palette-ktx", version.ref = "palette" }
 
 [plugins]
 
@@ -235,6 +240,7 @@ android-ui = [
     "com-google-code-gson",
     "kotlin-stdlib",
     "androidx-material",
+    "compose-ui",
     "compose-ui-tooling",
     "multiplatformSettings",
 ]

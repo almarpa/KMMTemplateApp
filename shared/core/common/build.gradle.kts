@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.ksp)
 }
 
@@ -27,6 +29,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.bundles.core.common)
+
+            implementation(project.dependencies.platform(libs.compose.bom))
+            implementation(compose.runtime)
+            implementation(compose.foundation)
         }
 
         androidMain.dependencies {
@@ -51,5 +57,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        compose = true
     }
 }

@@ -17,55 +17,34 @@ data class PokemonDetails(
     var sprites: Sprites,
     var abilities: List<Ability>,
     var forms: List<Form>,
-)
-//{
-//    constructor(
-//        id: Int,
-//        name: String,
-//        order: Int,
-//        baseExperience: Int,
-//        height: Int,
-//        weight: Int,
-//        imageURL: String,
-//        stats: List<Stat>,
-//        types: List<TypeX>,
-//        moves: List<Move>,
-//    ) : this(
-//        id = id,
-//        name = name,
-//        order = order,
-//        baseExperience = baseExperience,
-//        height = height,
-//        weight = weight,
-//        imageURL = imageURL,
-//        stats = stats,
-//        types = types,
-//        moves = moves,
-//        isDefault = false,
-//        locationAreaEncounters = "",
-//        species = Species(),
-//        sprites = Sprites(),
-//        abilities = listOf(),
-//        forms = listOf(),
-//    )
-
-//    fun asEntity(): PokemonDetailsEntity =
-//        PokemonDetailsEntity(
-//            id,
-//            name,
-//            order,
-//            baseExperience,
-//            height,
-//            weight,
-//            imageURL,
-//            stats,
-//            types,
-//            moves,
-//            isDefault,
-//            locationAreaEncounters,
-//            species,
-//            sprites,
-//            abilities,
-//            forms
-//        )
-//}
+) {
+    constructor(
+        id: Int,
+        name: String,
+        order: Int,
+        baseExperience: Int,
+        height: Int,
+        weight: Int,
+        imageURL: String,
+        stats: List<Stat>,
+        types: List<TypeX>,
+        moves: List<Move>,
+    ) : this(
+        id = id,
+        name = name,
+        order = order,
+        baseExperience = baseExperience,
+        height = height,
+        weight = weight,
+        imageURL = imageURL,
+        stats = stats,
+        types = types,
+        moves = moves,
+        isDefault = false,
+        locationAreaEncounters = "",
+        species = Species(),
+        sprites = Sprites(),
+        abilities = listOf(),
+        forms = listOf(),
+    )
+}

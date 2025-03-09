@@ -1,22 +1,18 @@
 package com.almarpa.kmmtemplateapp.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.lightColorScheme
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Typography
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
-private val LightColorScheme = lightColorScheme(
+private val LightColors = lightColorScheme(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
     primaryContainer = md_theme_light_primaryContainer,
@@ -48,7 +44,7 @@ private val LightColorScheme = lightColorScheme(
     scrim = md_theme_light_scrim,
 )
 
-private val DarkColorScheme = darkColorScheme(
+private val DarkColors = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
     primaryContainer = md_theme_dark_primaryContainer,
@@ -83,18 +79,18 @@ private val DarkColorScheme = darkColorScheme(
 val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
 
 @Composable
-fun AppMaterialTheme(
-    content: @Composable() () -> Unit
+fun KMMTemplateAppTheme(
+    content: @Composable () -> Unit
 ) {
-    val systemIsDark = isSystemInDarkTheme()
-    val isDarkState = remember { mutableStateOf(systemIsDark) }
-    CompositionLocalProvider(
-        LocalThemeIsDark provides isDarkState
-    ) {
-        val isDark by isDarkState
-        SystemAppearance(!isDark)
+    val isSystemInDarkTheme = isSystemInDarkTheme()
+    val isDarkState = remember { mutableStateOf(isSystemInDarkTheme) }
+
+    CompositionLocalProvider(value = LocalThemeIsDark provides isDarkState) {
+        val isDarkTheme by isDarkState
+
+        SystemAppearance(isDarkTheme = !isDarkTheme)
         MaterialTheme(
-            colorScheme = if (isDark) DarkColorScheme else LightColorScheme,
+            colorScheme = if (isDarkTheme) DarkColors else LightColors,
             typography = Typography,
             shapes = AppShapes,
             content = {
@@ -104,34 +100,5 @@ fun AppMaterialTheme(
     }
 }
 
-object AppMaterialTheme {
-    val colorScheme: ColorScheme
-        @Composable
-        @ReadOnlyComposable
-        get() = MaterialTheme.colorScheme
-    val typography: Typography
-        @Composable
-        @ReadOnlyComposable
-        get() = MaterialTheme.typography
-
-    /**
-     * Retrieves the current [Shapes] at the call site's position in the hierarchy.
-     */
-    val shapes: Shapes
-        @Composable
-        @ReadOnlyComposable
-        get() = MaterialTheme.shapes
-
-    /**
-     * Retrieves the current [dimens] at the call site's position in the hierarchy.
-     */
-    val dimens: MobileDimens
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalDimension.current
-
-}
-
-
 @Composable
-expect fun SystemAppearance(isDark: Boolean)
+expect fun SystemAppearance(isDarkTheme: Boolean)

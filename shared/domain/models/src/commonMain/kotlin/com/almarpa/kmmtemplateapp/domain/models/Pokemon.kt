@@ -24,21 +24,4 @@ data class Pokemon(
         color = color,
         isTeamMember = true,
     )
-
-//    fun asEntity(): PokemonEntity =
-//        PokemonEntity(
-//            id = id,
-//            url = url,
-//            name = name,
-//            createdAt = createdAt,
-//            dominantColor = dominantColor,
-//            isTeamMember = isTeamMember,
-//        )
-
-    fun getDominantColor() = 0
-//        if (dominantColor == Color.Transparent.toArgb()) {
-//            null
-//        } else {
-//            Color(dominantColor)
-//        }
 }

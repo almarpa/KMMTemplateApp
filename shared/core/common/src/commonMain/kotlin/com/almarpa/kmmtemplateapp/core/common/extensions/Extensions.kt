@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalTime::class)
-
 package com.almarpa.kmmtemplateapp.core.common.extensions
 
 import kotlinx.datetime.DateTimeUnit
@@ -7,9 +5,6 @@ import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.plus
-import kotlin.time.ExperimentalTime
-
-fun <T> Boolean.iif(ifTrue: () -> T, ifFalse: () -> T): T = if (this) ifTrue() else ifFalse()
 
 expect fun Int.format(format: String = "#,##0"): String
 

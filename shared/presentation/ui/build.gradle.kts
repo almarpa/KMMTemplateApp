@@ -31,12 +31,6 @@ kotlin {
         applyDefaultHierarchyTemplate()
 
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.components.resources)
-
             implementation(projects.shared.core.common)
             implementation(projects.shared.core.di)
             implementation(projects.shared.core.ui)
@@ -44,15 +38,21 @@ kotlin {
             implementation(projects.shared.domain.usecases)
 
             implementation(libs.bundles.core.ui)
+
+            implementation(compose.runtime)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.components.resources)
         }
 
         androidMain {
             dependencies {
-                implementation(compose.uiTooling)
-                implementation(compose.preview)
                 implementation(libs.bundles.android.core)
                 implementation(libs.bundles.android.ui)
                 implementation(libs.ktor.client.okhttp)
+
+                implementation(compose.uiTooling)
+                implementation(compose.preview)
             }
         }
 

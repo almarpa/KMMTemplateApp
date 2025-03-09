@@ -26,7 +26,8 @@ class MainActivity : ComponentActivity() {
                 val window = (localView.context as Activity).window
 
                 window.statusBarColor = Color.Transparent.toArgb()
-                WindowCompat.getInsetsController(window, localView).isAppearanceLightStatusBars = !isDarkMode
+                WindowCompat.getInsetsController(window, localView).isAppearanceLightStatusBars =
+                    !isDarkMode
             }
             App()
         }

@@ -11,6 +11,11 @@ import kotlinx.coroutines.flow.map
 class DataStoreSourceImpl(
     private val dataStore: DataStore<Preferences>
 ) : DataStoreSource {
+
+    companion object {
+        private val DEVICE_ID_KEY = longPreferencesKey("deviceId")
+    }
+
     override fun getDeviceId(): Flow<Long> = dataStore.data.map { preferences ->
         preferences[DEVICE_ID_KEY] ?: 0
     }
@@ -19,9 +24,5 @@ class DataStoreSourceImpl(
         dataStore.edit { preferences ->
             preferences[DEVICE_ID_KEY] = deviceId
         }
-    }
-
-    companion object {
-        private val DEVICE_ID_KEY = longPreferencesKey("DeviceId")
     }
 }

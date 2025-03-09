@@ -1,44 +1,45 @@
 package com.almarpa.kmmtemplateapp.presentation.ui
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.compose.rememberNavController
 import com.almarpa.kmmtemplateapp.core.common.platform.getPlatform
-import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonUiState
-import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonViewModel
-import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
-import kmmtemplateapp.shared.presentation.ui.generated.resources.app_name
-import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.viewmodel.koinViewModel
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.drawer.Drawer
+import kotlinx.coroutines.launch
 
-@Preview
 @Composable
 fun App() {
-    MaterialTheme {
-        Surface {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                val viewModel = koinViewModel<PokemonViewModel>()
-                val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val navController = rememberNavController()
+    val navigationActions = remember(navController) { NavigationActions(navController) }
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val coroutineScope = rememberCoroutineScope()
+    val currentRoute = Routes.Splash
 
-                val platform = getPlatform()
-                val appName = stringResource(Res.string.app_name)
+    // TODO: add platform version in bottom drawer
+    val platform = getPlatform()
 
-                Text(appName)
-                Text("${platform.platformData}")
-                Text("Pokemons: ${(uiState.value as? PokemonUiState.Success)?.pokemonList?.count() ?: 0}")
-            }
-        }
+    ModalNavigationDrawer(
+        drawerContent = {
+            Drawer(
+                navigateToSettings = navigationActions.navigateToSettings,
+                closeDrawer = { coroutineScope.launch { drawerState.close() } },
+            )
+        },
+        drawerState = drawerState,
+        gesturesEnabled = drawerState.isOpen,
+    ) {
+        TemplateNavHost(
+            navController = navController,
+            drawerState = drawerState,
+            startDestination = Routes.Splash,
+            currentRoute = currentRoute,
+            navigationActions = navigationActions,
+        )
     }
 }
