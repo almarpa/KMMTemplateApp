@@ -1,7 +1,9 @@
 package com.almarpa.kmmtemplateapp.data.datasources.models.response
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PokemonDetailsResponse(
     @SerialName("abilities")
     val abilities: List<AbilityResponse>,
@@ -11,8 +13,6 @@ data class PokemonDetailsResponse(
     val forms: List<FormResponse>,
     @SerialName("height")
     val height: Int,
-    @SerialName("held_items")
-    val heldItems: List<Any>,
     @SerialName("id")
     val id: Int,
     @SerialName("is_default")

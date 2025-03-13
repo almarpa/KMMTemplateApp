@@ -1,0 +1,30 @@
+package com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails
+
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import com.almarpa.kmmtemplateapp.core.ui.composables.tabrow.SwipeableTabRow
+import com.almarpa.kmmtemplateapp.domain.models.PokemonDetails
+import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
+import kmmtemplateapp.shared.presentation.ui.generated.resources.moves
+import kmmtemplateapp.shared.presentation.ui.generated.resources.stats
+import org.jetbrains.compose.resources.stringResource
+
+@Composable
+fun PokemonTabRow(modifier: Modifier = Modifier, pokemonDetails: PokemonDetails) {
+    SwipeableTabRow(
+        modifier = modifier,
+        tabs = listOf(
+            stringResource(Res.string.stats),
+            stringResource(Res.string.moves),
+        ),
+        contentScreens = listOf(
+            { PokemonStats(stats = pokemonDetails.stats) },
+            { PokemonMoves(moves = pokemonDetails.moves) },
+        ),
+        containerColor = Color.Transparent,
+        contentColor = MaterialTheme.colorScheme.primary,
+        indicatorColor = Color.DarkGray
+    )
+}

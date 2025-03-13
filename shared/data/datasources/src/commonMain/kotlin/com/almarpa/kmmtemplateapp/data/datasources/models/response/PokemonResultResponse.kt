@@ -8,7 +8,7 @@ data class PokemonResultResponse(
     @SerialName("count")
     var count: Int,
     @SerialName("next")
-    var next: String,
+    var next: String?,
     @SerialName("previous")
     var previous: String?,
     @SerialName("results")

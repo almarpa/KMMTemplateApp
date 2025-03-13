@@ -4,8 +4,10 @@ import com.almarpa.kmmtemplateapp.core.common.di.KoinModules
 import com.almarpa.kmmtemplateapp.domain.usecases.features.AddPokemonUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.CreateTeamMemberUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetDeviceIdUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonDetailsUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetTeamUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.SearchPokemonUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SetDeviceIdUseCase
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -18,6 +20,8 @@ object UseCasesInjector : KoinModules {
                 factoryOf(::GetDeviceIdUseCase)
                 factoryOf(::SetDeviceIdUseCase)
                 factoryOf(::GetPokemonUseCase)
+                factoryOf(::SearchPokemonUseCase)
+                factoryOf(::GetPokemonDetailsUseCase)
                 factoryOf(::AddPokemonUseCase)
                 factoryOf(::GetTeamUseCase)
                 factoryOf(::CreateTeamMemberUseCase)

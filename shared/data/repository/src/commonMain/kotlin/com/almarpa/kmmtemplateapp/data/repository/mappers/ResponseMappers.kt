@@ -101,13 +101,9 @@ fun TypeResponseX.toDomain() = TypeX(
 
 fun SpritesResponse.toDomain() = Sprites(
     backDefault = backDefault,
-    backFemale = backFemale,
     backShiny = backShiny,
-    backShinyFemale = backShinyFemale,
     frontDefault = frontDefault,
-    frontFemale = frontFemale,
     frontShiny = frontShiny,
-    frontShinyFemale = frontShinyFemale
 )
 
 fun SpeciesResponse.toDomain() = Species(

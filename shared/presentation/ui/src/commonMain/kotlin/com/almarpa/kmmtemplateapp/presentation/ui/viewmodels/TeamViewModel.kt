@@ -3,6 +3,7 @@ package com.almarpa.kmmtemplateapp.presentation.ui.viewmodels
 import androidx.lifecycle.viewModelScope
 import com.almarpa.kmmtemplateapp.core.ui.viewmodels.KmmViewModel
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
+import com.almarpa.kmmtemplateapp.domain.usecases.features.AddPokemonUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.CreateTeamMemberUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetTeamUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +19,7 @@ sealed interface TeamUiState {
 
 class TeamViewModel(
     private val getTeamUseCase: GetTeamUseCase,
+    private val addPokemonToTeamUseCase: AddPokemonUseCase,
     private val createTeamMemberUseCase: CreateTeamMemberUseCase
 ) : KmmViewModel() {
 
@@ -29,7 +31,6 @@ class TeamViewModel(
     }
 
     fun getTeamList() {
-        _uiState.tryEmit(TeamUiState.Loading)
         viewModelScope.launch {
             getTeamUseCase()
                 .catch {
@@ -41,7 +42,13 @@ class TeamViewModel(
         }
     }
 
-    fun createPokemonMemberAndReload(pokemon: Pokemon) {
+    fun addPokemonToTeam(pokemon: Pokemon, isAdded: Boolean) {
+        viewModelScope.launch {
+            addPokemonToTeamUseCase(pokemon.apply { isTeamMember = isAdded })
+        }
+    }
+
+    fun createPokemonMemberAndReloadTeam(pokemon: Pokemon) {
         viewModelScope.launch {
             createTeamMemberUseCase(pokemon)
             getTeamList()

@@ -14,7 +14,7 @@ fun Pokemon.toEntity() = PokemonEntity(
     isTeamMember = isTeamMember,
 )
 
-fun PokemonDetails.asEntity(): PokemonDetailsEntity =
+fun PokemonDetails.toEntity(): PokemonDetailsEntity =
     PokemonDetailsEntity(
         id,
         name,

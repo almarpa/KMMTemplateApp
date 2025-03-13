@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun DefaultTopAppBar(
     modifier: Modifier = Modifier,
-    title: String,
+    title: String = "",
     onBackPressed: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(

@@ -4,8 +4,10 @@ import androidx.lifecycle.viewModelScope
 import com.almarpa.kmmtemplateapp.core.ui.viewmodels.KmmViewModel
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.SearchPokemonUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -25,6 +27,7 @@ sealed interface PokemonListUiState {
 
 class PokemonListViewModel(
     val pokemonUseCase: GetPokemonUseCase,
+    val searchPokemonUseCase: SearchPokemonUseCase,
 ) : KmmViewModel() {
 
     companion object {
@@ -47,26 +50,26 @@ class PokemonListViewModel(
     }
 
     fun onPokemonSearch(name: String) {
-//        if (name.length > 1) {
-//            _searchUiState.tryEmit(SearchUiState.Loading)
-//            viewModelScope.launch {
-//                pokemonUseCase.searchPokemonByName(name)
-//                    .catch {
-//                        _searchUiState.tryEmit(SearchUiState.Error)
-//                    }
-//                    .collect { searchList ->
-//                        _searchUiState.tryEmit(
-//                            if (searchList.isEmpty()) {
-//                                SearchUiState.NotFound
-//                            } else {
-//                                SearchUiState.Success(searchList)
-//                            }
-//                        )
-//                    }
-//            }
-//        } else {
-//            removeCurrentSearch()
-//        }
+        if (name.length > 1) {
+            _searchUiState.tryEmit(SearchUiState.Loading)
+            viewModelScope.launch {
+                searchPokemonUseCase(name)
+                    .catch {
+                        _searchUiState.tryEmit(SearchUiState.Error)
+                    }
+                    .collect { searchList ->
+                        _searchUiState.tryEmit(
+                            if (searchList.isEmpty()) {
+                                SearchUiState.NotFound
+                            } else {
+                                SearchUiState.Success(searchList)
+                            }
+                        )
+                    }
+            }
+        } else {
+            removeCurrentSearch()
+        }
     }
 
     fun removeCurrentSearch() {

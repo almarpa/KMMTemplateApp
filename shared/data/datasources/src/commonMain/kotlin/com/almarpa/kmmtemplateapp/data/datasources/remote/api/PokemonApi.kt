@@ -11,7 +11,7 @@ interface PokemonApi {
         const val BASE_URL = "https://pokeapi.co/"
     }
 
-    @GET("api/v2/pokemo")
+    @GET("api/v2/pokemon")
     suspend fun getPokemons(
         @Query("limit") limit: Int? = 2000,
         @Query("offset") offset: Int? = 0,

@@ -5,8 +5,10 @@ import com.almarpa.kmmtemplateapp.core.common.di.KoinModules
 import com.almarpa.kmmtemplateapp.data.datasources.local.db.DatabaseFactory
 import com.almarpa.kmmtemplateapp.data.datasources.local.db.PokemonDataBase
 import com.almarpa.kmmtemplateapp.data.datasources.local.features.DataStoreSource
+import com.almarpa.kmmtemplateapp.data.datasources.local.features.PokemonDetailsLocalDataSource
 import com.almarpa.kmmtemplateapp.data.datasources.local.features.PokemonLocalDataSource
 import com.almarpa.kmmtemplateapp.data.datasources.local.features.impl.DataStoreSourceImpl
+import com.almarpa.kmmtemplateapp.data.datasources.local.features.impl.PokemonDetailsLocalDataSourceImpl
 import com.almarpa.kmmtemplateapp.data.datasources.local.features.impl.PokemonLocalDataSourceImpl
 import com.almarpa.kmmtemplateapp.data.datasources.remote.api.PokemonApi
 import com.almarpa.kmmtemplateapp.data.datasources.remote.api.createPokemonApi
@@ -46,6 +48,7 @@ object DataSourcesInjector : KoinModules {
 
             // DAO
             single { get<PokemonDataBase>().pokemonDao }
+            single { get<PokemonDataBase>().pokemonDetailsDao }
 
             // Preferences
             single<DataStoreSource> { DataStoreSourceImpl(get()) }
@@ -53,6 +56,7 @@ object DataSourcesInjector : KoinModules {
             // DataSources
             factoryOf(::PokemonRemoteDataSourceImpl) bind PokemonRemoteDataSource::class
             factoryOf(::PokemonLocalDataSourceImpl) bind PokemonLocalDataSource::class
+            factoryOf(::PokemonDetailsLocalDataSourceImpl) bind PokemonDetailsLocalDataSource::class
         }
     )
 }
