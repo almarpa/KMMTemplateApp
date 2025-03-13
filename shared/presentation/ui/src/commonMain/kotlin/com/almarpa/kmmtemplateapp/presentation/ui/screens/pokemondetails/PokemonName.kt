@@ -12,7 +12,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
-import java.util.Locale
 
 @Composable
 fun PokemonName(modifier: Modifier = Modifier, pokemon: Pokemon) {
@@ -23,7 +22,7 @@ fun PokemonName(modifier: Modifier = Modifier, pokemon: Pokemon) {
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "#${pokemon.id}  ${pokemon.name.uppercase(Locale.getDefault())}",
+            text = "#${pokemon.id}  ${pokemon.name.uppercase()}",
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             textAlign = TextAlign.Center,
