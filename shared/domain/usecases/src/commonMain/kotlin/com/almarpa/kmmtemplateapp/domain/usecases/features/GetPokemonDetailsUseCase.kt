@@ -1,7 +1,7 @@
 package com.almarpa.kmmtemplateapp.domain.usecases.features
 
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
-import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.Result
+import com.almarpa.kmmtemplateapp.core.common.model.entities.Result
 import com.almarpa.kmmtemplateapp.domain.models.PokemonDetails
 import com.almarpa.kmmtemplateapp.domain.repository.PokemonDetailsRepository
 

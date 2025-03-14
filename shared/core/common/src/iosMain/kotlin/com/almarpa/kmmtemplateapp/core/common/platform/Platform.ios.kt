@@ -1,6 +1,6 @@
 package com.almarpa.kmmtemplateapp.core.common.platform
 
-import com.almarpa.kmmtemplateapp.core.common.enums.PlatformType
+import com.almarpa.kmmtemplateapp.core.common.model.enums.PlatformType
 import platform.UIKit.UIDevice
 
 class IOSPlatform : Platform {

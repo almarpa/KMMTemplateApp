@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
-import com.almarpa.kmmtemplateapp.core.common.enums.AppThemeEnum
+import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.ui.theme.KMMTemplateAppTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonDetailsMock
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonMock

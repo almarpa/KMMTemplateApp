@@ -18,7 +18,7 @@ interface PokemonApi {
     ): HttpResponse
 
     @GET("api/v2/pokemon/{pokemonID}")
-    fun getPokemon(
+    suspend fun getPokemon(
         @Path("pokemonID") pokemonId: Int
     ): HttpResponse
 }

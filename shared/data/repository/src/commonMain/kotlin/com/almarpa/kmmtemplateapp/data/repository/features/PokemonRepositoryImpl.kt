@@ -1,7 +1,7 @@
 package com.almarpa.kmmtemplateapp.data.repository.features
 
-import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.onError
-import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.onSuccess
+import com.almarpa.kmmtemplateapp.core.common.model.entities.onError
+import com.almarpa.kmmtemplateapp.core.common.model.entities.onSuccess
 import com.almarpa.kmmtemplateapp.data.datasources.local.features.PokemonLocalDataSource
 import com.almarpa.kmmtemplateapp.data.datasources.remote.features.PokemonRemoteDataSource
 import com.almarpa.kmmtemplateapp.data.repository.mappers.toDomain

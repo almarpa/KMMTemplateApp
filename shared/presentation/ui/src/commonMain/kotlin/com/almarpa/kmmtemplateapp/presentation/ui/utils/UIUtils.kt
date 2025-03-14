@@ -4,7 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import com.almarpa.kmmtemplateapp.core.common.enums.AppThemeEnum
+import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.ui.theme.AtkColor
 import com.almarpa.kmmtemplateapp.core.ui.theme.DefColor
 import com.almarpa.kmmtemplateapp.core.ui.theme.HPColor
@@ -58,18 +58,6 @@ import org.jetbrains.compose.resources.StringResource
 //    }
 //}
 
-fun getColorByStat(stat: StatNameEnum): Color {
-    return when (stat) {
-        StatNameEnum.HP -> HPColor
-        StatNameEnum.ATTACK -> AtkColor
-        StatNameEnum.DEFENSE -> DefColor
-        StatNameEnum.SPECIAL_ATTACK -> SpAtkColor
-        StatNameEnum.SPECIAL_DEFENSE -> SpDefColor
-        StatNameEnum.SPEED -> SpdColor
-        StatNameEnum.UNKNOWN -> Color.White
-    }
-}
-
 fun getAbbreviationByStat(stat: StatNameEnum): StringResource {
     return when (stat) {
         StatNameEnum.HP -> Res.string.stat_hp
@@ -79,6 +67,18 @@ fun getAbbreviationByStat(stat: StatNameEnum): StringResource {
         StatNameEnum.SPECIAL_DEFENSE -> Res.string.stat_special_defense
         StatNameEnum.SPEED -> Res.string.stat_speed
         StatNameEnum.UNKNOWN -> Res.string.empty_string
+    }
+}
+
+fun getColorByStat(stat: StatNameEnum): Color {
+    return when (stat) {
+        StatNameEnum.HP -> HPColor
+        StatNameEnum.ATTACK -> AtkColor
+        StatNameEnum.DEFENSE -> DefColor
+        StatNameEnum.SPECIAL_ATTACK -> SpAtkColor
+        StatNameEnum.SPECIAL_DEFENSE -> SpDefColor
+        StatNameEnum.SPEED -> SpdColor
+        StatNameEnum.UNKNOWN -> Color.White
     }
 }
 
@@ -107,7 +107,7 @@ fun getColorByType(pokemonType: PokemonTypeEnum): Color {
 }
 
 @Composable
-fun getBackgroundColorWithGradient(userAppTheme: AppThemeEnum, dominantColor: Int): Brush {
+fun getColorWithGradient(userAppTheme: AppThemeEnum, dominantColor: Int): Brush {
     val color = Color(dominantColor)
     return when (userAppTheme) {
         AppThemeEnum.AUTO -> if (isSystemInDarkTheme()) {

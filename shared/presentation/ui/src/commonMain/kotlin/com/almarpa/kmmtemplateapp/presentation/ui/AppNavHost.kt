@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.almarpa.kmmtemplateapp.presentation.ui
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -14,7 +16,6 @@ import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs.bottomApp
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs.drawerNavGraph
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs.splashNavGraph
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun TemplateNavHost(
     modifier: Modifier = Modifier,

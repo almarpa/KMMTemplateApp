@@ -48,16 +48,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import coil3.compose.SubcomposeAsyncImage
-import com.almarpa.kmmtemplateapp.core.common.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
 import com.almarpa.kmmtemplateapp.core.common.extensions.applyIfNotCurrentLocalInspectionMode
+import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
 import com.almarpa.kmmtemplateapp.core.ui.utils.isTablet
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.domain.models.PokemonDetails
-import com.almarpa.kmmtemplateapp.presentation.ui.utils.getBackgroundColorWithGradient
+import com.almarpa.kmmtemplateapp.presentation.ui.utils.getColorWithGradient
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonDetailsUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.retry_btn
@@ -143,7 +143,7 @@ private fun SharedTransitionScope.PokemonDetailsContent(
     Box(
         modifier = Modifier
             .wrapContentHeight()
-            .background(getBackgroundColorWithGradient(userAppTheme, pokemon.color))
+            .background(getColorWithGradient(userAppTheme, pokemon.color))
             .statusBarsPadding()
             .systemBarsPadding(),
     ) {

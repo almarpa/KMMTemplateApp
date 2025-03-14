@@ -1,10 +1,10 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.viewmodels
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
-import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.onError
-import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.onSuccess
+import com.almarpa.kmmtemplateapp.core.common.model.entities.onError
+import com.almarpa.kmmtemplateapp.core.common.model.entities.onSuccess
+import com.almarpa.kmmtemplateapp.core.ui.viewmodels.KmmViewModel
 import com.almarpa.kmmtemplateapp.domain.models.PokemonDetails
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonDetailsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ sealed interface PokemonDetailsUiState {
 
 class PokemonDetailsViewModel(
     private val pokemonDetailsUseCase: GetPokemonDetailsUseCase,
-) : ViewModel() {
+) : KmmViewModel() {
 
     private val _detailsUiState =
         MutableStateFlow<PokemonDetailsUiState>(PokemonDetailsUiState.Loading)

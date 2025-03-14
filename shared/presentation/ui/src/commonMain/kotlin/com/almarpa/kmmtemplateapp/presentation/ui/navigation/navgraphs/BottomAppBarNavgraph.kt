@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -8,7 +10,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.almarpa.kmmtemplateapp.core.common.enums.AppThemeEnum
+import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
@@ -22,7 +24,6 @@ import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamUiState
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 fun NavGraphBuilder.bottomAppBarNavGraph(
     sharedTransitionScope: SharedTransitionScope,
     drawerState: DrawerState,

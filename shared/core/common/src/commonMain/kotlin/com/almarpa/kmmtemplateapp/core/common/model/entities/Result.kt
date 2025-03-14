@@ -1,4 +1,6 @@
-package com.almarpa.kmmtemplateapp.core.common.errorhandler.entities
+package com.almarpa.kmmtemplateapp.core.common.model.entities
+
+import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
 
 sealed interface Result<out D, out AppError> {
     data class Success<out D>(val data: D) : Result<D, Nothing>

@@ -1,7 +1,7 @@
 package com.almarpa.kmmtemplateapp.core.common.platform
 
 import android.os.Build
-import com.almarpa.kmmtemplateapp.core.common.enums.PlatformType
+import com.almarpa.kmmtemplateapp.core.common.model.enums.PlatformType
 
 class AndroidPlatform : Platform {
     override val platformData: PlatformData
