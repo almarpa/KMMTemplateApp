@@ -13,11 +13,10 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.almarpa.kmmtemplateapp.core.common.extensions.applyIfCurrentLocalInspectionMode
-import com.almarpa.kmmtemplateapp.core.ui.composables.animations.getLazyGridAnimation
+import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithLazyGridAnimationPreview
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
+import com.almarpa.kmmtemplateapp.core.ui.utils.isLandscapeOrientation
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.common.PokemonItem
 
@@ -28,9 +27,7 @@ fun SharedTransitionScope.PokemonSearchList(
     pokemonList: List<Pokemon>,
     onPokemonItemClick: (Pokemon) -> Unit = { },
 ) {
-//    val currentOrientation = LocalConfiguration.current.orientation
-    val columns = 2//if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) 4 else 2
-
+    val columns = if (isLandscapeOrientation()) 2 else 4
     LazyVerticalGrid(
         columns = GridCells.Fixed(columns),
         contentPadding = PaddingValues(8.dp),
@@ -45,15 +42,8 @@ fun SharedTransitionScope.PokemonSearchList(
             count = pokemonList.size,
             key = { pokemonList[it].id }
         ) { index ->
-            val gridAnim = getLazyGridAnimation(index, columns)
             PokemonItem(
-                modifier = Modifier.applyIfCurrentLocalInspectionMode {
-                    graphicsLayer(
-                        alpha = gridAnim.first,
-                        scaleX = gridAnim.second,
-                        scaleY = gridAnim.second
-                    )
-                },
+                modifier = modifierWithLazyGridAnimationPreview(index, columns),
                 animatedVisibilityScope = animatedVisibilityScope,
                 pokemon = pokemonList[index],
                 onPokemonItemClick = { onPokemonItemClick(it) },

@@ -26,8 +26,8 @@ sealed interface PokemonListUiState {
 }
 
 class PokemonListViewModel(
-    val pokemonUseCase: GetPokemonUseCase,
-    val searchPokemonUseCase: SearchPokemonUseCase,
+    private val pokemonUseCase: GetPokemonUseCase,
+    private val searchPokemonUseCase: SearchPokemonUseCase,
 ) : KmmViewModel() {
 
     companion object {

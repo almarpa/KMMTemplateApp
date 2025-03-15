@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
-import com.almarpa.kmmtemplateapp.core.common.extensions.applyIfNotCurrentLocalInspectionMode
+import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithSharedElementTransition
 import com.almarpa.kmmtemplateapp.core.common.extensions.shimmerLoadingAnimation
 import com.almarpa.kmmtemplateapp.core.ui.utils.getDominantColorFromImage
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
@@ -77,12 +77,12 @@ fun SharedTransitionScope.PokemonItem(
                     .aspectRatio(1f)
                     .padding(10.dp)
                     .clip(shape = RoundedCornerShape(40.dp))
-                    .applyIfNotCurrentLocalInspectionMode {
-                        sharedElement(
+                    .then(
+                        modifierWithSharedElementTransition(
                             state = rememberSharedContentState(key = "item-image${pokemon.id}"),
                             animatedVisibilityScope = animatedVisibilityScope,
                         )
-                    }
+                    )
             )
 
             Text(

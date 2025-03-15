@@ -19,6 +19,7 @@ object RepositoriesInjector : KoinModules {
                 factoryOf(::PreferencesRepositoryImpl) bind PreferencesRepository::class
                 factoryOf(::PokemonRepositoryImpl) bind PokemonRepository::class
                 factoryOf(::PokemonDetailsRepositoryImpl) bind PokemonDetailsRepository::class
+                factoryOf(::PreferencesRepositoryImpl) bind PreferencesRepository::class
             }
         )
 }

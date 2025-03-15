@@ -49,7 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
-import com.almarpa.kmmtemplateapp.core.common.extensions.applyIfNotCurrentLocalInspectionMode
+import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithSharedElementTransition
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
@@ -295,12 +295,12 @@ fun SharedTransitionScope.PokemonImageAnimation(
             modifier = Modifier
                 .height(if (isTablet()) pokemonImageSize.plus(50.dp) else pokemonImageSize)
                 .aspectRatio(1f)
-                .applyIfNotCurrentLocalInspectionMode {
-                    sharedElement(
+                .then(
+                    modifierWithSharedElementTransition(
                         state = rememberSharedContentState(key = "item-image${pokemon.id}"),
-                        animatedVisibilityScope = animatedVisibilityScope
+                        animatedVisibilityScope = animatedVisibilityScope,
                     )
-                }
+                )
         )
     }
 }

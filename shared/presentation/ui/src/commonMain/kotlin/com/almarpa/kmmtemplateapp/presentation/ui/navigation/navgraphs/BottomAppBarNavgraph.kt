@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalSharedTransitionApi::class)
+@file:OptIn(ExperimentalSharedTransitionApi::class, ExperimentalSharedTransitionApi::class)
 
 package com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs
 
@@ -10,7 +10,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
@@ -20,6 +19,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.screens.team.TeamScreen
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonDetailsViewModel
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonListViewModel
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
+import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsViewModel
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamUiState
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -63,17 +63,18 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
     composable<Pokemon> { navBackStackEntry ->
         val pokemonDetailsViewModel = koinViewModel<PokemonDetailsViewModel>()
         val teamViewModel = koinViewModel<TeamViewModel>()
-        //val settingsViewModel = koinViewModel<SettingsViewModel>()
+        val settingsViewModel = koinViewModel<SettingsViewModel>()
 
         val pokemonId = navBackStackEntry.toRoute<Pokemon>().id
         val pokemonDetailsUiState by pokemonDetailsViewModel.detailsUiState.collectAsStateWithLifecycle()
-        //val userAppTheme by settingsViewModel.userData.collectAsStateWithLifecycle()
+        // TODO: unify viemodels
+        val userData by settingsViewModel.userData.collectAsStateWithLifecycle()
 
         sharedTransitionScope.PokemonDetailsScreen(
             animatedVisibilityScope = this,
             pokemon = navBackStackEntry.toRoute<Pokemon>(),
             pokemonDetailsUiState = pokemonDetailsUiState,
-            userAppTheme = AppThemeEnum.AUTO,
+            userAppTheme = userData.theme,
             onFetchDetails = { pokemonDetailsViewModel.getPokemonDetails(pokemonId) },
             onAddTeamMember = { pokemon, added -> teamViewModel.addPokemonToTeam(pokemon, added) },
             onBackPressed = { navigationActions.navigateBack() },

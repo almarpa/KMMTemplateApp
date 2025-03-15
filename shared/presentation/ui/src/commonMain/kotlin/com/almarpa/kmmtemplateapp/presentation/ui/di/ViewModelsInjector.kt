@@ -2,10 +2,9 @@ package com.almarpa.kmmtemplateapp.presentation.ui.di
 
 import com.almarpa.kmmtemplateapp.core.common.di.KoinModules
 import com.almarpa.kmmtemplateapp.core.di.CoreInjector
-import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.DeviceViewModel
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonDetailsViewModel
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonListViewModel
-import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonViewModel
+import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsViewModel
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -17,8 +16,7 @@ object ViewModelsInjector : KoinModules {
             CoreInjector.modules,
             listOf(
                 module {
-                    factoryOf(::DeviceViewModel)
-                    factoryOf(::PokemonViewModel)
+                    factoryOf(::SettingsViewModel)
                     factoryOf(::PokemonListViewModel)
                     factoryOf(::PokemonDetailsViewModel)
                     factoryOf(::TeamViewModel)
