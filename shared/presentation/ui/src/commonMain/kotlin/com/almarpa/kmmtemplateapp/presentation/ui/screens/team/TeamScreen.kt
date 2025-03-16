@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.almarpa.kmmtemplateapp.core.ui.composables.error.GenericRetryView
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.AnimatedTopAppBar
+import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
@@ -47,7 +48,7 @@ fun TeamScreen(
     val coroutineScope = rememberCoroutineScope()
 
     if (isFabContainerFullScreen) {
-        // TODO: BackHandler { isFabContainerFullScreen = false }
+        BackHandler { isFabContainerFullScreen = false }
     }
 
     Scaffold(

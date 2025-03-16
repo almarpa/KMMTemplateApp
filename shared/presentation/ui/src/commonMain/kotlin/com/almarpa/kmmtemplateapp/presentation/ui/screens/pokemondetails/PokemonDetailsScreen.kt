@@ -59,6 +59,7 @@ import com.almarpa.kmmtemplateapp.core.ui.composables.snackbar.showSnackbar
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
 import com.almarpa.kmmtemplateapp.core.ui.theme.LocalThemeIsDark
+import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
 import com.almarpa.kmmtemplateapp.core.ui.utils.ObserveAsEvents
 import com.almarpa.kmmtemplateapp.core.ui.utils.isTablet
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
@@ -105,7 +106,7 @@ fun SharedTransitionScope.PokemonDetailsScreen(
         )
     }
 
-//    BackHandler { onBackPressed() }
+    BackHandler { onBackPressed() }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,

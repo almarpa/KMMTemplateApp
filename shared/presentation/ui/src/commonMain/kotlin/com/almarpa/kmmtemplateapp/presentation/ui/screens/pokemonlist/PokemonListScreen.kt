@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -26,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.almarpa.kmmtemplateapp.core.ui.composables.error.GenericRetryView
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
+import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
@@ -49,13 +49,13 @@ fun SharedTransitionScope.PokemonListScreen(
     onSearch: (text: String) -> Unit,
     onDismissSearch: () -> Unit,
 ) {
-    // val activity = (LocalContext.current as? Activity)
     var isSearchActive by rememberSaveable { mutableStateOf(false) }
     var isBottomAppBarVisible by rememberSaveable { mutableStateOf(true) }
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     val coroutineScope = rememberCoroutineScope()
 
-    // BackHandler { activity?.finish() }
+    BackHandler { /* Do nothing */ }
+
     LaunchedEffect(Unit) { isBottomAppBarVisible = true }
 
     Scaffold(
@@ -115,42 +115,28 @@ fun SharedTransitionScope.PokemonListContent(
     onReload: () -> Unit,
     onNavigateToPokemonDetail: (Pokemon) -> Unit,
 ) {
-    Box {
-//        val pullRefreshState = rememberPullRefreshState(
-//            refreshing = false,
-//            onRefresh = { onReload() }
-//        )
+    Column(
+        modifier = modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        when (pokemonListUiState) {
+            is PokemonListUiState.Loading -> {
+                FullScreenLoader()
+            }
 
-        Column(
-            modifier = modifier
-                .fillMaxSize(),
-            //.pullRefresh(pullRefreshState),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            when (pokemonListUiState) {
-                is PokemonListUiState.Loading -> {
-                    FullScreenLoader()
-                }
+            is PokemonListUiState.Error -> {
+                GenericRetryView { onReload() }
+            }
 
-                is PokemonListUiState.Error -> {
-                    GenericRetryView { onReload() }
-                }
-
-                is PokemonListUiState.Success -> {
-                    PokemonList(
-                        animatedVisibilityScope = animatedVisibilityScope,
-                        pokemonList = pokemonListUiState.pokemonList,
-                        onPokemonItemClick = { onNavigateToPokemonDetail(it) }
-                    )
-                }
+            is PokemonListUiState.Success -> {
+                PokemonList(
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    pokemonList = pokemonListUiState.pokemonList,
+                    onPokemonItemClick = { onNavigateToPokemonDetail(it) }
+                )
             }
         }
-
-//        PullRefreshIndicator(
-//            refreshing = false,
-//            state = pullRefreshState,
-//            modifier = Modifier.align(Alignment.TopCenter)
-//        )
     }
 }

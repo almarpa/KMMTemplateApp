@@ -3,6 +3,7 @@ package com.almarpa.kmmtemplateapp.presentation.ui.viewmodels
 import androidx.lifecycle.viewModelScope
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.common.model.enums.LocaleEnum
+import com.almarpa.kmmtemplateapp.core.ui.utils.setAppLanguage
 import com.almarpa.kmmtemplateapp.core.ui.viewmodels.KmmViewModel
 import com.almarpa.kmmtemplateapp.domain.models.UserData
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetUserDataUseCase
@@ -45,6 +46,7 @@ class SettingsViewModel(
 
     fun setAppLocale(newLocale: String) {
         viewModelScope.launch {
+            setAppLanguage(newLocale)
             setAppLocaleUseCase(newLocale)
         }
     }

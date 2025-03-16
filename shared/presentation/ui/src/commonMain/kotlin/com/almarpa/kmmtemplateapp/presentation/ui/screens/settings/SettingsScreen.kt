@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.ui.composables.dropdown.CustomDropdown
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
-import com.almarpa.kmmtemplateapp.core.ui.utils.setAppLanguage
 import com.almarpa.kmmtemplateapp.domain.models.UserData
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
@@ -84,10 +83,7 @@ fun SettingsContent(
             LanguagesSection(
                 languages = locales,
                 currentLanguage = locales.getOrElse(userData.locale) { Res.string.language_english },
-                onLanguageChange = {
-                    onLanguageChange(it)
-                    setAppLanguage(it)
-                }
+                onLanguageChange = { onLanguageChange(it) }
             )
         }
 

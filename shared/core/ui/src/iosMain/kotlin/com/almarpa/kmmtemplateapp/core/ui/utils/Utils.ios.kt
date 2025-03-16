@@ -1,21 +1,28 @@
 package com.almarpa.kmmtemplateapp.core.ui.utils
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.CoreGraphics.CGRectGetHeight
 import platform.CoreGraphics.CGRectGetWidth
+import platform.Foundation.NSUserDefaults
+import platform.Foundation.setValue
+import platform.UIKit.UIDevice
 import platform.UIKit.UIScreen
+import platform.UIKit.UIUserInterfaceIdiomPad
 
-actual fun isTablet() = false
+@Composable
+actual fun isTablet() = UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
 
 @OptIn(ExperimentalForeignApi::class)
-actual fun isLandscapeOrientation(): Boolean {
-    val screenSize = UIScreen.mainScreen.bounds
-    return CGRectGetWidth(screenSize) > CGRectGetHeight(screenSize)
-}
+@Composable
+actual fun isLandscapeOrientation(): Boolean =
+    with(UIScreen.mainScreen.bounds) { CGRectGetWidth(this) > CGRectGetHeight(this) }
 
-actual fun setAppLanguage(locale: String) {}
+actual fun setAppLanguage(locale: String) {
+    NSUserDefaults.standardUserDefaults.setValue(locale, forKey = "AppleLanguages")
+}
 
 actual fun getDominantColorFromImage(image: Any, onFinish: (Int) -> Unit) {
 //    if (image !is UIImage) throw IllegalArgumentException("Expected a UIImage")
