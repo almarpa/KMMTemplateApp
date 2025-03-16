@@ -7,7 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.AnimatedTopAppBar
-import com.almarpa.kmmtemplateapp.core.ui.theme.KMMTemplateAppTheme
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.team_title
 import org.jetbrains.compose.resources.stringResource
@@ -16,7 +16,7 @@ import org.jetbrains.compose.resources.stringResource
 @Preview("Dark Animated Top App Bar", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun DarkAnimatedTopAppBarPreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         AnimatedTopAppBar(
             isVisible = true,
             title = stringResource(Res.string.team_title),
@@ -29,7 +29,7 @@ fun DarkAnimatedTopAppBarPreview() {
 @Preview("Animated Top App Bar")
 @Composable
 fun AnimatedTopAppBarPreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         AnimatedTopAppBar(
             isVisible = true,
             title = stringResource(Res.string.team_title),

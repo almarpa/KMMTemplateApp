@@ -16,7 +16,7 @@ actual fun isTablet(): Boolean = false
 //    }
 
 actual fun isLandscapeOrientation(): Boolean = false
-//getApplicationContext().resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+//getApplicationContext().composeResources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 actual fun setAppLanguage(locale: String) {
     AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))

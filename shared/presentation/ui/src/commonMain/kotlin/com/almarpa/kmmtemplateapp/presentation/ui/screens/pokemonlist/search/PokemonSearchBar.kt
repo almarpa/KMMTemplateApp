@@ -70,7 +70,7 @@ fun SharedTransitionScope.PokemonSearchBar(
                     IconButton(onClick = { onCancel() }) {
                         Icon(
                             imageVector = Icons.Default.Cancel,
-                            tint = MaterialTheme.colorScheme.primary,
+                            tint = MaterialTheme.colorScheme.tertiary,
                             contentDescription = null
                         )
                     }
@@ -81,6 +81,9 @@ fun SharedTransitionScope.PokemonSearchBar(
         expanded = true,
         onExpandedChange = { },
         shadowElevation = 12.dp,
+        colors = SearchBarDefaults.colors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
     ) {
         if (uiState !is SearchUiState.Idle) {
             PokemonSearchBarContent(

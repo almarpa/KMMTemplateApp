@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.almarpa.kmmtemplateapp.core.ui.theme.KMMTemplateAppTheme
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonMock
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails.PokemonName
 
@@ -14,7 +14,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails.Pokemon
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PokemonNamePreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         PokemonName(pokemon = getPokemonMock(), modifier = Modifier.padding(top = 150.dp))
     }
 }

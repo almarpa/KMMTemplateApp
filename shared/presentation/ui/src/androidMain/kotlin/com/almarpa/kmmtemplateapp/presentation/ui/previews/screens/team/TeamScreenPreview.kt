@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.almarpa.kmmtemplateapp.core.ui.theme.KMMTemplateAppTheme
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
@@ -25,7 +25,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamUiState
 )
 @Preview(name = "Team Fab Preview Tablet")
 fun TeamScreenFabPreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         TeamScreen(
             drawerState = DrawerState(DrawerValue.Closed),
             currentRoute = Routes.Team,
@@ -45,7 +45,7 @@ fun TeamScreenFabPreview() {
     showBackground = true,
 )
 fun TeamEmptyContentFabPreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         TeamScreen(
             drawerState = DrawerState(DrawerValue.Closed),
             currentRoute = Routes.Team,
@@ -70,7 +70,7 @@ fun TeamEmptyContentFabPreview() {
     device = "spec:width=1280dp,height=900dp,dpi=420,orientation=portrait"
 )
 fun TeamContentFullscreenPreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         TeamContent(
             paddingValues = PaddingValues(0.dp),
             uiState = TeamUiState.Success(getPokemonListMock()),

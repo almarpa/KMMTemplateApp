@@ -1,6 +1,7 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.navigation.navigationbar
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
@@ -25,7 +26,10 @@ fun BottomAppBar(
     currentRoute: Routes,
     onRouteSelected: (Routes) -> Unit = {},
 ) {
-    NavigationBar(modifier = modifier.clip(RoundedCornerShape(20.dp))) {
+    NavigationBar(
+        modifier = modifier.clip(RoundedCornerShape(20.dp)),
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+    ) {
         bottomAppBarItems.forEach { item ->
             NavigationBarItem(
                 icon = item.icon,

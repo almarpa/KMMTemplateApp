@@ -12,12 +12,17 @@ import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language_english
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language_spanish
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.StringResource
 
 sealed interface SettingsUiState {
-    data class Success(val userData: UserData) : SettingsUiState
+    data object Loading : SettingsUiState
+    data class Success(
+        val userData: UserData,
+        val locales: Map<String, StringResource>
+    ) : SettingsUiState
 }
 
 class SettingsViewModel(
@@ -26,14 +31,17 @@ class SettingsViewModel(
     private val setAppThemeUseCase: SetAppThemeUseCase,
 ) : KmmViewModel() {
 
-    val userData = getUserDataUseCase().stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = UserData(locale = LocaleEnum.EN.value, theme = AppThemeEnum.AUTO)
-    )
-
-    private val _locales: Map<String, StringResource> = getAppLocales()
-    val locales: Map<String, StringResource> = _locales
+    val uiState = getUserDataUseCase()
+        .map { userData ->
+            SettingsUiState.Success(
+                userData = userData,
+                locales = getAppLocales()
+            )
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = SettingsUiState.Loading
+        )
 
     fun setAppLocale(newLocale: String) {
         viewModelScope.launch {

@@ -19,7 +19,6 @@ import com.almarpa.kmmtemplateapp.presentation.ui.screens.team.TeamScreen
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonDetailsViewModel
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonListViewModel
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
-import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsViewModel
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamUiState
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -61,22 +60,18 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
         )
     }
     composable<Pokemon> { navBackStackEntry ->
-        val pokemonDetailsViewModel = koinViewModel<PokemonDetailsViewModel>()
-        val teamViewModel = koinViewModel<TeamViewModel>()
-        val settingsViewModel = koinViewModel<SettingsViewModel>()
-
         val pokemonId = navBackStackEntry.toRoute<Pokemon>().id
+        val pokemonDetailsViewModel = koinViewModel<PokemonDetailsViewModel>()
         val pokemonDetailsUiState by pokemonDetailsViewModel.detailsUiState.collectAsStateWithLifecycle()
-        // TODO: unify viemodels
-        val userData by settingsViewModel.userData.collectAsStateWithLifecycle()
 
         sharedTransitionScope.PokemonDetailsScreen(
             animatedVisibilityScope = this,
             pokemon = navBackStackEntry.toRoute<Pokemon>(),
             pokemonDetailsUiState = pokemonDetailsUiState,
-            userAppTheme = userData.theme,
             onFetchDetails = { pokemonDetailsViewModel.getPokemonDetails(pokemonId) },
-            onAddTeamMember = { pokemon, added -> teamViewModel.addPokemonToTeam(pokemon, added) },
+            onAddTeamMember = { pokemon, added ->
+                pokemonDetailsViewModel.addPokemonToTeam(pokemon, added)
+            },
             onBackPressed = { navigationActions.navigateBack() },
         )
     }

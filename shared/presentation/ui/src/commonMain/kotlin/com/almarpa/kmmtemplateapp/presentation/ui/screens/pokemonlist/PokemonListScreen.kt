@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -58,6 +59,7 @@ fun SharedTransitionScope.PokemonListScreen(
     LaunchedEffect(Unit) { isBottomAppBarVisible = true }
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surface,
         modifier = Modifier.nestedScroll(scrollBehaviour.nestedScrollConnection),
         topBar = {
             PokemonSearchTopAppBar(

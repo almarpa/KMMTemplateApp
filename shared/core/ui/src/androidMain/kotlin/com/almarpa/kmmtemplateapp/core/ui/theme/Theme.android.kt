@@ -8,17 +8,17 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 @Composable
-actual fun SystemAppearance(isDarkTheme: Boolean) {
+actual fun SystemAppearance(darkMode: Boolean) {
     val view = LocalView.current
     val systemBarColor = Color.TRANSPARENT
-    LaunchedEffect(isDarkTheme) {
+    LaunchedEffect(darkMode) {
         val window = (view.context as Activity).window
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = systemBarColor
         window.navigationBarColor = systemBarColor
         WindowCompat.getInsetsController(window, window.decorView).apply {
-            isAppearanceLightStatusBars = isDarkTheme
-            isAppearanceLightNavigationBars = isDarkTheme
+            isAppearanceLightStatusBars = darkMode
+            isAppearanceLightNavigationBars = darkMode
         }
     }
 }

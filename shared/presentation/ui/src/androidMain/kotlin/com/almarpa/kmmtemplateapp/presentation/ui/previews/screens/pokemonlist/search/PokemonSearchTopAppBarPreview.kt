@@ -7,8 +7,8 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.almarpa.kmmtemplateapp.presentation.ui.previews.theme.KMMTemplateAppPreviewTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
+import com.almarpa.kmmtemplateapp.presentation.ui.previews.theme.AppThemePreview
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.search.PokemonSearchTopAppBar
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
 
@@ -17,7 +17,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
 @Preview("Inactive Dark Search Top App Bar", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun InactiveSearchTopAppBarPreview() {
-    KMMTemplateAppPreviewTheme {
+    AppThemePreview {
         PokemonSearchTopAppBar(
             animatedVisibilityScope = it,
             uiState = SearchUiState.Success(getPokemonListMock()),
@@ -31,7 +31,7 @@ fun InactiveSearchTopAppBarPreview() {
 @Preview("Active Dark Search Top App Bar", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ActiveSearchTopAppBarPreview() {
-    KMMTemplateAppPreviewTheme {
+    AppThemePreview {
         PokemonSearchTopAppBar(
             animatedVisibilityScope = it,
             uiState = SearchUiState.Success(getPokemonListMock()),

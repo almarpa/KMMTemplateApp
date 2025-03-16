@@ -30,6 +30,7 @@ import com.almarpa.kmmtemplateapp.core.ui.composables.dropdown.CustomDropdown
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
 import com.almarpa.kmmtemplateapp.core.ui.utils.setAppLanguage
 import com.almarpa.kmmtemplateapp.domain.models.UserData
+import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.dark_mode
 import kmmtemplateapp.shared.presentation.ui.generated.resources.dark_mode_description
@@ -41,27 +42,28 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SettingsScreen(
-    userData: UserData?,
-    locales: Map<String, StringResource>,
-    onLanguageChange: (String) -> Unit,
-    onThemeChange: (Boolean) -> Unit,
-    onBackPressed: () -> Unit,
+    uiState: SettingsUiState,
+    onLanguageChange: (String) -> Unit = {},
+    onThemeChange: (Boolean) -> Unit = {},
+    onBackPressed: () -> Unit = {},
 ) {
-    Scaffold(
-        topBar = {
-            DefaultTopAppBar(title = stringResource(Res.string.settings_title)) {
-                onBackPressed()
-            }
+    Scaffold(containerColor = MaterialTheme.colorScheme.surface, topBar = {
+        DefaultTopAppBar(title = stringResource(Res.string.settings_title)) {
+            onBackPressed()
         }
-    ) { paddingValues ->
-        userData?.let { userDataNotNull ->
-            SettingsContent(
-                modifier = Modifier.padding(paddingValues),
-                userData = userDataNotNull,
-                locales = locales,
-                onLanguageChange = { onLanguageChange(it) },
-                onThemeChange = { onThemeChange(it) },
-            )
+    }) { paddingValues ->
+        when (uiState) {
+            is SettingsUiState.Success -> {
+                SettingsContent(
+                    modifier = Modifier.padding(paddingValues),
+                    userData = uiState.userData,
+                    locales = uiState.locales,
+                    onLanguageChange = { onLanguageChange(it) },
+                    onThemeChange = { onThemeChange(it) },
+                )
+            }
+
+            else -> {}
         }
     }
 }
@@ -75,29 +77,20 @@ fun SettingsContent(
     onThemeChange: (Boolean) -> Unit,
 ) {
     Column(
-        modifier = modifier
-            .padding(top = 16.dp)
-            .wrapContentSize()
-            .fillMaxWidth(),
+        modifier = modifier.padding(top = 16.dp).wrapContentSize().fillMaxWidth(),
     ) {
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primary)
+            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.primary)
                 .height(1.dp)
         )
-        LanguagesSection(
-            languages = locales,
+        LanguagesSection(languages = locales,
             currentLanguage = locales.getOrElse(userData.locale) { Res.string.language_english },
             onLanguageChange = {
                 onLanguageChange(it)
                 setAppLanguage(it)
-            }
-        )
+            })
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primary)
+            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.primary)
                 .height(1.dp)
         )
         DarkModeSection(
@@ -105,9 +98,7 @@ fun SettingsContent(
             onChange = { isChecked -> onThemeChange(isChecked) },
         )
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primary)
+            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.primary)
                 .height(1.dp)
         )
     }
@@ -126,18 +117,16 @@ fun LanguagesSection(
         Text(
             modifier = Modifier.weight(1f),
             text = stringResource(Res.string.language),
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.tertiary,
             fontSize = 18.sp
         )
         Row(
-            modifier = Modifier.weight(1f),
-            horizontalArrangement = Arrangement.End
+            modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.End
         ) {
-            CustomDropdown(
-                items = languages.mapValues { item -> stringResource(item.value) },
+            CustomDropdown(items = languages.mapValues { item -> stringResource(item.value) },
                 selected = stringResource(currentLanguage),
-                onClickItem = { selection -> onLanguageChange(selection) }
-            )
+                onClickItem = { selection -> onLanguageChange(selection) })
         }
     }
 }
@@ -145,32 +134,30 @@ fun LanguagesSection(
 @Composable
 fun DarkModeSection(themeState: AppThemeEnum, onChange: (Boolean) -> Unit) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 16.dp, horizontal = 32.dp),
+        modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp, horizontal = 32.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Column(
-            modifier = Modifier
-                .weight(1f)
+            modifier = Modifier.weight(1f)
         ) {
             Text(
                 text = stringResource(Res.string.dark_mode),
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.tertiary,
                 maxLines = 1,
                 fontSize = 18.sp
             )
             Text(
-                modifier = Modifier.padding(top = 8.dp),
+                modifier = Modifier.padding(top = 8.dp, end = 8.dp),
                 text = stringResource(Res.string.dark_mode_description),
                 style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.secondary,
                 maxLines = 3
             )
         }
 
-        Switch(
-            checked = themeState == AppThemeEnum.DARK,
+        Switch(checked = themeState == AppThemeEnum.DARK,
             onCheckedChange = { onChange(it) },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Color.White,
@@ -187,7 +174,6 @@ fun DarkModeSection(themeState: AppThemeEnum, onChange: (Boolean) -> Unit) {
                     contentDescription = null,
                     modifier = Modifier.size(SwitchDefaults.IconSize),
                 )
-            }
-        )
+            })
     }
 }

@@ -59,7 +59,7 @@ fun AnimatedTopAppBar(
                         Icon(
                             imageVector = Icons.Default.Menu,
                             contentDescription = "Menu",
-                            tint = MaterialTheme.colorScheme.primary,
+                            tint = MaterialTheme.colorScheme.tertiary,
                         )
                     }
                 },
@@ -68,7 +68,7 @@ fun AnimatedTopAppBar(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     scrolledContainerColor = MaterialTheme.colorScheme.surface,
                     containerColor = MaterialTheme.colorScheme.surface,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.tertiary,
                 ),
             )
         }

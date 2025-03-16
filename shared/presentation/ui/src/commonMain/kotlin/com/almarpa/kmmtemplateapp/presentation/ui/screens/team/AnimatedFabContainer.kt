@@ -281,7 +281,7 @@ fun CustomBackButton(onCancel: () -> Unit) {
         Icon(
             modifier = Modifier.fillMaxSize(),
             imageVector = Icons.AutoMirrored.Default.ArrowBack,
-            tint = MaterialTheme.colorScheme.primary,
+            tint = MaterialTheme.colorScheme.tertiary,
             contentDescription = null
         )
     }

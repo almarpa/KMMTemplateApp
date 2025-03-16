@@ -4,14 +4,14 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
-import com.almarpa.kmmtemplateapp.presentation.ui.previews.theme.KMMTemplateAppPreviewTheme
+import com.almarpa.kmmtemplateapp.presentation.ui.previews.theme.AppThemePreview
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.common.PokemonItem
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 @Preview("Pokemon Item View")
 fun PokemonItemPreview() {
-    KMMTemplateAppPreviewTheme {
+    AppThemePreview {
         PokemonItem(
             animatedVisibilityScope = it,
             pokemon = Pokemon(

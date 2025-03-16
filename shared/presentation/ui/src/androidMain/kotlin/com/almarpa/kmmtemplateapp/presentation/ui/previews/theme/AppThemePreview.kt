@@ -5,14 +5,14 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.runtime.Composable
-import com.almarpa.kmmtemplateapp.core.ui.theme.KMMTemplateAppTheme
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun KMMTemplateAppPreviewTheme(
+fun AppThemePreview(
     content: @Composable SharedTransitionScope.(AnimatedVisibilityScope) -> Unit,
 ) {
-    KMMTemplateAppTheme {
+    AppTheme {
         SharedTransitionScope {
             AnimatedVisibility(visible = true, label = "") {
                 content(this)

@@ -1,10 +1,7 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.utils
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.ui.theme.AtkColor
 import com.almarpa.kmmtemplateapp.core.ui.theme.DefColor
 import com.almarpa.kmmtemplateapp.core.ui.theme.HPColor
@@ -106,29 +103,14 @@ fun getColorByType(pokemonType: PokemonTypeEnum): Color {
     }
 }
 
-@Composable
-fun getColorWithGradient(userAppTheme: AppThemeEnum, dominantColor: Int): Brush {
-    val color = Color(dominantColor)
-    return when (userAppTheme) {
-        AppThemeEnum.AUTO -> if (isSystemInDarkTheme()) {
-            getDarkGradientByColor(color)
-        } else {
-            getLightGradientByColor(color)
-        }
-
-        AppThemeEnum.DARK -> getDarkGradientByColor(color)
-        AppThemeEnum.LIGHT -> getLightGradientByColor(color)
-    }
-}
-
-private fun getLightGradientByColor(dominantColor: Color) =
+fun getLightGradientByColor(dominantColor: Color) =
     Brush.verticalGradient(
         listOf(Color.White, dominantColor),
         startY = 0.0f,
         endY = 400.0f
     )
 
-private fun getDarkGradientByColor(dominantColor: Color) =
+fun getDarkGradientByColor(dominantColor: Color) =
     Brush.verticalGradient(
         listOf(Color.Black, dominantColor),
         startY = 0.0f,

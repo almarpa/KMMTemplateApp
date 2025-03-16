@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.almarpa.kmmtemplateapp.core.ui.composables.tabrow.SwipeableTabRow
-import com.almarpa.kmmtemplateapp.core.ui.theme.KMMTemplateAppTheme
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonStatListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails.PokemonStats
 
@@ -18,7 +18,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails.Pokemon
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 fun SwipeableTabRowPreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         SwipeableTabRow(
             modifier = Modifier,
             tabs = listOf("Stats", "Moves"),

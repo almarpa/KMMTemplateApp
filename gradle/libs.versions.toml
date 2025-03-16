@@ -211,6 +211,7 @@ core-ui = [
 android-core = [
     "kotlinx-coroutines-android",
     "koin-android",
+    "koin-compose-viewmodel",
     "kotlin-stdlib",
     "androidx-core-ktx",
 ]

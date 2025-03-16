@@ -5,12 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
-import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
-import com.almarpa.kmmtemplateapp.core.ui.theme.KMMTemplateAppTheme
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonDetailsMock
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonMock
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.mockNotFoundAppError
-import com.almarpa.kmmtemplateapp.presentation.ui.previews.theme.KMMTemplateAppPreviewTheme
+import com.almarpa.kmmtemplateapp.presentation.ui.previews.theme.AppThemePreview
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails.AddMemberButton
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails.PokemonCard
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails.PokemonDetailsScreen
@@ -21,7 +20,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonDetailsUiSta
 @PreviewLightDark
 @Composable
 fun AddMemberButtonPreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         AddMemberButton()
     }
 }
@@ -30,7 +29,7 @@ fun AddMemberButtonPreview() {
 @Composable
 @Preview("Pokemon Image Animation")
 fun PokemonImageAnimationPreview() {
-    KMMTemplateAppPreviewTheme {
+    AppThemePreview {
         PokemonImageAnimation(
             animatedVisibilityScope = it,
             pokemon = getPokemonMock(),
@@ -42,7 +41,7 @@ fun PokemonImageAnimationPreview() {
 @Composable
 @PreviewLightDark
 fun PokemonCardPreview() {
-    KMMTemplateAppPreviewTheme {
+    AppThemePreview {
         PokemonCard(
             pokemonDetailsUiState = PokemonDetailsUiState.Success(getPokemonDetailsMock()),
             pokemon = getPokemonMock(),
@@ -54,7 +53,7 @@ fun PokemonCardPreview() {
 @Composable
 @PreviewScreenSizes
 fun PokemonDetailsScreenPreview() {
-    KMMTemplateAppPreviewTheme {
+    AppThemePreview {
         PokemonDetailsScreen(
             animatedVisibilityScope = it,
             pokemon = getPokemonMock(),
@@ -62,7 +61,6 @@ fun PokemonDetailsScreenPreview() {
             onFetchDetails = {},
             onAddTeamMember = { _, _ -> },
             onBackPressed = {},
-            userAppTheme = AppThemeEnum.DARK,
         )
     }
 }
@@ -71,7 +69,7 @@ fun PokemonDetailsScreenPreview() {
 @Composable
 @PreviewScreenSizes
 fun PokemonDetailsErrorScreenPreview() {
-    KMMTemplateAppPreviewTheme {
+    AppThemePreview {
         PokemonDetailsScreen(
             animatedVisibilityScope = it,
             pokemon = getPokemonMock(),
@@ -79,7 +77,6 @@ fun PokemonDetailsErrorScreenPreview() {
             onFetchDetails = {},
             onAddTeamMember = { _, _ -> },
             onBackPressed = {},
-            userAppTheme = AppThemeEnum.DARK,
         )
     }
 }

@@ -4,7 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.almarpa.kmmtemplateapp.core.ui.theme.KMMTemplateAppTheme
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.team.TeamPager
 
@@ -18,7 +18,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.screens.team.TeamPager
 @Preview("Dark Team Pager", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Preview(name = "Tablet Dark Team Pager")
 fun TeamPagerPreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         TeamPager(
             pagerState = rememberPagerState { getPokemonListMock().size },
             pokemonList = getPokemonListMock()

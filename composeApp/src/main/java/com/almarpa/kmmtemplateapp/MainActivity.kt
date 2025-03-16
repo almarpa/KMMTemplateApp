@@ -1,16 +1,18 @@
 package com.almarpa.kmmtemplateapp
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.WindowCompat
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.App
+import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsUiState
+import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,18 +20,22 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            val localView = LocalView.current
+            val settingsViewModel = koinViewModel<SettingsViewModel>()
+            val settingsState by settingsViewModel.uiState.collectAsStateWithLifecycle()
+            val isDarkTheme = when (val state = settingsState) {
+                is SettingsUiState.Success ->
+                    when (state.userData.theme) {
+                        AppThemeEnum.DARK -> true
+                        AppThemeEnum.LIGHT -> false
+                        AppThemeEnum.AUTO -> isSystemInDarkTheme()
+                    }
 
-            val isDarkMode = isSystemInDarkTheme()
-
-            if (!localView.isInEditMode) {
-                val window = (localView.context as Activity).window
-
-                window.statusBarColor = Color.Transparent.toArgb()
-                WindowCompat.getInsetsController(window, localView).isAppearanceLightStatusBars =
-                    !isDarkMode
+                else -> true // By default
             }
-            App()
+
+            AppTheme(isDarkTheme = isDarkTheme) {
+                App()
+            }
         }
     }
 }

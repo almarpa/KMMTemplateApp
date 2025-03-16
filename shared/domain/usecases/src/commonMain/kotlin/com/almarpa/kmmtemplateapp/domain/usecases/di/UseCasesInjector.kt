@@ -1,7 +1,7 @@
 package com.almarpa.kmmtemplateapp.domain.usecases.di
 
 import com.almarpa.kmmtemplateapp.core.common.di.KoinModules
-import com.almarpa.kmmtemplateapp.domain.usecases.features.AddPokemonUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.AddPokemonToTeamUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.CreateTeamMemberUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonDetailsUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonUseCase
@@ -24,7 +24,7 @@ object UseCasesInjector : KoinModules {
                 factoryOf(::GetPokemonUseCase)
                 factoryOf(::SearchPokemonUseCase)
                 factoryOf(::GetPokemonDetailsUseCase)
-                factoryOf(::AddPokemonUseCase)
+                factoryOf(::AddPokemonToTeamUseCase)
                 factoryOf(::GetTeamUseCase)
                 factoryOf(::CreateTeamMemberUseCase)
             }

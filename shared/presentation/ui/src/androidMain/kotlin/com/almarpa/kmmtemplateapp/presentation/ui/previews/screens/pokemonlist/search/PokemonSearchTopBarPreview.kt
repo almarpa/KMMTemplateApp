@@ -4,8 +4,8 @@ import android.content.res.Configuration
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.almarpa.kmmtemplateapp.presentation.ui.previews.theme.KMMTemplateAppPreviewTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
+import com.almarpa.kmmtemplateapp.presentation.ui.previews.theme.AppThemePreview
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.search.PokemonSearchBar
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
 
@@ -18,7 +18,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
 )
 @Composable
 fun ActivatedSearchTopBarPreview() {
-    KMMTemplateAppPreviewTheme {
+    AppThemePreview {
         PokemonSearchBar(
             animatedVisibilityScope = it,
             uiState = SearchUiState.Success(getPokemonListMock()),

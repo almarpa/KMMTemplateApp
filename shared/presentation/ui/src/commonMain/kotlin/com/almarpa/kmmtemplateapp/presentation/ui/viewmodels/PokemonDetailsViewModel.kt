@@ -5,7 +5,9 @@ import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
 import com.almarpa.kmmtemplateapp.core.common.model.entities.onError
 import com.almarpa.kmmtemplateapp.core.common.model.entities.onSuccess
 import com.almarpa.kmmtemplateapp.core.ui.viewmodels.KmmViewModel
+import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.domain.models.PokemonDetails
+import com.almarpa.kmmtemplateapp.domain.usecases.features.AddPokemonToTeamUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonDetailsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +20,8 @@ sealed interface PokemonDetailsUiState {
 }
 
 class PokemonDetailsViewModel(
-    private val pokemonDetailsUseCase: GetPokemonDetailsUseCase,
+    private val getPokemonDetailsUseCase: GetPokemonDetailsUseCase,
+    private val addPokemonToTeamUseCase: AddPokemonToTeamUseCase,
 ) : KmmViewModel() {
 
     private val _detailsUiState =
@@ -27,12 +30,18 @@ class PokemonDetailsViewModel(
 
     fun getPokemonDetails(pokemonId: Int) {
         viewModelScope.launch {
-            pokemonDetailsUseCase(pokemonId)
+            getPokemonDetailsUseCase(pokemonId)
                 .onSuccess { pokemonDetails ->
                     _detailsUiState.emit(PokemonDetailsUiState.Success(pokemonDetails))
                 }.onError { appError ->
                     _detailsUiState.emit(PokemonDetailsUiState.Error(appError))
                 }
+        }
+    }
+
+    fun addPokemonToTeam(pokemon: Pokemon, isAdded: Boolean) {
+        viewModelScope.launch {
+            addPokemonToTeamUseCase(pokemon.apply { isTeamMember = isAdded })
         }
     }
 }

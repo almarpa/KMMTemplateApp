@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
-import com.almarpa.kmmtemplateapp.presentation.ui.previews.theme.KMMTemplateAppPreviewTheme
+import com.almarpa.kmmtemplateapp.presentation.ui.previews.theme.AppThemePreview
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.PokemonListScreen
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonListUiState
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
@@ -20,7 +20,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
 @Preview("Pokemon List Screen")
 @Preview("Pokemon List Screen", uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun PokemonListScreenPreview() {
-    KMMTemplateAppPreviewTheme {
+    AppThemePreview {
         PokemonListScreen(
             animatedVisibilityScope = it,
             drawerState = DrawerState(DrawerValue.Closed),
@@ -40,7 +40,7 @@ fun PokemonListScreenPreview() {
 @Preview("Pokemon List Screen")
 @Preview("Pokemon List Screen", uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun PokemonListScreenWithSearchActivePreview() {
-    KMMTemplateAppPreviewTheme {
+    AppThemePreview {
         PokemonListScreen(
             animatedVisibilityScope = it,
             drawerState = DrawerState(DrawerValue.Closed),

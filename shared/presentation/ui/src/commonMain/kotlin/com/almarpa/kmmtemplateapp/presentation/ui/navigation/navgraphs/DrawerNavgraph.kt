@@ -13,11 +13,9 @@ import org.koin.compose.viewmodel.koinViewModel
 fun NavGraphBuilder.drawerNavGraph(navigationActions: NavigationActions) {
     composable<Routes.Settings> {
         val settingsViewModel = koinViewModel<SettingsViewModel>()
-        val userDataState by settingsViewModel.userData.collectAsStateWithLifecycle()
-
+        val settingsUiState by settingsViewModel.uiState.collectAsStateWithLifecycle()
         SettingsScreen(
-            userData = userDataState,
-            locales = settingsViewModel.locales,
+            uiState = settingsUiState,
             onLanguageChange = { settingsViewModel.setAppLocale(it) },
             onThemeChange = { isChecked -> settingsViewModel.setAppTheme(isChecked) },
             onBackPressed = { navigationActions.navigateBack() },

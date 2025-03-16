@@ -47,7 +47,8 @@ fun SharedTransitionScope.PokemonSearchTopAppBar(
             title = {
                 Text(
                     stringResource(Res.string.pokedex_title),
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.tertiary
                 )
             },
             navigationIcon = {
@@ -55,7 +56,7 @@ fun SharedTransitionScope.PokemonSearchTopAppBar(
                     Icon(
                         imageVector = Icons.Default.Menu,
                         contentDescription = "Menu",
-                        tint = MaterialTheme.colorScheme.primary,
+                        tint = MaterialTheme.colorScheme.tertiary,
                     )
                 }
             },
@@ -64,7 +65,7 @@ fun SharedTransitionScope.PokemonSearchTopAppBar(
             colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                 scrolledContainerColor = MaterialTheme.colorScheme.surface,
                 containerColor = MaterialTheme.colorScheme.surface,
-                titleContentColor = MaterialTheme.colorScheme.primary,
+                titleContentColor = MaterialTheme.colorScheme.tertiary,
             ),
         )
         if (isSearchActive) {
@@ -88,7 +89,7 @@ fun SearchIcon(onIconClick: () -> Unit) {
         Icon(
             imageVector = Icons.Default.Search,
             contentDescription = stringResource(Res.string.menu_drawer_btn),
-            tint = MaterialTheme.colorScheme.primary,
+            tint = MaterialTheme.colorScheme.tertiary,
         )
     }
 }

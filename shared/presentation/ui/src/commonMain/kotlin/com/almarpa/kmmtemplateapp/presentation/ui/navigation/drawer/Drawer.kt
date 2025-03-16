@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
@@ -23,13 +24,21 @@ fun Drawer(
     navigateToSettings: () -> Unit = {},
     closeDrawer: () -> Unit = {},
 ) {
-    ModalDrawerSheet {
+    ModalDrawerSheet(
+        drawerContainerColor = MaterialTheme.colorScheme.surfaceContainerLow
+    ) {
         TemplateAppLogo(
             modifier = Modifier.padding(horizontal = 28.dp, vertical = 24.dp),
         )
         NavigationDrawerItem(
             label = { Text(text = stringResource(Res.string.settings_title)) },
-            icon = { Icon(Icons.Filled.Settings, null) },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.tertiary
+                )
+            },
             selected = false,
             onClick = {
                 navigateToSettings()
@@ -46,6 +55,7 @@ private fun TemplateAppLogo(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(Res.string.app_name),
             fontSize = 24.sp,
+            color = MaterialTheme.colorScheme.tertiary
         )
     }
 }

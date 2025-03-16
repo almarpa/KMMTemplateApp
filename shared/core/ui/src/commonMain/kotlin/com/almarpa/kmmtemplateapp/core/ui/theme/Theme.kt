@@ -1,6 +1,5 @@
 package com.almarpa.kmmtemplateapp.core.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
@@ -8,9 +7,6 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 
 private val LightColors = lightColorScheme(
     primary = md_theme_light_primary,
@@ -40,8 +36,6 @@ private val LightColors = lightColorScheme(
     inverseSurface = md_theme_light_inverseSurface,
     inversePrimary = md_theme_light_inversePrimary,
     surfaceTint = md_theme_light_surfaceTint,
-    outlineVariant = md_theme_light_outlineVariant,
-    scrim = md_theme_light_scrim,
 )
 
 private val DarkColors = darkColorScheme(
@@ -72,33 +66,26 @@ private val DarkColors = darkColorScheme(
     inverseSurface = md_theme_dark_inverseSurface,
     inversePrimary = md_theme_dark_inversePrimary,
     surfaceTint = md_theme_dark_surfaceTint,
-    outlineVariant = md_theme_dark_outlineVariant,
-    scrim = md_theme_dark_scrim,
 )
 
-val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
+val LocalThemeIsDark = compositionLocalOf { false }
 
 @Composable
-fun KMMTemplateAppTheme(
+expect fun SystemAppearance(darkMode: Boolean)
+
+@Composable
+fun AppTheme(
+    isDarkTheme: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val isSystemInDarkTheme = isSystemInDarkTheme()
-    val isDarkState = remember { mutableStateOf(isSystemInDarkTheme) }
-
-    CompositionLocalProvider(value = LocalThemeIsDark provides isDarkState) {
-        val isDarkTheme by isDarkState
-
-        SystemAppearance(isDarkTheme = !isDarkTheme)
+    CompositionLocalProvider(LocalThemeIsDark provides isDarkTheme) {
+        SystemAppearance(darkMode = !isDarkTheme)
         MaterialTheme(
             colorScheme = if (isDarkTheme) DarkColors else LightColors,
-            typography = Typography,
             shapes = AppShapes,
-            content = {
-                Surface(content = content)
-            }
-        )
+            typography = getTypography()
+        ) {
+            Surface(content = content)
+        }
     }
 }
-
-@Composable
-expect fun SystemAppearance(isDarkTheme: Boolean)

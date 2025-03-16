@@ -3,7 +3,7 @@ package com.almarpa.kmmtemplateapp.presentation.ui.previews.screens.team
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.almarpa.kmmtemplateapp.core.ui.theme.KMMTemplateAppTheme
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.team.AnimatedFabContainer
 
 @Composable
@@ -14,7 +14,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.screens.team.AnimatedFabContai
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 fun AddPokemonFloatingButtonPreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         AnimatedFabContainer(
             fabContainerState = false,
             onFabContainerStateChanged = {},
@@ -42,7 +42,7 @@ fun AddPokemonFloatingButtonPreview() {
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 fun FabContainerFullscreenPreview() {
-    KMMTemplateAppTheme {
+    AppTheme {
         AnimatedFabContainer(
             fabContainerState = true,
             onFabContainerStateChanged = {},
