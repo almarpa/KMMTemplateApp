@@ -7,7 +7,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ManageSearch
-import androidx.compose.material.icons.filled.PeopleOutline
+import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.outlined.PeopleOutline
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -42,9 +42,9 @@ fun AnimatedBottomAppBar(
             icon = {
                 Icon(
                     if (currentRoute == Routes.Team) {
-                        Icons.Outlined.PeopleOutline
+                        Icons.Filled.People
                     } else {
-                        Icons.Default.PeopleOutline
+                        Icons.Outlined.PeopleOutline
                     },
                     tint = MaterialTheme.colorScheme.tertiary,
                     contentDescription = "Team",

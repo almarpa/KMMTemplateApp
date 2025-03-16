@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.rememberNavController
-import com.almarpa.kmmtemplateapp.core.common.platform.getPlatform
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.drawer.Drawer
@@ -20,9 +19,6 @@ fun App() {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
     val currentRoute = Routes.Splash
-
-    // TODO: add platform version in bottom drawer
-    val platform = getPlatform()
 
     ModalNavigationDrawer(
         drawerContent = {

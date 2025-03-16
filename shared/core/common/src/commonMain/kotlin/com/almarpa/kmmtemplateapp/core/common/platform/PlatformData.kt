@@ -6,5 +6,5 @@ data class PlatformData(
     val platformType: PlatformType,
     val version: String
 ) {
-    override fun toString(): String = "${platformType.name} v.$version"
+    override fun toString(): String = "${platformType.name} $version"
 }
