@@ -210,10 +210,10 @@ fun AddMemberButton(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.primary)
-                    .padding(4.dp),
+                    .padding(6.dp),
                 imageVector = if (isTeamMember) Icons.Filled.PersonRemove else Icons.Outlined.PersonAdd,
                 contentDescription = "Add member icon",
-                tint = MaterialTheme.colorScheme.tertiary,
+                tint = MaterialTheme.colorScheme.surface,
             )
         }
     }
