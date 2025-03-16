@@ -52,9 +52,14 @@ import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithSharedElementTransition
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
+import com.almarpa.kmmtemplateapp.core.ui.composables.snackbar.CustomSnackBar
+import com.almarpa.kmmtemplateapp.core.ui.composables.snackbar.SnackbarController
+import com.almarpa.kmmtemplateapp.core.ui.composables.snackbar.SnackbarEvent
+import com.almarpa.kmmtemplateapp.core.ui.composables.snackbar.showSnackbar
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
 import com.almarpa.kmmtemplateapp.core.ui.theme.LocalThemeIsDark
+import com.almarpa.kmmtemplateapp.core.ui.utils.ObserveAsEvents
 import com.almarpa.kmmtemplateapp.core.ui.utils.isTablet
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.domain.models.PokemonDetails
@@ -62,6 +67,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.utils.getDarkGradientByColor
 import com.almarpa.kmmtemplateapp.presentation.ui.utils.getLightGradientByColor
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonDetailsUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
+import kmmtemplateapp.shared.presentation.ui.generated.resources.pokemon_added_to_team
 import kmmtemplateapp.shared.presentation.ui.generated.resources.retry_btn
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -78,7 +84,7 @@ fun SharedTransitionScope.PokemonDetailsScreen(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
-    //val snackbarMessage = LocalContext.current.getString(R.string.pokemon_added_to_team)
+    val snackbarMessage = stringResource(Res.string.pokemon_added_to_team)
 
     LifecycleResumeEffect(Unit) {
         onFetchDetails()
@@ -87,24 +93,24 @@ fun SharedTransitionScope.PokemonDetailsScreen(
         }
     }
 
-//    ObserveAsEvents(
-//        flow = SnackbarController.snackbarEvents,
-//        key1 = snackbarHostState,
-//    ) { snackbarEvent ->
-//        coroutineScope.showSnackbar(
-//            snackbarHostState = snackbarHostState,
-//            message = snackbarEvent.message,
-//            actionLabel = snackbarEvent.action?.name,
-//            onActionPerformed = { snackbarEvent.action?.action?.invoke() },
-//        )
-//    }
-//
+    ObserveAsEvents(
+        flow = SnackbarController.snackbarEvents,
+        key1 = snackbarHostState,
+    ) { snackbarEvent ->
+        coroutineScope.showSnackbar(
+            snackbarHostState = snackbarHostState,
+            message = snackbarEvent.message,
+            actionLabel = snackbarEvent.action?.name,
+            onActionPerformed = { snackbarEvent.action?.action?.invoke() },
+        )
+    }
+
 //    BackHandler { onBackPressed() }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = { DefaultTopAppBar { onBackPressed() } },
-        //snackbarHost = { CustomSnackBar(snackbarHostState = snackbarHostState) }
+        snackbarHost = { CustomSnackBar(snackbarHostState = snackbarHostState) }
     ) {
         PokemonDetailsContent(
             pokemon = pokemon,
@@ -114,9 +120,9 @@ fun SharedTransitionScope.PokemonDetailsScreen(
         ) { pokemon, isAdded ->
             onAddTeamMember(pokemon, isAdded)
             coroutineScope.launch {
-//                if (isAdded) {
-//                    SnackbarController.sendSnackbarEvent(event = SnackbarEvent(snackbarMessage))
-//                }
+                if (isAdded) {
+                    SnackbarController.sendSnackbarEvent(event = SnackbarEvent(snackbarMessage))
+                }
             }
         }
     }

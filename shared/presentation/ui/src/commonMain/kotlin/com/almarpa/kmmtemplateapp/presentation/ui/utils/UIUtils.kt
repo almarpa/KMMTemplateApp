@@ -38,23 +38,6 @@ import kmmtemplateapp.shared.presentation.ui.generated.resources.stat_special_de
 import kmmtemplateapp.shared.presentation.ui.generated.resources.stat_speed
 import org.jetbrains.compose.resources.StringResource
 
-//@Composable
-//fun <T> ObserveAsEvents(
-//    flow: Flow<T>,
-//    key1: Any? = null,
-//    key2: Any? = null,
-//    onEvent: (T) -> Unit,
-//) {
-//    val lifecycleOwner = LocalLifecycleOwner.current
-//    LaunchedEffect(lifecycleOwner.lifecycle, key1, key2, flow) {
-//        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//            withContext(Dispatchers.Main.immediate) {
-//                flow.collect(onEvent)
-//            }
-//        }
-//    }
-//}
-
 fun getAbbreviationByStat(stat: StatNameEnum): StringResource {
     return when (stat) {
         StatNameEnum.HP -> Res.string.stat_hp
