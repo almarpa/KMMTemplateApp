@@ -126,7 +126,7 @@ fun TeamContent(
                     onSave = {
                         onSavePokemon(it)
                         coroutineScope.launch {
-                            delay(1600)
+                            delay(1500)
                             pagerState.animateScrollToPage(uiState.teamList.size)
                         }
                     }

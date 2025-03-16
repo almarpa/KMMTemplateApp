@@ -31,7 +31,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -204,7 +203,7 @@ fun PokemonForm(onSave: (Pokemon) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth(.6f)
                 .padding(vertical = 20.dp),
-            enabled = checkFields(pokemonName, pokemonImageUrl),
+            enabled = checkFields(pokemonName, pokemonImageUrl, validImageURL),
             onClick = {
                 onSave(
                     Pokemon(
@@ -230,7 +229,8 @@ fun PokemonImageCard(
     onError: () -> Unit,
     onSuccess: (Color) -> Unit,
 ) {
-    var cardDominantColor: Color by remember { mutableStateOf(Color.Transparent) }
+    val defaultCardColor: Color = MaterialTheme.colorScheme.primary
+    var cardDominantColor: Color by remember { mutableStateOf(defaultCardColor) }
 
     Card(
         modifier = Modifier
@@ -254,7 +254,6 @@ fun PokemonImageCard(
             },
             onError = {
                 onError()
-                cardDominantColor = Color.Transparent
             },
             onSuccess = { success ->
                 getDominantColorFromImage(success.result.image) { intColor ->
@@ -267,8 +266,8 @@ fun PokemonImageCard(
 
 }
 
-fun checkFields(pokemonName: String, pokemonImageUrl: String?) =
-    !pokemonImageUrl.isNullOrEmpty() && pokemonName.isNotEmpty()
+fun checkFields(pokemonName: String, pokemonImageUrl: String?, validImageURL: Boolean) =
+    !pokemonImageUrl.isNullOrEmpty() && pokemonName.isNotEmpty() && validImageURL
 
 @Composable
 fun CustomBackButton(onCancel: () -> Unit) {
@@ -291,7 +290,6 @@ fun CustomBackButton(onCancel: () -> Unit) {
 fun AddPokemonFab(onFabButtonPressed: () -> Unit) {
     Button(
         modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
-        colors = ButtonDefaults.buttonColors(),
         onClick = { onFabButtonPressed() },
     ) {
         Box {

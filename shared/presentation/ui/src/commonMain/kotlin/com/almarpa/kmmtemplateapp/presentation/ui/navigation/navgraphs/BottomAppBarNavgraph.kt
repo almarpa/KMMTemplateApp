@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalSharedTransitionApi::class, ExperimentalSharedTransitionApi::class)
-
 package com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -23,6 +21,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamUiState
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 fun NavGraphBuilder.bottomAppBarNavGraph(
     sharedTransitionScope: SharedTransitionScope,
     drawerState: DrawerState,

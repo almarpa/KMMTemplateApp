@@ -27,7 +27,7 @@ fun SharedTransitionScope.PokemonSearchList(
     pokemonList: List<Pokemon>,
     onPokemonItemClick: (Pokemon) -> Unit = { },
 ) {
-    val columns = if (isLandscapeOrientation()) 2 else 4
+    val columns = if (isLandscapeOrientation()) 4 else 2
     LazyVerticalGrid(
         columns = GridCells.Fixed(columns),
         contentPadding = PaddingValues(8.dp),

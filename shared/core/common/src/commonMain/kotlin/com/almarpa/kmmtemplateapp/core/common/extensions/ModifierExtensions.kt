@@ -111,7 +111,7 @@ fun Modifier.applyAlphaScaleAnimation(index: Int, columns: Int): Modifier {
     }
     val scale by transition.animateFloat(transitionSpec = { animation }, label = "") { state ->
         when (state) {
-            AnimState.PLACING -> 0f
+            AnimState.PLACING -> .5f
             AnimState.PLACED -> 1f
         }
     }

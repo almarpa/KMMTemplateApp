@@ -192,7 +192,7 @@ fun AddMemberButton(
         )
         FloatingActionButton(
             modifier = Modifier
-                .size(if (isTablet()) 60.dp else 40.dp)
+                .size(if (isTablet()) 70.dp else 50.dp)
                 .aspectRatio(1f)
                 .scale(memberIconScale),
             onClick = {
@@ -203,10 +203,11 @@ fun AddMemberButton(
             Icon(
                 modifier = Modifier
                     .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.primary)
                     .padding(4.dp),
                 imageVector = if (isTeamMember) Icons.Filled.PersonRemove else Icons.Outlined.PersonAdd,
                 contentDescription = "Add member icon",
-                tint = MaterialTheme.colorScheme.primary,
+                tint = MaterialTheme.colorScheme.tertiary,
             )
         }
     }
@@ -273,9 +274,8 @@ fun PokemonInfo(pokemon: Pokemon, details: PokemonDetails) {
         )
         PokemonTabRow(
             modifier = Modifier.heightIn(
-                0.dp,
-                300.dp
-            ), // set max height due to nested scroll need to have a defined height
+                max = 300.dp // due to nested scroll need to have a defined height
+            ),
             pokemonDetails = details
         )
     }

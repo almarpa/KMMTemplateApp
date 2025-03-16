@@ -1,18 +1,19 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.screens.settings
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -79,28 +80,41 @@ fun SettingsContent(
     Column(
         modifier = modifier.padding(top = 16.dp).wrapContentSize().fillMaxWidth(),
     ) {
-        Spacer(
-            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.primary)
-                .height(1.dp)
-        )
-        LanguagesSection(languages = locales,
-            currentLanguage = locales.getOrElse(userData.locale) { Res.string.language_english },
-            onLanguageChange = {
-                onLanguageChange(it)
-                setAppLanguage(it)
-            })
-        Spacer(
-            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.primary)
-                .height(1.dp)
-        )
-        DarkModeSection(
-            themeState = userData.theme,
-            onChange = { isChecked -> onThemeChange(isChecked) },
-        )
-        Spacer(
-            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.primary)
-                .height(1.dp)
-        )
+        CardItem {
+            LanguagesSection(
+                languages = locales,
+                currentLanguage = locales.getOrElse(userData.locale) { Res.string.language_english },
+                onLanguageChange = {
+                    onLanguageChange(it)
+                    setAppLanguage(it)
+                }
+            )
+        }
+
+        CardItem {
+            DarkModeSection(
+                themeState = userData.theme,
+                onChange = { isChecked -> onThemeChange(isChecked) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun CardItem(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Card(
+        modifier = modifier.padding(8.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+        ),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        content()
     }
 }
 
