@@ -1,0 +1,128 @@
+package com.almarpa.kmmtemplateapp.core.ui.composables.dialogs
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+
+@Composable
+fun SimpleActionAlertDialog(
+    show: Boolean,
+    title: String,
+    description: String = "",
+    confirmText: String,
+    onConfirm: () -> Unit = {},
+    onDismissRequest: () -> Unit = {},
+) {
+    var isActive by rememberSaveable { mutableStateOf(show) }
+    if (isActive) {
+        AlertDialog(
+            onDismissRequest = { onDismissRequest() },
+            title = {
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            },
+            text = {
+                Text(
+                    text = description,
+                    color = Color.White,
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        isActive = false
+                        onConfirm()
+                    }
+                ) {
+                    Text(text = confirmText)
+                }
+            },
+            properties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false,
+                usePlatformDefaultWidth = false
+            ),
+        )
+    }
+}
+
+
+@Composable
+fun CustomDialog(
+    show: Boolean = true,
+    title: String,
+    description: String = "",
+    onConfirm: () -> Unit = {},
+    confirmText: String,
+    onCancel: () -> Unit = {},
+    cancelText: String,
+    onDismissRequest: () -> Unit = {},
+) {
+    if (show) {
+        Dialog(
+            onDismissRequest = { onDismissRequest() },
+            properties = DialogProperties()
+        ) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(),
+            ) {
+                Column(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(20.dp),
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp,
+                        text = title
+                    )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 30.dp),
+                        fontSize = 16.sp,
+                        text = description
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        TextButton(onClick = { onCancel() }) {
+                            Text(text = cancelText)
+                        }
+                        Button(onClick = { onConfirm() }) {
+                            Text(text = confirmText)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

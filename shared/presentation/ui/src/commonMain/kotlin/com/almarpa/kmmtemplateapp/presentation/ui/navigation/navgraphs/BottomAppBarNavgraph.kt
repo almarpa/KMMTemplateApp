@@ -40,7 +40,7 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
             navigationActions = navigationActions,
             searchUiState = searchUiState,
             pokemonListUiState = pokemonListUiState,
-            onReload = { /*paginatedPokemonList.refresh()*/ },
+            onReload = { /*TODO: paginatedPokemonList.refresh()*/ },
             onSearch = { text -> pokemonListViewModel.onPokemonSearch(text) },
             onDismissSearch = { pokemonListViewModel.removeCurrentSearch() },
         )

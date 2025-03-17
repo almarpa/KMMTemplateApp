@@ -51,6 +51,7 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithSharedElementTransition
+import com.almarpa.kmmtemplateapp.core.ui.composables.dialogs.SimpleActionAlertDialog
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.composables.snackbar.CustomSnackBar
 import com.almarpa.kmmtemplateapp.core.ui.composables.snackbar.SnackbarController
@@ -68,6 +69,9 @@ import com.almarpa.kmmtemplateapp.presentation.ui.utils.getDarkGradientByColor
 import com.almarpa.kmmtemplateapp.presentation.ui.utils.getLightGradientByColor
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonDetailsUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
+import kmmtemplateapp.shared.presentation.ui.generated.resources.app_error_title
+import kmmtemplateapp.shared.presentation.ui.generated.resources.common_accept
+import kmmtemplateapp.shared.presentation.ui.generated.resources.empty_string
 import kmmtemplateapp.shared.presentation.ui.generated.resources.pokemon_added_to_team
 import kmmtemplateapp.shared.presentation.ui.generated.resources.retry_btn
 import kotlinx.coroutines.launch
@@ -243,22 +247,23 @@ fun PokemonCard(
         verticalArrangement = Arrangement.Center
     ) {
         when (pokemonDetailsUiState) {
-            is PokemonDetailsUiState.Loading -> {
-                FullScreenLoader()
-            }
+            is PokemonDetailsUiState.Loading -> FullScreenLoader()
 
             is PokemonDetailsUiState.Error -> {
-                AppErrorDialog(appError = pokemonDetailsUiState.error)
+                AppErrorDialog(pokemonDetailsUiState.error)
                 Button(
                     contentPadding = PaddingValues(16.dp),
                     onClick = { onRetry() }
                 ) {
-                    Text(text = stringResource(Res.string.retry_btn))
+                    Text(stringResource(Res.string.retry_btn))
                 }
             }
 
             is PokemonDetailsUiState.Success -> {
-                PokemonInfo(pokemon = pokemon, details = pokemonDetailsUiState.details)
+                PokemonInfo(
+                    pokemon = pokemon,
+                    details = pokemonDetailsUiState.details
+                )
             }
         }
     }
@@ -320,9 +325,10 @@ fun SharedTransitionScope.PokemonImageAnimation(
 
 @Composable
 fun AppErrorDialog(appError: AppError) {
-//    LocalContext.current.SimpleActionAlertDialog(
-//        show = true,
-//        title = appError.data?.code,
-//        description = appError.data?.detail,
-//    )
+    SimpleActionAlertDialog(
+        show = true,
+        title = appError.data?.code ?: stringResource(Res.string.app_error_title),
+        description = appError.data?.detail ?: stringResource(Res.string.empty_string),
+        confirmText = stringResource(Res.string.common_accept)
+    )
 }
