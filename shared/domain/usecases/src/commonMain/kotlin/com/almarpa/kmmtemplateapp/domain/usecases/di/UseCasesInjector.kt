@@ -3,10 +3,10 @@ package com.almarpa.kmmtemplateapp.domain.usecases.di
 import com.almarpa.kmmtemplateapp.core.common.di.KoinModules
 import com.almarpa.kmmtemplateapp.domain.usecases.features.AddPokemonToTeamUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.CreateTeamMemberUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.FetchPokemonUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.FetchTeamMembersUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.FetchUserDataUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonDetailsUseCase
-import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonUseCase
-import com.almarpa.kmmtemplateapp.domain.usecases.features.GetTeamUseCase
-import com.almarpa.kmmtemplateapp.domain.usecases.features.GetUserDataUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SearchPokemonUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SetAppLocaleUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SetAppThemeUseCase
@@ -18,14 +18,14 @@ object UseCasesInjector : KoinModules {
     override val modules: List<Module>
         get() = listOf(
             module {
-                factoryOf(::GetUserDataUseCase)
+                factoryOf(::FetchUserDataUseCase)
                 factoryOf(::SetAppThemeUseCase)
                 factoryOf(::SetAppLocaleUseCase)
-                factoryOf(::GetPokemonUseCase)
+                factoryOf(::FetchPokemonUseCase)
                 factoryOf(::SearchPokemonUseCase)
                 factoryOf(::GetPokemonDetailsUseCase)
                 factoryOf(::AddPokemonToTeamUseCase)
-                factoryOf(::GetTeamUseCase)
+                factoryOf(::FetchTeamMembersUseCase)
                 factoryOf(::CreateTeamMemberUseCase)
             }
         )

@@ -6,7 +6,7 @@ import com.almarpa.kmmtemplateapp.core.common.model.enums.LocaleEnum
 import com.almarpa.kmmtemplateapp.core.ui.utils.setAppLanguage
 import com.almarpa.kmmtemplateapp.core.ui.viewmodels.KmmViewModel
 import com.almarpa.kmmtemplateapp.domain.models.UserData
-import com.almarpa.kmmtemplateapp.domain.usecases.features.GetUserDataUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.FetchUserDataUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SetAppLocaleUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SetAppThemeUseCase
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
@@ -22,17 +22,17 @@ sealed interface SettingsUiState {
     data object Loading : SettingsUiState
     data class Success(
         val userData: UserData,
-        val locales: Map<String, StringResource>
+        val locales: Map<String, StringResource>,
     ) : SettingsUiState
 }
 
 class SettingsViewModel(
-    getUserDataUseCase: GetUserDataUseCase,
+    fetchUserDataUseCase: FetchUserDataUseCase,
     private val setAppLocaleUseCase: SetAppLocaleUseCase,
     private val setAppThemeUseCase: SetAppThemeUseCase,
 ) : KmmViewModel() {
 
-    val uiState = getUserDataUseCase()
+    val uiState = fetchUserDataUseCase()
         .map { userData ->
             SettingsUiState.Success(
                 userData = userData,

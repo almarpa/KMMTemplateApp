@@ -1,7 +1,5 @@
 package com.almarpa.kmmtemplateapp.data.repository.features
 
-import com.almarpa.kmmtemplateapp.core.common.model.entities.onError
-import com.almarpa.kmmtemplateapp.core.common.model.entities.onSuccess
 import com.almarpa.kmmtemplateapp.data.datasources.local.features.PokemonLocalDataSource
 import com.almarpa.kmmtemplateapp.data.datasources.remote.features.PokemonRemoteDataSource
 import com.almarpa.kmmtemplateapp.data.repository.mappers.toDomain
@@ -22,23 +20,18 @@ class PokemonRepositoryImpl(
 ) : PokemonRepository {
 
     override fun fetchPokemonList(): Flow<List<Pokemon>> = flow {
-        pokemonLocalDataSource.fetchPokemons().collect { localPokemonList ->
-            if (localPokemonList.isNotEmpty()) {
-                emit(localPokemonList.map { pokemonEntity -> pokemonEntity.toDomain() })
-            } else {
-                pokemonRemoteDataSource.fetchPokemons()
-                    .onSuccess { pokemonResult ->
-                        pokemonResult.results.map { remotePokemon ->
-                            remotePokemon.toDomain()
-                        }.also { pokemonList ->
-                            pokemonLocalDataSource.savePokemons(pokemonList.map { it.toEntity() })
-                        }
-                    }.onError { e ->
-                        // TODO: pass Result in flow
-                        throw (e)
+        pokemonLocalDataSource.fetchPokemons()
+            .collect { localPokemonList ->
+                if (localPokemonList.isNotEmpty()) {
+                    emit(localPokemonList.map { pokemonEntity -> pokemonEntity.toDomain() })
+                } else {
+                    pokemonRemoteDataSource.fetchPokemons().results.map { remotePokemon ->
+                        remotePokemon.toDomain()
+                    }.also { pokemonList ->
+                        pokemonLocalDataSource.savePokemons(pokemonList.map { it.toEntity() })
                     }
+                }
             }
-        }
     }.flowOn(Dispatchers.IO)
 
     override fun getTeamMembers(): Flow<List<Pokemon>> =

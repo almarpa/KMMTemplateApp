@@ -6,6 +6,6 @@ import com.almarpa.kmmtemplateapp.data.datasources.models.response.PokemonDetail
 import com.almarpa.kmmtemplateapp.data.datasources.models.response.PokemonResultResponse
 
 interface PokemonRemoteDataSource {
-    suspend fun fetchPokemons(): Result<PokemonResultResponse, AppError>
+    suspend fun fetchPokemons(): PokemonResultResponse
     suspend fun getPokemonDetails(pokemonID: Int): Result<PokemonDetailsResponse, AppError>
 }

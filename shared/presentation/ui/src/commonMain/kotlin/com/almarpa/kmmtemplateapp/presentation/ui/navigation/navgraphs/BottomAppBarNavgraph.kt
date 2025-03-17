@@ -38,7 +38,7 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
             currentRoute = Routes.PokemonList,
             searchUiState = searchUiState,
             pokemonListUiState = pokemonListUiState,
-            onReload = { /*TODO: paginatedPokemonList.refresh()*/ },
+            onReload = { pokemonListViewModel.fetchPokemonList() },
             onSearch = { text -> pokemonListViewModel.onPokemonSearch(text) },
             onDismissSearch = { pokemonListViewModel.removeCurrentSearch() },
             onPokemonItemClick = { navigationActions.navigateToDetailNavGraph(it) },
@@ -61,7 +61,7 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
             currentRoute = Routes.Team,
             navigationActions = navigationActions,
             uiState = teamUiState,
-            onRetry = { teamViewModel.getTeamList() },
+            onRetry = { teamViewModel.fetchTeamList() },
             onSave = { pokemon -> teamViewModel.createPokemonMemberAndReloadTeam(pokemon) }
         )
     }

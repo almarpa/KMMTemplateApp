@@ -13,10 +13,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun GenericRetryView(
+fun ErrorPlaceholderView(
     modifier: Modifier = Modifier,
-    errorDescription: String = "Error",
-    actionBtnText: String = "Reintentar",
+    errorDescription: String,
+    actionText: String? = null,
     action: () -> Unit = {},
 ) {
     Column(
@@ -24,17 +24,19 @@ fun GenericRetryView(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            modifier = Modifier.padding(bottom = 16.dp),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.secondary,
             textAlign = TextAlign.Center,
             text = errorDescription,
         )
-        Button(
-            contentPadding = PaddingValues(16.dp),
-            onClick = { action() }
-        ) {
-            Text(text = actionBtnText)
+        actionText?.let { actionTextNotNull ->
+            Button(
+                modifier = Modifier.padding(top = 16.dp),
+                contentPadding = PaddingValues(16.dp),
+                onClick = { action() }
+            ) {
+                Text(text = actionTextNotNull)
+            }
         }
     }
 }

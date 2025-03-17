@@ -14,3 +14,5 @@ expect fun getDominantColorFromImage(image: Any, onFinish: (Int) -> Unit)
 
 @Composable
 expect fun BackHandler(onBackPressed: () -> Unit)
+
+expect fun getDeviceLocale(): String

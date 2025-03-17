@@ -15,15 +15,9 @@ class PokemonRemoteDataSourceImpl(private val api: PokemonApi) : PokemonRemoteDa
         private const val POKEMON_RESULTS_OFFSET = 0
     }
 
-    override suspend fun fetchPokemons(): Result<PokemonResultResponse, AppError> {
-        return safeCall<PokemonResultResponse> {
-            api.getPokemons(POKEMON_RESULTS_LIMIT, POKEMON_RESULTS_OFFSET)
-        }
-    }
+    override suspend fun fetchPokemons(): PokemonResultResponse =
+        api.getPokemons(POKEMON_RESULTS_LIMIT, POKEMON_RESULTS_OFFSET)
 
-    override suspend fun getPokemonDetails(pokemonID: Int): Result<PokemonDetailsResponse, AppError> {
-        return safeCall<PokemonDetailsResponse> {
-            api.getPokemon(pokemonID)
-        }
-    }
+    override suspend fun getPokemonDetails(pokemonID: Int): Result<PokemonDetailsResponse, AppError> =
+        safeCall<PokemonDetailsResponse> { api.getPokemon(pokemonID) }
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.almarpa.kmmtemplateapp.core.ui.viewmodels.KmmViewModel
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.domain.usecases.features.CreateTeamMemberUseCase
-import com.almarpa.kmmtemplateapp.domain.usecases.features.GetTeamUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.FetchTeamMembersUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -17,7 +17,7 @@ sealed interface TeamUiState {
 }
 
 class TeamViewModel(
-    private val getTeamUseCase: GetTeamUseCase,
+    private val fetchTeamMembersUseCase: FetchTeamMembersUseCase,
     private val createTeamMemberUseCase: CreateTeamMemberUseCase
 ) : KmmViewModel() {
 
@@ -25,12 +25,12 @@ class TeamViewModel(
     val uiState: StateFlow<TeamUiState> = _uiState
 
     init {
-        getTeamList()
+        fetchTeamList()
     }
 
-    fun getTeamList() {
+    fun fetchTeamList() {
         viewModelScope.launch {
-            getTeamUseCase()
+            fetchTeamMembersUseCase()
                 .catch {
                     _uiState.tryEmit(TeamUiState.Error)
                 }
@@ -43,7 +43,7 @@ class TeamViewModel(
     fun createPokemonMemberAndReloadTeam(pokemon: Pokemon) {
         viewModelScope.launch {
             createTeamMemberUseCase(pokemon)
-            getTeamList()
+            fetchTeamList()
         }
     }
 }

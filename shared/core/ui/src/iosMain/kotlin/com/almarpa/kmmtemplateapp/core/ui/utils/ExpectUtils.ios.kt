@@ -1,6 +1,9 @@
 package com.almarpa.kmmtemplateapp.core.ui.utils
 
 import androidx.compose.runtime.Composable
+import platform.Foundation.NSLocale
+import platform.Foundation.currentLocale
+import platform.Foundation.languageCode
 import platform.UIKit.UIApplication
 import platform.UIKit.UIGestureRecognizer
 import platform.UIKit.UIGestureRecognizerDelegateProtocol
@@ -26,3 +29,5 @@ fun setBackGestureListener(onBack: () -> Unit) {
 fun getViewController(): UIViewController? {
     return UIApplication.sharedApplication.keyWindow?.rootViewController
 }
+
+actual fun getDeviceLocale(): String = NSLocale.currentLocale.languageCode

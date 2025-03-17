@@ -3,12 +3,11 @@ package com.almarpa.kmmtemplateapp.presentation.ui.viewmodels
 import androidx.lifecycle.viewModelScope
 import com.almarpa.kmmtemplateapp.core.ui.viewmodels.KmmViewModel
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
-import com.almarpa.kmmtemplateapp.domain.usecases.features.GetPokemonUseCase
+import com.almarpa.kmmtemplateapp.domain.usecases.features.FetchPokemonUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SearchPokemonUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 sealed interface SearchUiState {
@@ -26,13 +25,9 @@ sealed interface PokemonListUiState {
 }
 
 class PokemonListViewModel(
-    private val pokemonUseCase: GetPokemonUseCase,
+    private val fetchPokemonUseCase: FetchPokemonUseCase,
     private val searchPokemonUseCase: SearchPokemonUseCase,
 ) : KmmViewModel() {
-
-    companion object {
-        const val PAGE_SIZE = 20
-    }
 
     private val _pokemonListUiState =
         MutableStateFlow<PokemonListUiState>(PokemonListUiState.Loading)
@@ -42,10 +37,18 @@ class PokemonListViewModel(
     val searchUiState: StateFlow<SearchUiState> = _searchUiState
 
     init {
+        fetchPokemonList()
+    }
+
+    fun fetchPokemonList() {
         viewModelScope.launch {
-            pokemonUseCase().collect { list ->
-                _pokemonListUiState.update { PokemonListUiState.Success(list) }
-            }
+            _pokemonListUiState.value = PokemonListUiState.Loading
+            fetchPokemonUseCase()
+                .catch {
+                    _pokemonListUiState.tryEmit(PokemonListUiState.Error)
+                }.collect { pokemonList ->
+                    _pokemonListUiState.tryEmit(PokemonListUiState.Success(pokemonList))
+                }
         }
     }
 

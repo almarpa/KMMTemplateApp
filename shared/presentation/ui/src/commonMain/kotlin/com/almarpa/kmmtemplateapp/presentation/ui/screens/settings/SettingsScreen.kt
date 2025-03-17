@@ -27,15 +27,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
+import com.almarpa.kmmtemplateapp.core.common.platform.getPlatform
 import com.almarpa.kmmtemplateapp.core.ui.composables.dropdown.CustomDropdown
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
+import com.almarpa.kmmtemplateapp.core.ui.utils.getDeviceLocale
 import com.almarpa.kmmtemplateapp.domain.models.UserData
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.dark_mode
 import kmmtemplateapp.shared.presentation.ui.generated.resources.dark_mode_description
+import kmmtemplateapp.shared.presentation.ui.generated.resources.empty_string
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language
-import kmmtemplateapp.shared.presentation.ui.generated.resources.language_english
 import kmmtemplateapp.shared.presentation.ui.generated.resources.settings_title
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -76,13 +78,20 @@ fun SettingsContent(
     onLanguageChange: (String) -> Unit,
     onThemeChange: (Boolean) -> Unit,
 ) {
+    val currentLocale: StringResource = locales.getOrElse(
+        key = userData.locale ?: getDeviceLocale(),
+        defaultValue = { Res.string.empty_string }
+    )
+
     Column(
         modifier = modifier.padding(top = 16.dp).wrapContentSize().fillMaxWidth(),
     ) {
-        CardItem {
+        CardItem(
+            isVisible = !getPlatform().platformData.isIOSDevice()
+        ) {
             LanguagesSection(
                 languages = locales,
-                currentLanguage = locales.getOrElse(userData.locale) { Res.string.language_english },
+                currentLanguage = stringResource(currentLocale),
                 onLanguageChange = { onLanguageChange(it) }
             )
         }
@@ -98,26 +107,29 @@ fun SettingsContent(
 
 @Composable
 private fun CardItem(
+    isVisible: Boolean = true,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
-    Card(
-        modifier = modifier.padding(8.dp),
-        shape = RoundedCornerShape(10.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-        ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-    ) {
-        content()
+    if (isVisible) {
+        Card(
+            modifier = modifier.padding(8.dp),
+            shape = RoundedCornerShape(10.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+            ),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        ) {
+            content()
+        }
     }
 }
 
 @Composable
 fun LanguagesSection(
     languages: Map<String, StringResource>,
-    currentLanguage: StringResource,
+    currentLanguage: String,
     onLanguageChange: (String) -> Unit,
 ) {
     Row(
@@ -134,8 +146,9 @@ fun LanguagesSection(
         Row(
             modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.End
         ) {
-            CustomDropdown(items = languages.mapValues { item -> stringResource(item.value) },
-                selected = stringResource(currentLanguage),
+            CustomDropdown(
+                items = languages.mapValues { item -> stringResource(item.value) },
+                selected = currentLanguage,
                 onClickItem = { selection -> onLanguageChange(selection) })
         }
     }

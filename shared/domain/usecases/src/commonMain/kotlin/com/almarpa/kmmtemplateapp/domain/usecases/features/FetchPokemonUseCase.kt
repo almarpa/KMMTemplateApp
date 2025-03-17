@@ -4,6 +4,6 @@ import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetPokemonUseCase(private val repository: PokemonRepository) {
+class FetchPokemonUseCase(private val repository: PokemonRepository) {
     operator fun invoke(): Flow<List<Pokemon>> = this.repository.fetchPokemonList()
 }

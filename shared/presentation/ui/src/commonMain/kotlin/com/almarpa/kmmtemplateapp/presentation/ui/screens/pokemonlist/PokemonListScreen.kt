@@ -23,7 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.almarpa.kmmtemplateapp.core.ui.composables.error.GenericRetryView
+import com.almarpa.kmmtemplateapp.core.ui.composables.error.ErrorPlaceholderView
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
@@ -33,7 +33,11 @@ import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.list.Pokem
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.search.PokemonSearchTopAppBar
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonListUiState
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
+import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
+import kmmtemplateapp.shared.presentation.ui.generated.resources.error_getting_pokemon_list
+import kmmtemplateapp.shared.presentation.ui.generated.resources.retry_btn
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -123,7 +127,10 @@ fun SharedTransitionScope.PokemonListContent(
             }
 
             is PokemonListUiState.Error -> {
-                GenericRetryView { onReload() }
+                ErrorPlaceholderView(
+                    errorDescription = stringResource(Res.string.error_getting_pokemon_list),
+                    actionText = stringResource(Res.string.retry_btn)
+                ) { onReload() }
             }
 
             is PokemonListUiState.Success -> {

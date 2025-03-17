@@ -7,4 +7,6 @@ data class PlatformData(
     val version: String
 ) {
     override fun toString(): String = "${platformType.name} $version"
+
+    fun isIOSDevice() = platformType == PlatformType.IOS
 }

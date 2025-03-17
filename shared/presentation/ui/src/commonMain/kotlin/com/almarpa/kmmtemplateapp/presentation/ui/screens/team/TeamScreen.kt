@@ -19,7 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.almarpa.kmmtemplateapp.core.ui.composables.error.GenericRetryView
+import com.almarpa.kmmtemplateapp.core.ui.composables.error.ErrorPlaceholderView
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.AnimatedTopAppBar
 import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
@@ -29,6 +29,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navigationbar.AnimatedBottomAppBar
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
+import kmmtemplateapp.shared.presentation.ui.generated.resources.empty_string
 import kmmtemplateapp.shared.presentation.ui.generated.resources.team_title
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -110,7 +111,9 @@ fun TeamContent(
             }
 
             is TeamUiState.Error -> {
-                GenericRetryView { onRetry() }
+                ErrorPlaceholderView(errorDescription = stringResource(Res.string.empty_string)) {
+                    onRetry()
+                }
             }
 
             is TeamUiState.Success -> {
