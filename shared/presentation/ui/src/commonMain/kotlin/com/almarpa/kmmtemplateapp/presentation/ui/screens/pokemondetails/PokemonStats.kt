@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -71,7 +72,7 @@ fun PokemonStat(stat: Stat) {
                 .fillMaxWidth()
                 .height(30.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primaryContainer),
+                .background(MaterialTheme.colorScheme.onSurface),
         ) {
             Row(
                 modifier = Modifier
@@ -85,7 +86,7 @@ fun PokemonStat(stat: Stat) {
             ) {
                 Text(
                     text = (animatedStatValue * 100).toInt().toString(),
-                    color = MaterialTheme.colorScheme.primary,
+                    color = Color.White,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 10.sp
                 )

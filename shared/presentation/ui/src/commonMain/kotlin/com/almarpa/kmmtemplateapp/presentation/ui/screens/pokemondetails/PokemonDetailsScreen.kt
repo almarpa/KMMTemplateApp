@@ -3,7 +3,6 @@ package com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +22,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PersonRemove
 import androidx.compose.material.icons.outlined.PersonAdd
@@ -143,18 +143,10 @@ private fun SharedTransitionScope.PokemonDetailsContent(
     onFetchDetails: () -> Unit,
     onAddTeamMember: (Pokemon, Boolean) -> Unit,
 ) {
-    val scrollState = rememberScrollState()
-    val topPaddingCard = 100
-
-    // Minimize image when user scrolls and landscape is active
-    val animatedImageSize by animateDpAsState(
-        targetValue = if (scrollState.value > 60) (topPaddingCard / 4).dp else topPaddingCard.dp,
-        label = "animatedImageSize"
-    )
-
     Box(
         modifier = Modifier
-            .wrapContentHeight()
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(
                 if (LocalThemeIsDark.current) {
                     getDarkGradientByColor(Color(pokemon.color))
@@ -166,23 +158,28 @@ private fun SharedTransitionScope.PokemonDetailsContent(
             .systemBarsPadding(),
     ) {
         PokemonCard(
-            modifier = Modifier.padding(top = topPaddingCard.dp),
+            modifier = Modifier
+                .padding(
+                    top = 100.dp,
+                    start = 16.dp,
+                    end = 16.dp,
+                    bottom = 16.dp
+                ).fillMaxSize(),
             pokemon = pokemon,
             pokemonDetailsUiState = pokemonDetailsUiState,
             onRetry = { onFetchDetails() }
         )
+
         PokemonImageAnimation(
             animatedVisibilityScope = animatedVisibilityScope,
             pokemon = pokemon,
-            pokemonImageSize = animatedImageSize.times(2)
+            pokemonImageSize = 200.dp
         )
+
         AddMemberButton(
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .padding(
-                    top = topPaddingCard.dp - 16.dp,
-                    start = 32.dp,
-                ),
+                .padding(top = 84.dp, start = 32.dp),
             isMemberYet = pokemon.isTeamMember
         ) { isAdded ->
             onAddTeamMember(pokemon, isAdded)
@@ -234,13 +231,7 @@ fun PokemonCard(
 ) {
     Column(
         modifier = modifier
-            .fillMaxWidth()
-            .fillMaxSize()
-            .padding(
-                start = 16.dp,
-                end = 16.dp,
-                bottom = 16.dp
-            )
+            .heightIn(min = 500.dp)
             .shadow(10.dp, RoundedCornerShape(10.dp))
             .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 16.dp),
@@ -265,7 +256,7 @@ fun PokemonCard(
 }
 
 @Composable
-private fun AppErrorContent(
+fun AppErrorContent(
     pokemonDetailsUiState: PokemonDetailsUiState.Error,
     onRetry: () -> Unit
 ) {

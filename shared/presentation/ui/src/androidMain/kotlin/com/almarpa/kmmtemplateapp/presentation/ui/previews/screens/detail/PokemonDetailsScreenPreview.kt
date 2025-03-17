@@ -16,9 +16,24 @@ import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails.PokemonImageAnimation
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonDetailsUiState
 
-
-@PreviewLightDark
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
+@PreviewScreenSizes
+fun PokemonDetailsScreenPreview() {
+    AppThemePreview {
+        PokemonDetailsScreen(
+            animatedVisibilityScope = it,
+            pokemon = getPokemonMock(),
+            pokemonDetailsUiState = PokemonDetailsUiState.Success(getPokemonDetailsMock()),
+            onFetchDetails = {},
+            onAddTeamMember = { _, _ -> },
+            onBackPressed = {},
+        )
+    }
+}
+
+@Composable
+@PreviewLightDark
 fun AddMemberButtonPreview() {
     AppTheme {
         AddMemberButton()
@@ -27,7 +42,7 @@ fun AddMemberButtonPreview() {
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-@Preview("Pokemon Image Animation")
+@PreviewLightDark
 fun PokemonImageAnimationPreview() {
     AppThemePreview {
         PokemonImageAnimation(
@@ -51,23 +66,7 @@ fun PokemonCardPreview() {
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-@PreviewScreenSizes
-fun PokemonDetailsScreenPreview() {
-    AppThemePreview {
-        PokemonDetailsScreen(
-            animatedVisibilityScope = it,
-            pokemon = getPokemonMock(),
-            pokemonDetailsUiState = PokemonDetailsUiState.Success(getPokemonDetailsMock()),
-            onFetchDetails = {},
-            onAddTeamMember = { _, _ -> },
-            onBackPressed = {},
-        )
-    }
-}
-
-@OptIn(ExperimentalSharedTransitionApi::class)
-@Composable
-@PreviewScreenSizes
+@PreviewLightDark
 fun PokemonDetailsErrorScreenPreview() {
     AppThemePreview {
         PokemonDetailsScreen(

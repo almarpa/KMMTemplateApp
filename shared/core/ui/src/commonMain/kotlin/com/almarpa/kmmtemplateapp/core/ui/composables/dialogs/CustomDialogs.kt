@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,13 +35,14 @@ fun SimpleActionAlertDialog(
             title = {
                 Text(
                     text = title,
+                    fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.primary
                 )
             },
             text = {
                 Text(
                     text = description,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
             },
             confirmButton = {
@@ -91,16 +91,17 @@ fun CustomDialog(
                     Text(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.SemiBold,
                         fontSize = 24.sp,
-                        text = title
+                        text = title,
+                        color = MaterialTheme.colorScheme.primary
                     )
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 30.dp),
                         fontSize = 16.sp,
-                        text = description
+                        text = description,
                     )
                     Row(
                         modifier = Modifier
