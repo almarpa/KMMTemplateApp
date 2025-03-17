@@ -40,7 +40,7 @@ compottie = "2.0.0-rc02"
 multiplatformSettings = "1.1.1"
 napier = "2.6.1"
 junit = "4.13.2"
-palette = "1.0.0"
+kmpalette = "3.1.0"
 
 [libraries]
 
@@ -134,9 +134,8 @@ compose-material-icons = { module = "androidx.compose.material:material-icons-ex
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-
-# Android
-palette = { group = "androidx.palette", name = "palette-ktx", version.ref = "palette" }
+kmpalette-core = { module = "com.kmpalette:kmpalette-core", version.ref = "kmpalette" }
+kmpalette-extensions-network = { module = "com.kmpalette:extensions-network", version.ref = "kmpalette" }
 
 [plugins]
 
@@ -205,6 +204,8 @@ core-ui = [
     "compottie-dot",
     "compottie-network",
     "compottie-resources",
+    "kmpalette-core",
+    "kmpalette-extensions-network",
     "napier",
 ]
 

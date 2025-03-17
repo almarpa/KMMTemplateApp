@@ -8,11 +8,10 @@ expect fun isTablet(): Boolean
 @Composable
 expect fun isLandscapeOrientation(): Boolean
 
-expect fun setAppLanguage(locale: String)
-
-expect fun getDominantColorFromImage(image: Any, onFinish: (Int) -> Unit)
-
 @Composable
 expect fun BackHandler(onBackPressed: () -> Unit)
 
+expect fun setAppLanguage(locale: String)
+
 expect fun getDeviceLocale(): String
+

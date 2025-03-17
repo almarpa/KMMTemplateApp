@@ -39,7 +39,6 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.bundles.android.ui)
-            implementation(libs.palette)
         }
 
         iosMain.dependencies {}

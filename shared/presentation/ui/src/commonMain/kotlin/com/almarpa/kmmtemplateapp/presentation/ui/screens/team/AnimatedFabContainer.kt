@@ -58,9 +58,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
-import com.almarpa.kmmtemplateapp.core.ui.utils.getDominantColorFromImage
 import com.almarpa.kmmtemplateapp.core.ui.utils.isTablet
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
+import com.kmpalette.loader.rememberNetworkLoader
+import com.kmpalette.rememberDominantColorState
+import io.ktor.http.Url
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.add_photo
 import kmmtemplateapp.shared.presentation.ui.generated.resources.common_save
@@ -69,6 +71,8 @@ import kmmtemplateapp.shared.presentation.ui.generated.resources.menu_drawer_btn
 import kmmtemplateapp.shared.presentation.ui.generated.resources.pokeball_filled
 import kmmtemplateapp.shared.presentation.ui.generated.resources.pokemon_name
 import kmmtemplateapp.shared.presentation.ui.generated.resources.pokemon_photo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -229,14 +233,27 @@ fun PokemonImageCard(
     onError: () -> Unit,
     onSuccess: (Color) -> Unit,
 ) {
-    val defaultCardColor: Color = MaterialTheme.colorScheme.primary
-    var cardDominantColor: Color by remember { mutableStateOf(defaultCardColor) }
+    val defaultDominantColor = MaterialTheme.colorScheme.primary
+    val networkLoader = rememberNetworkLoader()
+    val dominantColorState = rememberDominantColorState(
+        loader = networkLoader,
+        defaultColor = defaultDominantColor,
+        coroutineContext = Dispatchers.IO,
+    )
+
+    LaunchedEffect(pokemonImageURL) {
+        dominantColorState.updateFrom(Url(pokemonImageURL))
+    }
+
+    LaunchedEffect(dominantColorState.color) {
+        onSuccess(dominantColorState.color)
+    }
 
     Card(
         modifier = Modifier
             .padding(20.dp),
         shape = AbsoluteCutCornerShape(32.dp),
-        colors = CardDefaults.cardColors(containerColor = cardDominantColor)
+        colors = CardDefaults.cardColors(containerColor = dominantColorState.color)
     ) {
         SubcomposeAsyncImage(
             modifier = Modifier
@@ -255,12 +272,6 @@ fun PokemonImageCard(
             onError = {
                 onError()
             },
-            onSuccess = { success ->
-                getDominantColorFromImage(success.result.image) { intColor ->
-                    cardDominantColor = Color(intColor)
-                    onSuccess(Color(intColor))
-                }
-            }
         )
     }
 
