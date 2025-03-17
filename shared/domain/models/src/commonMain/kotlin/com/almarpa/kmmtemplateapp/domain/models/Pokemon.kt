@@ -24,6 +24,4 @@ data class Pokemon(
         color = color,
         isTeamMember = true,
     )
-
-    fun hasNoColor() = color == 0
 }
