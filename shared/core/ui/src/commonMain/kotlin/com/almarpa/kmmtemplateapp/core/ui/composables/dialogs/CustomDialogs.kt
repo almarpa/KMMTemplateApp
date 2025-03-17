@@ -13,10 +13,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -31,11 +27,10 @@ fun SimpleActionAlertDialog(
     title: String,
     description: String = "",
     confirmText: String,
-    onConfirm: () -> Unit = {},
+    onAccept: () -> Unit = {},
     onDismissRequest: () -> Unit = {},
 ) {
-    var isActive by rememberSaveable { mutableStateOf(show) }
-    if (isActive) {
+    if (show) {
         AlertDialog(
             onDismissRequest = { onDismissRequest() },
             title = {
@@ -53,8 +48,7 @@ fun SimpleActionAlertDialog(
             confirmButton = {
                 TextButton(
                     onClick = {
-                        isActive = false
-                        onConfirm()
+                        onAccept()
                     }
                 ) {
                     Text(text = confirmText)
@@ -62,8 +56,7 @@ fun SimpleActionAlertDialog(
             },
             properties = DialogProperties(
                 dismissOnBackPress = false,
-                dismissOnClickOutside = false,
-                usePlatformDefaultWidth = false
+                dismissOnClickOutside = false
             ),
         )
     }

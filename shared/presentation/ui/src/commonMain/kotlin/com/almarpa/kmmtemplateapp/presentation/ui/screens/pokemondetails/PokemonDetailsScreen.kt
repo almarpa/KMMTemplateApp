@@ -34,6 +34,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -100,7 +101,7 @@ fun SharedTransitionScope.PokemonDetailsScreen(
 
     ObserveAsEvents(
         flow = SnackbarController.snackbarEvents,
-        key1 = snackbarHostState,
+        //key1 = snackbarHostState,
     ) { snackbarEvent ->
         coroutineScope.showSnackbar(
             snackbarHostState = snackbarHostState,
@@ -250,13 +251,7 @@ fun PokemonCard(
             is PokemonDetailsUiState.Loading -> FullScreenLoader()
 
             is PokemonDetailsUiState.Error -> {
-                AppErrorDialog(pokemonDetailsUiState.error)
-                Button(
-                    contentPadding = PaddingValues(16.dp),
-                    onClick = { onRetry() }
-                ) {
-                    Text(stringResource(Res.string.retry_btn))
-                }
+                AppErrorContent(pokemonDetailsUiState, onRetry)
             }
 
             is PokemonDetailsUiState.Success -> {
@@ -266,6 +261,28 @@ fun PokemonCard(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun AppErrorContent(
+    pokemonDetailsUiState: PokemonDetailsUiState.Error,
+    onRetry: () -> Unit
+) {
+    var isErrorVisible by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(pokemonDetailsUiState.error) { isErrorVisible = true }
+
+    AppErrorDialog(
+        isVisible = isErrorVisible,
+        appError = pokemonDetailsUiState.error,
+        onAccept = { isErrorVisible = false }
+    )
+    Button(
+        contentPadding = PaddingValues(16.dp),
+        onClick = { onRetry() }
+    ) {
+        Text(stringResource(Res.string.retry_btn))
     }
 }
 
@@ -324,11 +341,12 @@ fun SharedTransitionScope.PokemonImageAnimation(
 }
 
 @Composable
-fun AppErrorDialog(appError: AppError) {
+fun AppErrorDialog(isVisible: Boolean, appError: AppError, onAccept: () -> Unit) {
     SimpleActionAlertDialog(
-        show = true,
+        show = isVisible,
         title = appError.data?.code ?: stringResource(Res.string.app_error_title),
         description = appError.data?.detail ?: stringResource(Res.string.empty_string),
-        confirmText = stringResource(Res.string.common_accept)
+        confirmText = stringResource(Res.string.common_accept),
+        onAccept = { onAccept() }
     )
 }
