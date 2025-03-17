@@ -17,7 +17,7 @@ sealed interface Routes {
 
     @Serializable
     data object Team : Routes
-
+    
     @Serializable
     data object Settings : Routes
 }

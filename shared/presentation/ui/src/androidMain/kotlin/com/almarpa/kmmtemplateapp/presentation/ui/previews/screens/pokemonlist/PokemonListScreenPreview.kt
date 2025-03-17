@@ -25,12 +25,13 @@ fun PokemonListScreenPreview() {
             animatedVisibilityScope = it,
             drawerState = DrawerState(DrawerValue.Closed),
             currentRoute = Routes.PokemonList,
-            navigationActions = NavigationActions(rememberNavController()),
             searchUiState = SearchUiState.Success(getPokemonListMock()),
             pokemonListUiState = PokemonListUiState.Success(getPokemonListMock()),
             onReload = {},
             onDismissSearch = {},
             onSearch = {},
+            onBottomBarItemClick = {},
+            onPokemonItemClick = {},
         )
     }
 }
@@ -45,12 +46,13 @@ fun PokemonListScreenWithSearchActivePreview() {
             animatedVisibilityScope = it,
             drawerState = DrawerState(DrawerValue.Closed),
             currentRoute = Routes.PokemonList,
-            navigationActions = NavigationActions(rememberNavController()),
             searchUiState = SearchUiState.Error,
             pokemonListUiState = PokemonListUiState.Success(getPokemonListMock()),
             onReload = {},
             onDismissSearch = {},
             onSearch = {},
+            onBottomBarItemClick = {},
+            onPokemonItemClick = {},
         )
     }
 }

@@ -21,9 +21,7 @@ fun TemplateNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     startDestination: Routes,
-    drawerState: DrawerState,
-    currentRoute: Routes,
-    navigationActions: NavigationActions,
+    drawerState: DrawerState, navigationActions: NavigationActions,
 ) {
     SharedTransitionLayout {
         NavHost(
@@ -35,7 +33,6 @@ fun TemplateNavHost(
             bottomAppBarNavGraph(
                 sharedTransitionScope = this@SharedTransitionLayout,
                 drawerState = drawerState,
-                currentRoute = currentRoute,
                 navigationActions = navigationActions
             )
             drawerNavGraph(navigationActions)

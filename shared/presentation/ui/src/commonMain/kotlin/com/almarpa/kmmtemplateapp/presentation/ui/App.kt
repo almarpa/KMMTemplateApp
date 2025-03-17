@@ -18,7 +18,6 @@ fun App() {
     val navigationActions = remember(navController) { NavigationActions(navController) }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
-    val currentRoute = Routes.Splash
 
     ModalNavigationDrawer(
         drawerContent = {
@@ -34,7 +33,6 @@ fun App() {
             navController = navController,
             drawerState = drawerState,
             startDestination = Routes.Splash,
-            currentRoute = currentRoute,
             navigationActions = navigationActions,
         )
     }

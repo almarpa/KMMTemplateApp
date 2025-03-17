@@ -31,7 +31,7 @@ fun AnimatedBottomAppBar(
                 Icon(
                     Icons.AutoMirrored.Outlined.ManageSearch,
                     contentDescription = "Pokedex",
-                    tint = MaterialTheme.colorScheme.tertiary,
+                    tint = MaterialTheme.colorScheme.secondary,
                 )
             },
             label = stringResource(Res.string.team_title),
@@ -46,7 +46,7 @@ fun AnimatedBottomAppBar(
                     } else {
                         Icons.Outlined.PeopleOutline
                     },
-                    tint = MaterialTheme.colorScheme.tertiary,
+                    tint = MaterialTheme.colorScheme.secondary,
                     contentDescription = "Team",
                 )
             },

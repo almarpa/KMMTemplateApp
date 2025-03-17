@@ -25,7 +25,6 @@ import org.koin.compose.viewmodel.koinViewModel
 fun NavGraphBuilder.bottomAppBarNavGraph(
     sharedTransitionScope: SharedTransitionScope,
     drawerState: DrawerState,
-    currentRoute: Routes,
     navigationActions: NavigationActions,
 ) {
     composable<Routes.PokemonList> {
@@ -36,13 +35,21 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
         sharedTransitionScope.PokemonListScreen(
             animatedVisibilityScope = this,
             drawerState = drawerState,
-            currentRoute = currentRoute,
-            navigationActions = navigationActions,
+            currentRoute = Routes.PokemonList,
             searchUiState = searchUiState,
             pokemonListUiState = pokemonListUiState,
             onReload = { /*TODO: paginatedPokemonList.refresh()*/ },
             onSearch = { text -> pokemonListViewModel.onPokemonSearch(text) },
             onDismissSearch = { pokemonListViewModel.removeCurrentSearch() },
+            onPokemonItemClick = { navigationActions.navigateToDetailNavGraph(it) },
+            onBottomBarItemClick = { newRoute ->
+                when (newRoute) {
+                    Routes.PokemonList -> navigationActions.navigateToPokemonList()
+                    Routes.Team -> navigationActions.navigateToTeamList()
+                    else -> { /* Do nothing */
+                    }
+                }
+            },
         )
     }
     composable<Routes.Team> {
@@ -51,7 +58,7 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
 
         TeamScreen(
             drawerState = drawerState,
-            currentRoute = currentRoute,
+            currentRoute = Routes.Team,
             navigationActions = navigationActions,
             uiState = teamUiState,
             onRetry = { teamViewModel.getTeamList() },

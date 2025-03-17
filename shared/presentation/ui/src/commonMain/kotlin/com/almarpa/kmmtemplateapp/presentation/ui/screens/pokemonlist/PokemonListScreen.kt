@@ -27,7 +27,6 @@ import com.almarpa.kmmtemplateapp.core.ui.composables.error.GenericRetryView
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navigationbar.AnimatedBottomAppBar
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.list.PokemonList
@@ -42,12 +41,13 @@ fun SharedTransitionScope.PokemonListScreen(
     animatedVisibilityScope: AnimatedVisibilityScope,
     drawerState: DrawerState,
     currentRoute: Routes,
-    navigationActions: NavigationActions,
     searchUiState: SearchUiState,
     pokemonListUiState: PokemonListUiState,
     onReload: () -> Unit,
     onSearch: (text: String) -> Unit,
     onDismissSearch: () -> Unit,
+    onPokemonItemClick: (pokemon: Pokemon) -> Unit,
+    onBottomBarItemClick: (route: Routes) -> Unit,
 ) {
     var isSearchActive by rememberSaveable { mutableStateOf(false) }
     var isBottomAppBarVisible by rememberSaveable { mutableStateOf(true) }
@@ -74,7 +74,7 @@ fun SharedTransitionScope.PokemonListScreen(
                 },
                 onDismissSearch = { onDismissSearch() },
                 onSearch = { onSearch(it) },
-                onSelected = { navigationActions.navigateToDetailNavGraph(it) }
+                onSelected = { pokemon -> onPokemonItemClick(pokemon) }
             )
         },
         content = { paddingValues ->
@@ -83,9 +83,9 @@ fun SharedTransitionScope.PokemonListScreen(
                 animatedVisibilityScope = animatedVisibilityScope,
                 pokemonListUiState = pokemonListUiState,
                 onReload = { onReload() },
-                onNavigateToPokemonDetail = {
+                onNavigateToPokemonDetail = { pokemon ->
                     isBottomAppBarVisible = false
-                    navigationActions.navigateToDetailNavGraph(it)
+                    onPokemonItemClick(pokemon)
                 }
             )
         },
@@ -94,13 +94,9 @@ fun SharedTransitionScope.PokemonListScreen(
                 modifier = Modifier.renderInSharedTransitionScopeOverlay(zIndexInOverlay = 1f),
                 isVisible = isBottomAppBarVisible,
                 currentRoute = currentRoute,
-            ) { onRouteSelected ->
+            ) { newRoute ->
                 coroutineScope.launch { drawerState.close() }
-                if (onRouteSelected == Routes.PokemonList) {
-                    navigationActions.navigateToPokemonList()
-                } else {
-                    navigationActions.navigateToTeamList()
-                }
+                onBottomBarItemClick(newRoute)
             }
         },
     )

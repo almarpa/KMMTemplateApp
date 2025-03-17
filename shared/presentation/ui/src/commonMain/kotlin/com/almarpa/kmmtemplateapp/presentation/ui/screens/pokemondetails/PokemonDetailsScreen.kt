@@ -231,7 +231,7 @@ fun PokemonCard(
 ) {
     Column(
         modifier = modifier
-            .heightIn(min = 500.dp)
+            .heightIn(min = 600.dp)
             .shadow(10.dp, RoundedCornerShape(10.dp))
             .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 16.dp),
