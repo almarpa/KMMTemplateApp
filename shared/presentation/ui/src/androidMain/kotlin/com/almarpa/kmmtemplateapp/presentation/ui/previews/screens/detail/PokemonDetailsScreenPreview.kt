@@ -2,7 +2,6 @@ package com.almarpa.kmmtemplateapp.presentation.ui.previews.screens.detail
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
