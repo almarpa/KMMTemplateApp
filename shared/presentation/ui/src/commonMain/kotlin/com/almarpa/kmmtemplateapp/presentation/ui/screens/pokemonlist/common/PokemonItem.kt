@@ -97,11 +97,9 @@ fun SharedTransitionScope.PokemonItem(
             )
 
             Text(
-                text = if (dominantColorState.result?.paletteOrNull != null) {
-                    pokemon.name.uppercase()
-                } else {
-                    ""
-                },
+                text = pokemon.name.uppercase().takeIf {
+                    dominantColorState.result?.paletteOrNull != null
+                }.orEmpty(),
                 textAlign = TextAlign.Center,
                 color = Color.White,
                 fontWeight = FontWeight.SemiBold,

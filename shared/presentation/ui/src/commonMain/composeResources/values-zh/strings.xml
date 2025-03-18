@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="app_name">KMMTemplateApp</string>
+    <string name="toolbar_title">KMMTemplateApp</string>
+    <string name="pokedex_title">图鉴</string>
+    <string name="pokemon_list_title">列表</string>
+    <string name="team_title">队伍</string>
+    <string name="settings_title">设置</string>
+    <string name="pokemon_detail_title">详情</string>
+    <string name="search_title">搜索</string>
+    <string name="menu_drawer_btn">侧边菜单</string>
+    <string name="retry_btn">重试</string>
+    <string name="error_getting_pokemon_list">无法获取数据</string>
+    <string name="stat_hp">生命值</string>
+    <string name="stat_attack">攻击</string>
+    <string name="stat_defense">防御</string>
+    <string name="stat_speed">速度</string>
+    <string name="stat_special_attack">特攻</string>
+    <string name="stat_special_defense">特防</string>
+    <string name="empty_string">""</string>
+    <string name="dark_mode">深色模式</string>
+    <string name="dark_mode_description">选择深色或浅色模式，定制应用程序的外观。</string>
+    <string name="common_accept">接受</string>
+    <string name="common_cancel">取消</string>
+    <string name="about">关于</string>
+    <string name="data_not_found">未找到宝可梦</string>
+    <string name="common_save">保存</string>
+    <string name="pokemon_photo">照片</string>
+    <string name="pokemon_name">名字</string>
+    <string name="insert_name">添加名字</string>
+    <string name="add_photo">添加图片URL</string>
+    <string name="language">语言</string>
+    <string name="stats">属性</string>
+    <string name="moves">技能</string>
+    <string name="pokemon_added_to_team">宝可梦已加入队伍！</string>
+    <string name="app_error_title">错误</string>
+    <string name="language_english">英语</string>
+    <string name="language_spanish">西班牙语</string>
+    <string name="language_french">法语</string>
+    <string name="language_portuguese">葡萄牙语</string>
+    <string name="language_italian">意大利语</string>
+    <string name="language_deutch">德语</string>
+    <string name="language_chinese">中文</string>
+</resources>

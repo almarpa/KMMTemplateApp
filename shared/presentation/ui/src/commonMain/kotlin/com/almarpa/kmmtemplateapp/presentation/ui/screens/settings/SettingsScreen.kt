@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
-import com.almarpa.kmmtemplateapp.core.common.platform.getPlatform
 import com.almarpa.kmmtemplateapp.core.ui.composables.dropdown.CustomDropdown
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
 import com.almarpa.kmmtemplateapp.core.ui.utils.getDeviceLocale
@@ -86,9 +85,7 @@ fun SettingsContent(
     Column(
         modifier = modifier.padding(top = 16.dp).wrapContentSize().fillMaxWidth(),
     ) {
-        CardItem(
-            isVisible = !getPlatform().platformData.isIOSDevice()
-        ) {
+        CardItem {
             LanguagesSection(
                 languages = locales,
                 currentLanguage = stringResource(currentLocale),

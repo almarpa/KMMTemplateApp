@@ -8,10 +8,11 @@ expect fun isTablet(): Boolean
 @Composable
 expect fun isLandscapeOrientation(): Boolean
 
-@Composable
-expect fun BackHandler(onBackPressed: () -> Unit)
-
 expect fun setAppLanguage(locale: String)
 
 expect fun getDeviceLocale(): String
+
+@Composable
+expect fun BackHandler(onBackPressed: () -> Unit)
+
 

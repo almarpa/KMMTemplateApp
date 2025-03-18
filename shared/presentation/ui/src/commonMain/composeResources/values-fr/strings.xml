@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="app_name">KMMTemplateApp</string>
+    <string name="toolbar_title">KMMTemplateApp</string>
+    <string name="pokedex_title">Pokédex</string>
+    <string name="pokemon_list_title">Liste</string>
+    <string name="team_title">Équipe</string>
+    <string name="settings_title">Paramètres</string>
+    <string name="pokemon_detail_title">Détail</string>
+    <string name="search_title">Rechercher</string>
+    <string name="menu_drawer_btn">Menu latéral</string>
+    <string name="retry_btn">Réessayer</string>
+    <string name="error_getting_pokemon_list">Les données n'ont pas pu être récupérées</string>
+    <string name="stat_hp">PV</string>
+    <string name="stat_attack">Attaque</string>
+    <string name="stat_defense">Défense</string>
+    <string name="stat_speed">Vitesse</string>
+    <string name="stat_special_attack">Att. Spé.</string>
+    <string name="stat_special_defense">Déf. Spé.</string>
+    <string name="empty_string">""</string>
+    <string name="dark_mode">Mode sombre</string>
+    <string name="dark_mode_description">Choisissez entre le mode sombre ou clair pour personnaliser l'apparence de l'application selon vos préférences.</string>
+    <string name="common_accept">Accepter</string>
+    <string name="common_cancel">Annuler</string>
+    <string name="about">À propos</string>
+    <string name="data_not_found">Pokémon introuvable</string>
+    <string name="common_save">Enregistrer</string>
+    <string name="pokemon_photo">Photo</string>
+    <string name="pokemon_name">Nom</string>
+    <string name="insert_name">Ajouter un nom</string>
+    <string name="add_photo">Ajouter une URL d'image</string>
+    <string name="language">Langue</string>
+    <string name="stats">Statistiques</string>
+    <string name="moves">Mouvements</string>
+    <string name="pokemon_added_to_team">Le Pokémon a rejoint l'équipe !</string>
+    <string name="app_error_title">Erreur</string>
+    <string name="language_english">Anglais</string>
+    <string name="language_spanish">Espagnol</string>
+    <string name="language_french">Français</string>
+    <string name="language_portuguese">Portugais</string>
+    <string name="language_italian">Italien</string>
+    <string name="language_deutch">Allemand</string>
+    <string name="language_chinese">Chinois</string>
+</resources>

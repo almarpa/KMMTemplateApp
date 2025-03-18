@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="app_name">KMMTemplateApp</string>
     <string name="toolbar_title">KMMTemplateApp</string>
@@ -28,11 +29,16 @@
     <string name="pokemon_name">Nombre</string>
     <string name="insert_name">Añadir nombre</string>
     <string name="add_photo">Añadir URL de la imagen</string>
-    <string name="language_english">Inglés</string>
-    <string name="language_spanish">Español</string>
     <string name="language">Idioma</string>
     <string name="stats">Estadísticas</string>
     <string name="moves">Movimientos</string>
     <string name="pokemon_added_to_team">¡Pokemon añadido al equipo!</string>
     <string name="app_error_title">Error</string>
+    <string name="language_english">Inglés</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_french">Francés</string>
+    <string name="language_portuguese">Portugués</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_deutch">Alemán</string>
+    <string name="language_chinese">Chino</string>
 </resources>

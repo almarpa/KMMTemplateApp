@@ -10,7 +10,12 @@ import com.almarpa.kmmtemplateapp.domain.usecases.features.FetchUserDataUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SetAppLocaleUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SetAppThemeUseCase
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
+import kmmtemplateapp.shared.presentation.ui.generated.resources.language_chinese
+import kmmtemplateapp.shared.presentation.ui.generated.resources.language_deutch
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language_english
+import kmmtemplateapp.shared.presentation.ui.generated.resources.language_french
+import kmmtemplateapp.shared.presentation.ui.generated.resources.language_italian
+import kmmtemplateapp.shared.presentation.ui.generated.resources.language_portuguese
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language_spanish
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -65,6 +70,11 @@ class SettingsViewModel(
 
     private fun getAppLocales() = mapOf(
         LocaleEnum.EN.value to Res.string.language_english,
-        LocaleEnum.ES.value to Res.string.language_spanish
+        LocaleEnum.ES.value to Res.string.language_spanish,
+        LocaleEnum.PT.value to Res.string.language_portuguese,
+        LocaleEnum.IT.value to Res.string.language_italian,
+        LocaleEnum.FR.value to Res.string.language_french,
+        LocaleEnum.ZH.value to Res.string.language_chinese,
+        LocaleEnum.DE.value to Res.string.language_deutch,
     )
 }
