@@ -5,8 +5,7 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
@@ -32,12 +31,11 @@ fun SharedTransitionScope.PokemonList(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxSize(),
     ) {
         items(
             count = pokemonList.size,
+            key = { pokemonList[it].id }
         ) { index ->
             PokemonItem(
                 modifier = modifierWithLazyGridAnimationPreview(index, columns),
