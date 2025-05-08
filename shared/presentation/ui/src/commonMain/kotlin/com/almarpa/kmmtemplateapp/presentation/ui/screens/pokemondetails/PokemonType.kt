@@ -15,7 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
 import com.almarpa.kmmtemplateapp.domain.models.TypeX
+import com.almarpa.kmmtemplateapp.domain.models.TypeXX
+import com.almarpa.kmmtemplateapp.domain.models.enums.PokemonTypeEnum
 import com.almarpa.kmmtemplateapp.presentation.ui.utils.getColorByType
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PokemonType(modifier: Modifier = Modifier, types: List<TypeX>) {
@@ -40,4 +43,15 @@ fun PokemonType(modifier: Modifier = Modifier, types: List<TypeX>) {
             CustomSpacer(width = 8)
         }
     }
+}
+
+@Composable
+@Preview
+fun PokemonTypePreview() {
+    PokemonType(
+        types = listOf(
+            TypeX(1, TypeXX(PokemonTypeEnum.ICE, "")),
+            TypeX(2, TypeXX(PokemonTypeEnum.PSYCHIC, "")),
+        )
+    )
 }

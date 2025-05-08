@@ -29,9 +29,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
 import com.almarpa.kmmtemplateapp.domain.models.Stat
+import com.almarpa.kmmtemplateapp.domain.models.StatX
+import com.almarpa.kmmtemplateapp.domain.models.enums.StatNameEnum
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonStatListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.utils.getAbbreviationByStat
 import com.almarpa.kmmtemplateapp.presentation.ui.utils.getColorByStat
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PokemonStats(stats: List<Stat>) {
@@ -93,4 +97,23 @@ fun PokemonStat(stat: Stat) {
             }
         }
     }
+}
+
+
+@Preview
+@Composable
+fun PokemonStatsPreview() {
+    PokemonStats(getPokemonStatListMock())
+}
+
+@Preview
+@Composable
+fun PokemonStatPreview() {
+    PokemonStat(
+        Stat(
+            baseStat = 50,
+            effort = 50,
+            statX = StatX(name = StatNameEnum.HP, url = "")
+        )
+    )
 }

@@ -23,11 +23,14 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
+import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.search_title
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
@@ -92,5 +95,21 @@ fun SharedTransitionScope.PokemonSearchBar(
                 onSelected = { onSelected(it) }
             )
         }
+    }
+}
+
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview
+@Composable
+fun ActivatedSearchTopBarPreview() {
+    AppThemePreview {
+        PokemonSearchBar(
+            animatedVisibilityScope = it,
+            uiState = SearchUiState.Success(getPokemonListMock()),
+            onCancel = {},
+            onSearch = {},
+            onSelected = {}
+        )
     }
 }

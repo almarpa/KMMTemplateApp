@@ -16,9 +16,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithLazyGridAnimationPreview
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
+import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.core.ui.utils.isLandscapeOrientation
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.common.PokemonItem
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -50,5 +53,18 @@ fun SharedTransitionScope.PokemonSearchList(
             )
             CustomSpacer(height = 16, width = 16)
         }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview
+fun PokemonListPreview() {
+    AppThemePreview {
+        PokemonSearchList(
+            animatedVisibilityScope = it,
+            pokemonList = getPokemonListMock(),
+            onPokemonItemClick = { },
+        )
     }
 }

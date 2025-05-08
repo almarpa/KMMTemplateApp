@@ -1,5 +1,6 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.screens.team
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -19,11 +21,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.almarpa.kmmtemplateapp.core.ui.composables.error.ErrorPlaceholderView
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.AnimatedTopAppBar
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navigationbar.AnimatedBottomAppBar
@@ -34,6 +39,7 @@ import kmmtemplateapp.shared.presentation.ui.generated.resources.team_title
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -137,5 +143,52 @@ fun TeamContent(
                 )
             }
         }
+    }
+}
+
+@Composable
+@Preview
+fun TeamScreenFabPreview() {
+    AppTheme {
+        TeamScreen(
+            drawerState = DrawerState(DrawerValue.Closed),
+            currentRoute = Routes.Team,
+            navigationActions = NavigationActions(rememberNavController()),
+            uiState = TeamUiState.Success(getPokemonListMock()),
+            onRetry = {},
+            onSave = {}
+        )
+    }
+}
+
+@Composable
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview
+fun TeamEmptyContentFabPreview() {
+    AppTheme {
+        TeamScreen(
+            drawerState = DrawerState(DrawerValue.Closed),
+            currentRoute = Routes.Team,
+            navigationActions = NavigationActions(rememberNavController()),
+            uiState = TeamUiState.Success(listOf()),
+            onRetry = {},
+            onSave = {}
+        )
+    }
+}
+
+@Composable
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview
+fun TeamContentFullscreenPreview() {
+    AppTheme {
+        TeamContent(
+            paddingValues = PaddingValues(0.dp),
+            uiState = TeamUiState.Success(getPokemonListMock()),
+            isFabContainerFullscreen = true,
+            onRetry = {},
+            onFabContainerFullscreenChanged = {},
+            onSavePokemon = {}
+        )
     }
 }

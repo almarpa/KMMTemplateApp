@@ -27,8 +27,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
+import com.almarpa.kmmtemplateapp.core.common.model.enums.LocaleEnum
 import com.almarpa.kmmtemplateapp.core.ui.composables.dropdown.CustomDropdown
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.core.ui.utils.getDeviceLocale
 import com.almarpa.kmmtemplateapp.domain.models.UserData
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsUiState
@@ -37,9 +39,11 @@ import kmmtemplateapp.shared.presentation.ui.generated.resources.dark_mode
 import kmmtemplateapp.shared.presentation.ui.generated.resources.dark_mode_description
 import kmmtemplateapp.shared.presentation.ui.generated.resources.empty_string
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language
+import kmmtemplateapp.shared.presentation.ui.generated.resources.language_english
 import kmmtemplateapp.shared.presentation.ui.generated.resources.settings_title
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SettingsScreen(
@@ -177,7 +181,8 @@ fun DarkModeSection(themeState: AppThemeEnum, onChange: (Boolean) -> Unit) {
             )
         }
 
-        Switch(checked = themeState == AppThemeEnum.DARK,
+        Switch(
+            checked = themeState == AppThemeEnum.DARK,
             onCheckedChange = { onChange(it) },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Color.White,
@@ -195,5 +200,23 @@ fun DarkModeSection(themeState: AppThemeEnum, onChange: (Boolean) -> Unit) {
                     modifier = Modifier.size(SwitchDefaults.IconSize),
                 )
             })
+    }
+}
+
+@Preview
+@Composable
+fun SettingsScreenPreview() {
+    AppTheme {
+        SettingsScreen(
+            SettingsUiState.Success(
+                userData = UserData(
+                    locale = LocaleEnum.EN.name,
+                    theme = AppThemeEnum.DARK
+                ),
+                locales = mapOf(
+                    LocaleEnum.EN.name to Res.string.language_english
+                ),
+            ),
+        )
     }
 }

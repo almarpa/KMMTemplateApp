@@ -12,12 +12,15 @@ import androidx.compose.ui.Modifier
 import com.almarpa.kmmtemplateapp.core.ui.composables.error.ErrorPlaceholderView
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.composables.notfound.NotFoundView
+import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.data_not_found
 import kmmtemplateapp.shared.presentation.ui.generated.resources.error_getting_pokemon_list
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -51,5 +54,19 @@ fun SharedTransitionScope.PokemonSearchBarContent(
                 /* Do nothing */
             }
         }
+    }
+}
+
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview
+@Composable
+fun PokemonSearchBarContentPreview() {
+    AppThemePreview {
+        PokemonSearchBarContent(
+            animatedVisibilityScope = it,
+            uiState = SearchUiState.Success(getPokemonListMock()),
+            onSelected = {}
+        )
     }
 }

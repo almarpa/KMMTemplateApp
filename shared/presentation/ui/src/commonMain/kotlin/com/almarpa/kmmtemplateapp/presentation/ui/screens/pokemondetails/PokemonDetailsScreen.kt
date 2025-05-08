@@ -60,12 +60,17 @@ import com.almarpa.kmmtemplateapp.core.ui.composables.snackbar.SnackbarEvent
 import com.almarpa.kmmtemplateapp.core.ui.composables.snackbar.showSnackbar
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
+import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.core.ui.theme.LocalThemeIsDark
 import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
 import com.almarpa.kmmtemplateapp.core.ui.utils.ObserveAsEvents
 import com.almarpa.kmmtemplateapp.core.ui.utils.isTablet
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.domain.models.PokemonDetails
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonDetailsMock
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonMock
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.mockNotFoundAppError
 import com.almarpa.kmmtemplateapp.presentation.ui.utils.getDarkGradientByColor
 import com.almarpa.kmmtemplateapp.presentation.ui.utils.getLightGradientByColor
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonDetailsUiState
@@ -77,6 +82,7 @@ import kmmtemplateapp.shared.presentation.ui.generated.resources.pokemon_added_t
 import kmmtemplateapp.shared.presentation.ui.generated.resources.retry_btn
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -340,4 +346,68 @@ fun AppErrorDialog(isVisible: Boolean, appError: AppError, onAccept: () -> Unit)
         confirmText = stringResource(Res.string.common_accept),
         onAccept = { onAccept() }
     )
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Composable
+@Preview
+fun PokemonDetailsScreenPreview() {
+    AppThemePreview {
+        PokemonDetailsScreen(
+            animatedVisibilityScope = it,
+            pokemon = getPokemonMock(),
+            pokemonDetailsUiState = PokemonDetailsUiState.Success(getPokemonDetailsMock()),
+            onFetchDetails = {},
+            onAddTeamMember = { _, _ -> },
+            onBackPressed = {},
+        )
+    }
+}
+
+@Composable
+@Preview
+fun AddMemberButtonPreview() {
+    AppTheme {
+        AddMemberButton()
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Composable
+@Preview
+fun PokemonImageAnimationPreview() {
+    AppThemePreview {
+        PokemonImageAnimation(
+            animatedVisibilityScope = it,
+            pokemon = getPokemonMock(),
+        )
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Composable
+@Preview
+fun PokemonCardPreview() {
+    AppThemePreview {
+        PokemonCard(
+            pokemonDetailsUiState = PokemonDetailsUiState.Success(getPokemonDetailsMock()),
+            pokemon = getPokemonMock(),
+        )
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Composable
+@Preview
+fun PokemonDetailsErrorScreenPreview() {
+    AppThemePreview {
+        PokemonDetailsScreen(
+            animatedVisibilityScope = it,
+            pokemon = getPokemonMock(),
+            pokemonDetailsUiState = PokemonDetailsUiState.Error(mockNotFoundAppError()),
+            onFetchDetails = {},
+            onAddTeamMember = { _, _ -> },
+            onBackPressed = {},
+        )
+    }
 }

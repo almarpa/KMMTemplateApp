@@ -1,4 +1,4 @@
-package com.almarpa.kmmtemplateapp.presentation.ui.previews.theme
+package com.almarpa.kmmtemplateapp.core.ui.previews
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope

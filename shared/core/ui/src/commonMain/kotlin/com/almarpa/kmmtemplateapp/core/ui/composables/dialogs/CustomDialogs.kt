@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SimpleActionAlertDialog(
@@ -119,4 +120,27 @@ fun CustomDialog(
             }
         }
     }
+}
+
+
+@Preview
+@Composable
+fun SimpleAlertDialogPreview() {
+    SimpleActionAlertDialog(
+        show = true,
+        title = "Search",
+        description = "Error getting pokemon list",
+        confirmText = "Accept"
+    )
+}
+
+@Preview
+@Composable
+fun CustomDialogPreview() {
+    CustomDialog(
+        title = "Search",
+        description = "Error getting pokemon list",
+        confirmText = "Accept",
+        cancelText = "Cancel",
+    )
 }

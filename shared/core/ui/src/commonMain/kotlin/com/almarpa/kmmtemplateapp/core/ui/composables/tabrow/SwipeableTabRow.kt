@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SwipeableTabRow(
@@ -72,5 +74,23 @@ fun SwipeableTabRow(
             contentScreens.getOrNull(selectedTabIndex)?.invoke()
         }
         CustomSpacer(height = 16)
+    }
+}
+
+@Composable
+@Preview()
+fun SwipeableTabRowPreview() {
+    AppTheme {
+        SwipeableTabRow(
+            modifier = Modifier,
+            tabs = listOf("Stats", "Moves"),
+            contentScreens = listOf(
+                { Text("Jetpack") },
+                { Text("Compose") },
+            ),
+            containerColor = Color.White,
+            contentColor = Color.Black,
+            indicatorColor = Color.Black
+        )
     }
 }

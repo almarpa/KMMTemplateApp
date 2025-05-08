@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ErrorPlaceholderView(
@@ -39,4 +40,22 @@ fun ErrorPlaceholderView(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun ErrorPlaceholderViewWithActionPreview() {
+    ErrorPlaceholderView(
+        errorDescription = "Error getting pokemon list",
+        actionText = "Retry"
+    )
+}
+
+@Preview()
+@Composable
+fun ErrorPlaceholderViewPreview() {
+    ErrorPlaceholderView(
+        errorDescription = "Error getting pokemon list",
+        actionText = null
+    )
 }

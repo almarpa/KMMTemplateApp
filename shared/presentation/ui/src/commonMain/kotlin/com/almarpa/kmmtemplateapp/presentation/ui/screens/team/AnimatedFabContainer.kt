@@ -58,6 +58,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.core.ui.utils.isTablet
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.kmpalette.loader.rememberNetworkLoader
@@ -76,6 +77,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AnimatedFabContainer(
@@ -319,5 +321,29 @@ fun AddPokemonFab(onFabButtonPressed: () -> Unit) {
                 contentDescription = "PokeballImage",
             )
         }
+    }
+}
+
+@Composable
+@Preview
+fun AddPokemonFloatingButtonPreview() {
+    AppTheme {
+        AnimatedFabContainer(
+            fabContainerState = false,
+            onFabContainerStateChanged = {},
+            onSave = {}
+        )
+    }
+}
+
+@Composable
+@Preview
+fun FabContainerFullscreenPreview() {
+    AppTheme {
+        AnimatedFabContainer(
+            fabContainerState = true,
+            onFabContainerStateChanged = {},
+            onSave = {}
+        )
     }
 }

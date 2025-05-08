@@ -21,11 +21,13 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.pokeball_filled
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SplashScreen(navigateToPokemonList: () -> Unit = {}) {
@@ -69,5 +71,13 @@ fun SplashContent(rotationState: Animatable<Float, AnimationVector1D>) {
             painter = painterResource(Res.drawable.pokeball_filled),
             contentDescription = "PokeballImage",
         )
+    }
+}
+
+@Preview
+@Composable
+fun SplashScreenPreview() {
+    AppTheme {
+        SplashScreen()
     }
 }

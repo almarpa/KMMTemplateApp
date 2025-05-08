@@ -19,13 +19,16 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.menu_drawer_btn
 import kmmtemplateapp.shared.presentation.ui.generated.resources.pokedex_title
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
@@ -91,5 +94,32 @@ fun SearchIcon(onIconClick: () -> Unit) {
             contentDescription = stringResource(Res.string.menu_drawer_btn),
             tint = MaterialTheme.colorScheme.tertiary,
         )
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+fun InactiveSearchTopAppBarPreview() {
+    AppThemePreview {
+        PokemonSearchTopAppBar(
+            animatedVisibilityScope = it,
+            uiState = SearchUiState.Success(getPokemonListMock()),
+            drawerState = DrawerState(DrawerValue.Closed),
+        ) {}
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+fun ActiveSearchTopAppBarPreview() {
+    AppThemePreview {
+        PokemonSearchTopAppBar(
+            animatedVisibilityScope = it,
+            uiState = SearchUiState.Success(getPokemonListMock()),
+            drawerState = DrawerState(DrawerValue.Closed),
+            isSearchActive = true
+        ) {}
     }
 }

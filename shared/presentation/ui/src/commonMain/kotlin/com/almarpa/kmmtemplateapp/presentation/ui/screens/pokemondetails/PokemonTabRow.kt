@@ -7,11 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.almarpa.kmmtemplateapp.core.ui.composables.tabrow.SwipeableTabRow
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.domain.models.PokemonDetails
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonDetailsMock
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.moves
 import kmmtemplateapp.shared.presentation.ui.generated.resources.stats
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PokemonTabRow(modifier: Modifier = Modifier, pokemonDetails: PokemonDetails) {
@@ -30,5 +33,14 @@ fun PokemonTabRow(modifier: Modifier = Modifier, pokemonDetails: PokemonDetails)
             contentColor = MaterialTheme.colorScheme.primary,
             indicatorColor = Color.DarkGray
         )
+    }
+}
+
+
+@Composable
+@Preview
+fun PokemonTabRowPreview() {
+    AppTheme {
+        PokemonTabRow(pokemonDetails = getPokemonDetailsMock())
     }
 }

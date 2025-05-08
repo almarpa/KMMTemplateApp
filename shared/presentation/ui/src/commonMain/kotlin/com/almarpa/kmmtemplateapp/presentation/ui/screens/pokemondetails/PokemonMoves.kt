@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.almarpa.kmmtemplateapp.domain.models.Move
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonMoveListMock
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PokemonMoves(moves: List<Move>) {
@@ -62,4 +64,10 @@ fun PokemonMove(move: Move) {
             )
         }
     }
+}
+
+@Preview()
+@Composable
+fun PokemonMovesPreview() {
+    PokemonMoves(moves = getPokemonMoveListMock())
 }

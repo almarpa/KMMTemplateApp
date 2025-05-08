@@ -13,6 +13,7 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,4 +47,10 @@ fun DefaultTopAppBar(
             titleContentColor = MaterialTheme.colorScheme.tertiary
         ),
     )
+}
+
+@Composable
+@Preview()
+fun DefaultTopAppBarPreview() {
+    DefaultTopAppBar(title = "TopAppBar")
 }

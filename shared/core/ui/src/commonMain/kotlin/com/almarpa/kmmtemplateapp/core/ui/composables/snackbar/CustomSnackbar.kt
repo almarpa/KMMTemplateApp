@@ -1,13 +1,17 @@
 package com.almarpa.kmmtemplateapp.core.ui.composables.snackbar
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun CustomSnackBar(snackbarHostState: SnackbarHostState) {
@@ -50,5 +54,22 @@ fun CoroutineScope.showSnackbar(
                 onDismissed()
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCustomSnackBar() {
+    val snackBarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+    Scaffold(
+        snackbarHost = { CustomSnackBar(snackBarHostState) }
+    ) {
+        coroutineScope.showSnackbar(
+            snackbarHostState = snackBarHostState,
+            message = "Scaffold SnackBar Preview",
+            actionLabel = "Action",
+        )
     }
 }

@@ -11,6 +11,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun NotFoundView(description: String) {
@@ -32,5 +34,13 @@ fun NotFoundView(description: String) {
             color = MaterialTheme.colorScheme.secondary,
             text = description,
         )
+    }
+}
+
+@Preview()
+@Composable
+fun NotFoundViewPreview() {
+    AppTheme {
+        NotFoundView("Not found")
     }
 }

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.AbsoluteCutCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -28,12 +29,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import coil3.compose.AsyncImage
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.math.absoluteValue
 
 @Composable
 fun TeamPager(pagerState: PagerState, pokemonList: List<Pokemon>) {
-    //CompositionLocalProvider(LocalOverscrollConfiguration provides null) {
     HorizontalPager(
         modifier = Modifier.fillMaxHeight(),
         state = pagerState,
@@ -106,6 +109,17 @@ fun MemberName(pokemon: Pokemon, modifier: Modifier) {
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             fontSize = 30.sp,
+        )
+    }
+}
+
+@Composable
+@Preview
+fun TeamPagerPreview() {
+    AppTheme {
+        TeamPager(
+            pagerState = rememberPagerState { getPokemonListMock().size },
+            pokemonList = getPokemonListMock()
         )
     }
 }

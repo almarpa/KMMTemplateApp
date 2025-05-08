@@ -29,6 +29,7 @@ import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.menu_drawer_btn
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.math.round
 
 @Composable
@@ -94,4 +95,16 @@ fun PokemonMeasureItem(
             color = MaterialTheme.colorScheme.primary
         )
     }
+}
+
+@Preview
+@Composable
+fun PokemonMeasuresPreview() {
+    PokemonMeasures()
+}
+
+@Composable
+@Preview
+fun PokemonMeasurePreview() {
+    PokemonMeasureItem()
 }

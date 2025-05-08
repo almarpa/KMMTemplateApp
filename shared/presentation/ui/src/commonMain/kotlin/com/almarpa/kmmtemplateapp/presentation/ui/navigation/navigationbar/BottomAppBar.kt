@@ -1,6 +1,10 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.navigation.navigationbar
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.List
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -9,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 data class BottomAppBarItem(
     val icon: @Composable () -> Unit,
@@ -38,5 +44,42 @@ fun BottomAppBar(
                 onClick = { onRouteSelected(item.route) },
             )
         }
+    }
+}
+
+@Composable
+@Preview()
+fun TemplateBottomAppBarPreview() {
+    AppTheme {
+        BottomAppBar(
+            currentRoute = Routes.PokemonList,
+            bottomAppBarItems = listOf(
+                BottomAppBarItem(
+                    icon = {
+                        Icon(
+                            Icons.AutoMirrored.Outlined.List,
+                            contentDescription = "Pokedex",
+                            tint = MaterialTheme.colorScheme.primary,
+                        )
+                    },
+                    label = "Pokedex",
+                    color = MaterialTheme.colorScheme.primary,
+                    route = Routes.PokemonList,
+                ),
+                BottomAppBarItem(
+                    icon = {
+                        Icon(
+                            Icons.Outlined.Person,
+                            tint = MaterialTheme.colorScheme.primary,
+                            contentDescription = "Team",
+                        )
+                    },
+                    label = "Team",
+                    color = MaterialTheme.colorScheme.primary,
+                    route = Routes.Team,
+                )
+            ),
+            onRouteSelected = {},
+        )
     }
 }

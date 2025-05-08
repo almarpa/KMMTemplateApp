@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,7 +20,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,5 +75,32 @@ fun AnimatedTopAppBar(
                 ),
             )
         }
+    }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview()
+@Composable
+fun DarkAnimatedTopAppBarPreview() {
+    AppTheme {
+        AnimatedTopAppBar(
+            isVisible = true,
+            title = "Team",
+            drawerState = DrawerState(DrawerValue.Closed),
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview()
+@Composable
+fun AnimatedTopAppBarPreview() {
+    AppTheme {
+        AnimatedTopAppBar(
+            isVisible = true,
+            title = "Team",
+            drawerState = DrawerState(DrawerValue.Closed),
+        )
     }
 }

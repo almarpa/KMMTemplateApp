@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -25,8 +26,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.almarpa.kmmtemplateapp.core.ui.composables.error.ErrorPlaceholderView
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
+import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
+import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navigationbar.AnimatedBottomAppBar
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.list.PokemonList
@@ -38,6 +41,7 @@ import kmmtemplateapp.shared.presentation.ui.generated.resources.error_getting_p
 import kmmtemplateapp.shared.presentation.ui.generated.resources.retry_btn
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -141,5 +145,45 @@ fun SharedTransitionScope.PokemonListContent(
                 )
             }
         }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview
+fun PokemonListScreenPreview() {
+    AppThemePreview {
+        PokemonListScreen(
+            animatedVisibilityScope = it,
+            drawerState = DrawerState(DrawerValue.Closed),
+            currentRoute = Routes.PokemonList,
+            searchUiState = SearchUiState.Success(getPokemonListMock()),
+            pokemonListUiState = PokemonListUiState.Success(getPokemonListMock()),
+            onReload = {},
+            onDismissSearch = {},
+            onSearch = {},
+            onBottomBarItemClick = {},
+            onPokemonItemClick = {},
+        )
+    }
+}
+
+@Composable
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview
+fun PokemonListScreenWithSearchActivePreview() {
+    AppThemePreview {
+        PokemonListScreen(
+            animatedVisibilityScope = it,
+            drawerState = DrawerState(DrawerValue.Closed),
+            currentRoute = Routes.PokemonList,
+            searchUiState = SearchUiState.Error,
+            pokemonListUiState = PokemonListUiState.Success(getPokemonListMock()),
+            onReload = {},
+            onDismissSearch = {},
+            onSearch = {},
+            onBottomBarItemClick = {},
+            onPokemonItemClick = {},
+        )
     }
 }
