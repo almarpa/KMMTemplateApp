@@ -1,11 +1,5 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.mocks
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.List
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
 import com.almarpa.kmmtemplateapp.domain.models.Move
 import com.almarpa.kmmtemplateapp.domain.models.MoveX
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
@@ -16,8 +10,6 @@ import com.almarpa.kmmtemplateapp.domain.models.TypeX
 import com.almarpa.kmmtemplateapp.domain.models.TypeXX
 import com.almarpa.kmmtemplateapp.domain.models.enums.PokemonTypeEnum
 import com.almarpa.kmmtemplateapp.domain.models.enums.StatNameEnum
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navigationbar.BottomAppBarItem
 
 fun getPokemonMock() =
     Pokemon(
@@ -137,34 +129,5 @@ fun getPokemonMoveListMock() =
                 name = "Tackle 4 Tackle 4 Tackle 4 Tackle 4",
                 url = "https://pokeapi.co/api/v2/move/33/"
             )
-        )
-    )
-
-@Composable
-fun getBottomAppBarItemsMock(): List<BottomAppBarItem> =
-    listOf(
-        BottomAppBarItem(
-            icon = {
-                Icon(
-                    Icons.AutoMirrored.Outlined.List,
-                    contentDescription = "Pokedex",
-                    tint = MaterialTheme.colorScheme.primary,
-                )
-            },
-            label = "Pokedex",
-            color = MaterialTheme.colorScheme.primary,
-            route = Routes.PokemonList,
-        ),
-        BottomAppBarItem(
-            icon = {
-                Icon(
-                    Icons.Outlined.Person,
-                    tint = MaterialTheme.colorScheme.primary,
-                    contentDescription = "Team",
-                )
-            },
-            label = "Team",
-            color = MaterialTheme.colorScheme.primary,
-            route = Routes.Team,
         )
     )
