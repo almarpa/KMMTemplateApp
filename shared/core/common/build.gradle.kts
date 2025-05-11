@@ -30,7 +30,6 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.bundles.core.common)
 
-            implementation(project.dependencies.platform(libs.compose.bom))
             implementation(compose.runtime)
             implementation(compose.foundation)
         }

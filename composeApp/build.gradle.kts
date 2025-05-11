@@ -46,8 +46,6 @@ dependencies {
 
     implementation(libs.bundles.android.core)
 
-    implementation(project.dependencies.platform(libs.compose.bom))
-
     implementation(libs.androidx.activityCompose)
 
     implementation(libs.compose.runtime.android)

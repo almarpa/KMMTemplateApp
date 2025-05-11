@@ -88,3 +88,18 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 }
+
+afterEvaluate {
+    tasks.named("kspDebugKotlinAndroid") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+    tasks.named("kspKotlinIosSimulatorArm64") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+    tasks.named("kspKotlinIosArm64") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+    tasks.named("kspKotlinIosX64") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
