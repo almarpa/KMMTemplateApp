@@ -77,7 +77,7 @@ fun SharedTransitionScope.modifierWithSharedElementTransition(
 ): Modifier =
     if (!LocalInspectionMode.current) {
         Modifier.sharedElement(
-            state = state,
+            sharedContentState = state,
             animatedVisibilityScope = animatedVisibilityScope,
         )
     } else {

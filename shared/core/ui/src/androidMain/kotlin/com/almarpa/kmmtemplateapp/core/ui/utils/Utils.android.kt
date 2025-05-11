@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.intl.Locale
 import androidx.core.os.LocaleListCompat
 
@@ -20,14 +19,7 @@ actual fun isTablet(): Boolean =
 
 @Composable
 actual fun isLandscapeOrientation(): Boolean =
-    LocalContext.current.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-
-@Composable
-actual fun BackHandler(onBackPressed: () -> Unit) {
-    androidx.activity.compose.BackHandler {
-        onBackPressed()
-    }
-}
+    LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 actual fun setAppLanguage(locale: String) {
     AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))

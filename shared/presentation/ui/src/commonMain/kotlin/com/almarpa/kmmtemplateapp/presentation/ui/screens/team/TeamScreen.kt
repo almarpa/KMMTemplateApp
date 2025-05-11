@@ -19,14 +19,16 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
 import com.almarpa.kmmtemplateapp.core.ui.composables.error.ErrorPlaceholderView
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.AnimatedTopAppBar
 import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
-import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
@@ -41,7 +43,7 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun TeamScreen(
     drawerState: DrawerState,
@@ -55,7 +57,7 @@ fun TeamScreen(
     val coroutineScope = rememberCoroutineScope()
 
     if (isFabContainerFullScreen) {
-        BackHandler { isFabContainerFullScreen = false }
+        BackHandler(isIosPlatform()) { isFabContainerFullScreen = false }
     }
 
     Scaffold(

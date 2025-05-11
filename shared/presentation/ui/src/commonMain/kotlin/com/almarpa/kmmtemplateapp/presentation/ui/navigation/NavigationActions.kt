@@ -1,5 +1,6 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.navigation
 
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
@@ -17,7 +18,7 @@ sealed interface Routes {
 
     @Serializable
     data object Team : Routes
-    
+
     @Serializable
     data object Settings : Routes
 }
@@ -28,7 +29,7 @@ sealed interface Routes {
 class NavigationActions(private val navController: NavHostController) {
     val navigateToPokemonList: () -> Unit = {
         navController.navigate(Routes.PokemonList) {
-            popUpTo(navController.graph.findStartDestination().id) {
+            popUpTo(navController.graph.findStartDestination().navigatorName) {
                 saveState = true
                 inclusive = true
             }
@@ -38,7 +39,7 @@ class NavigationActions(private val navController: NavHostController) {
     }
     val navigateToTeamList: () -> Unit = {
         navController.navigate(Routes.Team) {
-            popUpTo(navController.graph.findStartDestination().id) {
+            popUpTo(navController.graph.findStartDestination().navigatorName) {
                 saveState = true
             }
             launchSingleTop = true
@@ -58,6 +59,8 @@ class NavigationActions(private val navController: NavHostController) {
     }
 
     val navigateBack: () -> Unit = {
-        navController.navigateUp()
+        if (navController.currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+            navController.popBackStack()
+        }
     }
 }

@@ -22,12 +22,15 @@ import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.common.model.enums.LocaleEnum
+import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
 import com.almarpa.kmmtemplateapp.core.ui.composables.dropdown.CustomDropdown
 import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
 import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
@@ -45,6 +48,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SettingsScreen(
     uiState: SettingsUiState,
@@ -52,6 +56,8 @@ fun SettingsScreen(
     onThemeChange: (Boolean) -> Unit = {},
     onBackPressed: () -> Unit = {},
 ) {
+    BackHandler(isIosPlatform()) { onBackPressed() }
+
     Scaffold(containerColor = MaterialTheme.colorScheme.surface, topBar = {
         DefaultTopAppBar(title = stringResource(Res.string.settings_title)) {
             onBackPressed()

@@ -42,7 +42,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -52,6 +54,7 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithSharedElementTransition
+import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
 import com.almarpa.kmmtemplateapp.core.ui.composables.dialogs.SimpleActionAlertDialog
 import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.ui.composables.snackbar.CustomSnackBar
@@ -63,7 +66,6 @@ import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
 import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
 import com.almarpa.kmmtemplateapp.core.ui.theme.LocalThemeIsDark
-import com.almarpa.kmmtemplateapp.core.ui.utils.BackHandler
 import com.almarpa.kmmtemplateapp.core.ui.utils.ObserveAsEvents
 import com.almarpa.kmmtemplateapp.core.ui.utils.isTablet
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
@@ -84,7 +86,7 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@OptIn(ExperimentalSharedTransitionApi::class)
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun SharedTransitionScope.PokemonDetailsScreen(
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -117,7 +119,7 @@ fun SharedTransitionScope.PokemonDetailsScreen(
         )
     }
 
-    BackHandler { onBackPressed() }
+    BackHandler(isIosPlatform()) { onBackPressed() }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,

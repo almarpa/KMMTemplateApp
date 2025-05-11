@@ -12,7 +12,3 @@ expect fun setAppLanguage(locale: String)
 
 expect fun getDeviceLocale(): String
 
-@Composable
-expect fun BackHandler(onBackPressed: () -> Unit)
-
-

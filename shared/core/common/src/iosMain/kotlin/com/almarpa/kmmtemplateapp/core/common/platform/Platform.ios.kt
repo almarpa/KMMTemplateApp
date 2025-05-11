@@ -12,3 +12,5 @@ class IOSPlatform : Platform {
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
+
+actual fun isIosPlatform(): Boolean = true
