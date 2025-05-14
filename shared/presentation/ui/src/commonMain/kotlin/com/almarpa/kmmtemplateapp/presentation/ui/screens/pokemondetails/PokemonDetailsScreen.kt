@@ -109,7 +109,6 @@ fun SharedTransitionScope.PokemonDetailsScreen(
 
     ObserveAsEvents(
         flow = SnackbarController.snackbarEvents,
-        //key1 = snackbarHostState,
     ) { snackbarEvent ->
         coroutineScope.showSnackbar(
             snackbarHostState = snackbarHostState,

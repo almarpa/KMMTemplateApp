@@ -35,6 +35,5 @@ sealed class AppErrorType {
         data object Offline : Api()
     }
 
-    data object MalformedResponse : AppErrorType()
     data object Unknown : AppErrorType()
 }

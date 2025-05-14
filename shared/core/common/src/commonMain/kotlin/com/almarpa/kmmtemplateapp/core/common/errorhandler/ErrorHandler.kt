@@ -15,10 +15,7 @@ object ErrorHandler {
     fun processErrorResponse(response: HttpResponse): AppError {
         return AppError(
             type = getAppErrorType(response.status.value),
-            data = AppErrorData(
-                code = response.status.value.toString(),
-                detail = "" // TODO: response.string()
-            )
+            data = AppErrorData(response.status.value.toString())
         )
     }
 
@@ -31,7 +28,7 @@ object ErrorHandler {
 
     private fun getAppErrorType(httpErrorCode: Int): AppErrorType =
         when (httpErrorCode) {
-            in 200..299 -> AppErrorType.MalformedResponse
+            in 200..299 -> AppErrorType.Api.MalformedResponse
             in 401..403 -> AppErrorType.Api.Forbidden
             404 -> AppErrorType.Api.NotFound
             in 400..499 -> AppErrorType.Api.MalformedRequest
@@ -75,7 +72,7 @@ object ErrorHandler {
 
     private fun getDefaultAppError(exception: Throwable) =
         AppError(
-            type = AppErrorType.MalformedResponse,
+            type = AppErrorType.Api.MalformedResponse,
             data = AppErrorData(detail = "Malformed response"),
             cause = exception
         )

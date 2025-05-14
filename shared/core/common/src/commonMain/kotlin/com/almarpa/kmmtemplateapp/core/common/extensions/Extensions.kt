@@ -69,3 +69,9 @@ fun allStringsAreNullOrEmpty(vararg values: String?): Boolean =
     values.all { x -> x.isNullOrEmpty() }
 
 fun anyStringIsNotNullOrEmpty(vararg values: String?): Boolean = values.any { x -> x != null }
+
+inline fun <T1 : Any, T2 : Any, R : Any> whenAllNotNull(
+    p1: T1?,
+    p2: T2?,
+    block: (T1, T2) -> R?,
+): R? = if (p1 != null && p2 != null) block(p1, p2) else null

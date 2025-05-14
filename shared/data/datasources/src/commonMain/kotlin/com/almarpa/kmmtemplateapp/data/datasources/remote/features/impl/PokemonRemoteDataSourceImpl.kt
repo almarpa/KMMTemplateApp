@@ -7,8 +7,13 @@ import com.almarpa.kmmtemplateapp.data.datasources.models.response.PokemonDetail
 import com.almarpa.kmmtemplateapp.data.datasources.models.response.PokemonResultResponse
 import com.almarpa.kmmtemplateapp.data.datasources.remote.api.PokemonApi
 import com.almarpa.kmmtemplateapp.data.datasources.remote.features.PokemonRemoteDataSource
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 
-class PokemonRemoteDataSourceImpl(private val api: PokemonApi) : PokemonRemoteDataSource {
+class PokemonRemoteDataSourceImpl(
+    private val api: PokemonApi,
+    private val ioDispatcher: CoroutineDispatcher,
+) : PokemonRemoteDataSource {
 
     companion object {
         private const val POKEMON_RESULTS_LIMIT = 1302
@@ -16,7 +21,9 @@ class PokemonRemoteDataSourceImpl(private val api: PokemonApi) : PokemonRemoteDa
     }
 
     override suspend fun fetchPokemons(): PokemonResultResponse =
-        api.getPokemons(POKEMON_RESULTS_LIMIT, POKEMON_RESULTS_OFFSET)
+        withContext(ioDispatcher) {
+            api.getPokemons(POKEMON_RESULTS_LIMIT, POKEMON_RESULTS_OFFSET)
+        }
 
     override suspend fun getPokemonDetails(pokemonID: Int): Result<PokemonDetailsResponse, AppError> =
         safeCall<PokemonDetailsResponse> { api.getPokemon(pokemonID) }

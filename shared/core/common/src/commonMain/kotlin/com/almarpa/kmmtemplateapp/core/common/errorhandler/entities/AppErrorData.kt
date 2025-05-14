@@ -1,5 +1,7 @@
 package com.almarpa.kmmtemplateapp.core.common.errorhandler.entities
 
+import com.almarpa.kmmtemplateapp.core.common.extensions.whenAllNotNull
+
 /**
  * Represents the error information for an [AppError]
  *
@@ -8,8 +10,10 @@ package com.almarpa.kmmtemplateapp.core.common.errorhandler.entities
  */
 data class AppErrorData(
     val code: String? = null,
-    val detail: String,
+    val detail: String? = null,
 ) {
 
-    fun getFormatted() = "$code: $detail"
+    fun getFormatted() = whenAllNotNull(code, detail) { codeNotNull, detailNotNull ->
+        "$codeNotNull: $detailNotNull"
+    } ?: ""
 }
