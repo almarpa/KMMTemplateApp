@@ -6,11 +6,11 @@
 	<array>
 		<string>en</string>
 		<string>es</string>
-        <string>pt</string>
-        <string>fr</string>
-        <string>de</string>
-        <string>zh</string>
-        <string>it</string>
+		<string>pt</string>
+		<string>fr</string>
+		<string>de</string>
+		<string>zh</string>
+		<string>it</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
