@@ -1,12 +1,12 @@
 [versions]
-agp = "8.5.2"
+agp = "8.10.0"
 kotlin = "2.1.20"
 
 android-compileSdk = "35"
 android-minSdk = "26"
 applicationId = "com.almarpa.kmptemplateapp"
 
-androidx-activityCompose = "1.9.3"
+androidx-activityCompose = "1.10.1"
 androidx-appcompat = "1.7.0"
 androidx-core-ktx = "1.15.0"
 androidx-espresso-core = "3.6.1"
@@ -22,8 +22,8 @@ compose-ui-backhandler = "1.8.0"
 
 kotlinx-coroutines = "1.9.0"
 kotlinx-datetime = "0.6.1"
-kotlinx-serialization = "1.7.3"
 
+kotlinSerialization = "2.1.21"
 koin = "4.0.0"
 koin-annotations = "1.2.2"
 ktor = "3.1.2"
@@ -133,7 +133,6 @@ compose-material-icons = { module = "androidx.compose.material:material-icons-ex
 # Others
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kmpalette-core = { module = "com.kmpalette:kmpalette-core", version.ref = "kmpalette" }
 kmpalette-extensions-network = { module = "com.kmpalette:extensions-network", version.ref = "kmpalette" }
 
@@ -145,7 +144,7 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 room = { id = "androidx.room", version.ref = "room" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
@@ -154,7 +153,6 @@ ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
 
 core-common = [
     "kotlinx-coroutines-core",
-    "kotlinx-serialization-json",
     "kotlinx-datetime",
     "koin-core",
     "koin-annotations",
@@ -167,7 +165,6 @@ core-common = [
 
 core-data = [
     "kotlinx-coroutines-core",
-    "kotlinx-serialization-json",
     "kotlinx-datetime",
     "multiplatformSettings",
     "koin-core",
@@ -188,7 +185,6 @@ core-data = [
 
 core-ui = [
     "kotlinx-coroutines-core",
-    "kotlinx-serialization-json",
     "kotlinx-datetime",
     "koin-core",
     "koin-compose",
@@ -234,7 +230,6 @@ android-ui = [
     "androidx-lifecycle-viewmodel",
     "kotlinx-coroutines-core",
     "kotlinx-coroutines-android",
-    "kotlinx-serialization-json",
     "kotlinx-datetime",
     "koin-core",
     "koin-android",

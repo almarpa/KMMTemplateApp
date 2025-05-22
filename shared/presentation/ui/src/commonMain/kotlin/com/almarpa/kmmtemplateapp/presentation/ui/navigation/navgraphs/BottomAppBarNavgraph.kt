@@ -52,19 +52,7 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
             },
         )
     }
-    composable<Routes.Team> {
-        val teamViewModel = koinViewModel<TeamViewModel>()
-        val teamUiState: TeamUiState by teamViewModel.uiState.collectAsStateWithLifecycle()
 
-        TeamScreen(
-            drawerState = drawerState,
-            currentRoute = Routes.Team,
-            navigationActions = navigationActions,
-            uiState = teamUiState,
-            onRetry = { teamViewModel.fetchTeamList() },
-            onSave = { pokemon -> teamViewModel.createPokemonMemberAndReloadTeam(pokemon) }
-        )
-    }
     composable<Pokemon> { navBackStackEntry ->
         val pokemonId = navBackStackEntry.toRoute<Pokemon>().id
         val pokemonDetailsViewModel = koinViewModel<PokemonDetailsViewModel>()
@@ -79,6 +67,20 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
                 pokemonDetailsViewModel.addPokemonToTeam(pokemon, added)
             },
             onBackPressed = { navigationActions.navigateBack() },
+        )
+    }
+
+    composable<Routes.Team> {
+        val teamViewModel = koinViewModel<TeamViewModel>()
+        val teamUiState: TeamUiState by teamViewModel.uiState.collectAsStateWithLifecycle()
+
+        TeamScreen(
+            drawerState = drawerState,
+            currentRoute = Routes.Team,
+            navigationActions = navigationActions,
+            uiState = teamUiState,
+            onRetry = { teamViewModel.fetchTeamList() },
+            onSave = { pokemon -> teamViewModel.createPokemonMemberAndReloadTeam(pokemon) }
         )
     }
 }
