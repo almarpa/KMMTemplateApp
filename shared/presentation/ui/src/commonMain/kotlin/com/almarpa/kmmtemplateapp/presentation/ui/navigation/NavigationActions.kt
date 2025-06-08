@@ -21,6 +21,9 @@ sealed interface Routes {
 
     @Serializable
     data object Settings : Routes
+
+    @Serializable
+    data class Detail(val pokemon: Pokemon) : Routes
 }
 
 /**
@@ -55,7 +58,7 @@ class NavigationActions(private val navController: NavHostController) {
     }
 
     val navigateToDetailNavGraph: (Pokemon) -> Unit = { pokemon ->
-        navController.navigate(pokemon)
+        navController.navigate(Routes.Detail(pokemon))
     }
 
     val navigateBack: () -> Unit = {

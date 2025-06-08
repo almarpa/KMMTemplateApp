@@ -50,9 +50,7 @@ fun SharedTransitionScope.PokemonSearchBarContent(
                 )
             }
 
-            is SearchUiState.Idle -> {
-                /* Do nothing */
-            }
+            is SearchUiState.Idle -> Unit
         }
     }
 }

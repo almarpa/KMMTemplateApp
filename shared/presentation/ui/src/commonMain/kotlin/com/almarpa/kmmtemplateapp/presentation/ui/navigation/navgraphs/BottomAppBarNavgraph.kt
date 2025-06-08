@@ -8,6 +8,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.almarpa.kmmtemplateapp.core.ui.utils.serializableType
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
@@ -20,6 +21,7 @@ import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamUiState
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamViewModel
 import org.koin.compose.viewmodel.koinViewModel
+import kotlin.reflect.typeOf
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 fun NavGraphBuilder.bottomAppBarNavGraph(
@@ -46,23 +48,24 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
                 when (newRoute) {
                     Routes.PokemonList -> navigationActions.navigateToPokemonList()
                     Routes.Team -> navigationActions.navigateToTeamList()
-                    else -> { /* Do nothing */
-                    }
+                    else -> Unit
                 }
             },
         )
     }
 
-    composable<Pokemon> { navBackStackEntry ->
-        val pokemonId = navBackStackEntry.toRoute<Pokemon>().id
+    composable<Routes.Detail>(
+        typeMap = mapOf(typeOf<Pokemon>() to serializableType<Pokemon>()),
+    ) { navBackStackEntry ->
+        val pokemon = navBackStackEntry.toRoute<Routes.Detail>().pokemon
         val pokemonDetailsViewModel = koinViewModel<PokemonDetailsViewModel>()
         val pokemonDetailsUiState by pokemonDetailsViewModel.detailsUiState.collectAsStateWithLifecycle()
 
         sharedTransitionScope.PokemonDetailsScreen(
             animatedVisibilityScope = this,
-            pokemon = navBackStackEntry.toRoute<Pokemon>(),
+            pokemon = pokemon,
             pokemonDetailsUiState = pokemonDetailsUiState,
-            onFetchDetails = { pokemonDetailsViewModel.getPokemonDetails(pokemonId) },
+            onFetchDetails = { pokemonDetailsViewModel.getPokemonDetails(pokemon.id) },
             onAddTeamMember = { pokemon, added ->
                 pokemonDetailsViewModel.addPokemonToTeam(pokemon, added)
             },
