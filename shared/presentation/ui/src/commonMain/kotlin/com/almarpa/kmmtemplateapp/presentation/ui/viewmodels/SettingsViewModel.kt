@@ -4,7 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.common.model.enums.LocaleEnum
 import com.almarpa.kmmtemplateapp.core.ui.utils.setAppLanguage
-import com.almarpa.kmmtemplateapp.core.ui.viewmodels.KmmViewModel
+import com.almarpa.kmmtemplateapp.core.ui.viewmodels.BaseViewModel
+import com.almarpa.kmmtemplateapp.core.ui.viewmodels.event.EmptyUiEvent
+import com.almarpa.kmmtemplateapp.core.ui.viewmodels.state.BaseUiState
 import com.almarpa.kmmtemplateapp.domain.models.UserData
 import com.almarpa.kmmtemplateapp.domain.usecases.features.FetchUserDataUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SetAppLocaleUseCase
@@ -17,13 +19,13 @@ import kmmtemplateapp.shared.presentation.ui.generated.resources.language_french
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language_italian
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language_portuguese
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language_spanish
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.StringResource
 
-sealed interface SettingsUiState {
+sealed interface SettingsUiState : BaseUiState {
     data object Loading : SettingsUiState
     data class Success(
         val userData: UserData,
@@ -35,19 +37,21 @@ class SettingsViewModel(
     fetchUserDataUseCase: FetchUserDataUseCase,
     private val setAppLocaleUseCase: SetAppLocaleUseCase,
     private val setAppThemeUseCase: SetAppThemeUseCase,
-) : KmmViewModel() {
+) : BaseViewModel<SettingsUiState, EmptyUiEvent>(
+    initialState = SettingsUiState.Loading,
+) {
 
-    val uiState = fetchUserDataUseCase()
-        .map { userData ->
-            SettingsUiState.Success(
-                userData = userData,
-                locales = getAppLocales()
-            )
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000L),
-            initialValue = SettingsUiState.Loading
-        )
+    init {
+        fetchUserDataUseCase()
+            .map {
+                SettingsUiState.Success(
+                    userData = it,
+                    locales = getAppLocales()
+                )
+            }
+            .onEach { _uiState.value = it }
+            .launchIn(viewModelScope)
+    }
 
     fun setAppLocale(newLocale: String) {
         viewModelScope.launch {

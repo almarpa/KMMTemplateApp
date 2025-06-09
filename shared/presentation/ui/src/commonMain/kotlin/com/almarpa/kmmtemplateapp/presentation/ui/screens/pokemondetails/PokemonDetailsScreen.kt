@@ -50,7 +50,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.LifecycleResumeEffect
 import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithSharedElementTransition
@@ -99,13 +98,6 @@ fun SharedTransitionScope.PokemonDetailsScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val snackbarMessage = stringResource(Res.string.pokemon_added_to_team)
-
-    LifecycleResumeEffect(Unit) {
-        onFetchDetails()
-        onPauseOrDispose {
-            // Do nothing
-        }
-    }
 
     ObserveAsEvents(
         flow = SnackbarController.snackbarEvents,

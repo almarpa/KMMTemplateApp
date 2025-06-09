@@ -31,7 +31,7 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
 ) {
     composable<Routes.PokemonList> {
         val pokemonListViewModel = koinViewModel<PokemonListViewModel>()
-        val pokemonListUiState by pokemonListViewModel.pokemonListUiState.collectAsStateWithLifecycle()
+        val pokemonListUiState by pokemonListViewModel.uiState.collectAsStateWithLifecycle()
         val searchUiState: SearchUiState by pokemonListViewModel.searchUiState.collectAsStateWithLifecycle()
 
         sharedTransitionScope.PokemonListScreen(
@@ -40,7 +40,7 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
             currentRoute = Routes.PokemonList,
             searchUiState = searchUiState,
             pokemonListUiState = pokemonListUiState,
-            onReload = { pokemonListViewModel.fetchPokemonList() },
+            onReload = { pokemonListViewModel.loadList() },
             onSearch = { text -> pokemonListViewModel.onPokemonSearch(text) },
             onDismissSearch = { pokemonListViewModel.removeCurrentSearch() },
             onPokemonItemClick = { navigationActions.navigateToDetailNavGraph(it) },
@@ -59,13 +59,13 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
     ) { navBackStackEntry ->
         val pokemon = navBackStackEntry.toRoute<Routes.Detail>().pokemon
         val pokemonDetailsViewModel = koinViewModel<PokemonDetailsViewModel>()
-        val pokemonDetailsUiState by pokemonDetailsViewModel.detailsUiState.collectAsStateWithLifecycle()
+        val pokemonDetailsUiState by pokemonDetailsViewModel.uiState.collectAsStateWithLifecycle()
 
         sharedTransitionScope.PokemonDetailsScreen(
             animatedVisibilityScope = this,
             pokemon = pokemon,
             pokemonDetailsUiState = pokemonDetailsUiState,
-            onFetchDetails = { pokemonDetailsViewModel.getPokemonDetails(pokemon.id) },
+            onFetchDetails = { pokemonDetailsViewModel.loadDetails() },
             onAddTeamMember = { pokemon, added ->
                 pokemonDetailsViewModel.addPokemonToTeam(pokemon, added)
             },
@@ -82,7 +82,7 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
             currentRoute = Routes.Team,
             navigationActions = navigationActions,
             uiState = teamUiState,
-            onRetry = { teamViewModel.fetchTeamList() },
+            onRetry = { teamViewModel.loadData() },
             onSave = { pokemon -> teamViewModel.createPokemonMemberAndReloadTeam(pokemon) }
         )
     }
