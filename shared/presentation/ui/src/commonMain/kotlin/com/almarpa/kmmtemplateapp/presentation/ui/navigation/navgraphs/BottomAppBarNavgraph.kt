@@ -65,7 +65,7 @@ fun NavGraphBuilder.bottomAppBarNavGraph(
             animatedVisibilityScope = this,
             pokemon = pokemon,
             pokemonDetailsUiState = pokemonDetailsUiState,
-            onFetchDetails = { pokemonDetailsViewModel.loadDetails() },
+            onFetchDetails = { pokemonDetailsViewModel.loadDetails(pokemon.id) },
             onAddTeamMember = { pokemon, added ->
                 pokemonDetailsViewModel.addPokemonToTeam(pokemon, added)
             },

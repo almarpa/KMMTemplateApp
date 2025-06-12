@@ -99,6 +99,8 @@ fun SharedTransitionScope.PokemonDetailsScreen(
     val coroutineScope = rememberCoroutineScope()
     val snackbarMessage = stringResource(Res.string.pokemon_added_to_team)
 
+    LaunchedEffect(pokemon) { onFetchDetails() }
+
     ObserveAsEvents(
         flow = SnackbarController.snackbarEvents,
     ) { snackbarEvent ->
