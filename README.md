@@ -43,13 +43,13 @@ A multiplatform project for Android and iOS developed with Kotlin Multiplatform 
 
 * `Snapshots:`
 <h3>
-<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/List.png?raw=true" width=50%>
-<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Drawer.png?raw=true" width=50%>
-<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Settings.png?raw=true" width=50%>
-<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Search.png?raw=true" width=50%>
-<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Detail.png?raw=true" width=50%>
-<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Team.png?raw=true" width=50%>
-<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/NewMember?raw=true" width=50%>
-<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Drawer.png?raw=true" width=50%>
+<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Home.png?raw=true" width=40%>
+<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Drawer.png?raw=true" width=40%>
+<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Settings.png?raw=true" width=40%>
+<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Search.png?raw=true" width=40%>
+<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Detail.png?raw=true" width=40%>
+<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Team.png?raw=true" width=40%>
+<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/NewMember?raw=true" width=40%>
+<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Drawer.png?raw=true" width=40%>
 </h3>
 
