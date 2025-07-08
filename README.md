@@ -7,10 +7,12 @@
 A multiplatform project for Android and iOS developed with Kotlin Multiplatform Mobile (KMM). It shares business logic, models, and UI code across platforms using Compose Multiplatform framework.
 
 ## 🚀 Features
-- Shared code for business logic and UI
-- Clean modular architecture (data, domain and presentation layers)
-- Dependency injection with Koin
-- Shared UI with Jetpack Compose (Compose Multiplatform)
+- Shared code for business logic and UI.
+- Clean modular architecture (data, domain and presentation layers).
+- Data persistence with Room and Datastore.
+- REST Api integration with Ktor & Ktorfit.
+- Shared UI with Jetpack Compose (Compose Multiplatform).
+- Dependency injection with Koin.
 
 ## ⚙️ Project Structure
 ```plaintext
