@@ -13,7 +13,7 @@ A multiplatform project for Android and iOS developed with Kotlin Multiplatform 
 - REST Api integration with Ktor and Ktorfit.
 - Shared UI with Jetpack Compose (Compose Multiplatform).
 - Dependency injection with Koin.
-- User settings management.
+- User preferences management.
 
 ## ⚙️ Project Structure
 ```plaintext
