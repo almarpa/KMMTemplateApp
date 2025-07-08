@@ -34,7 +34,7 @@ include(":composeApp")
 
 include(":shared:core:common")
 include(":shared:core:di")
-include(":shared:core:ui")
+include(":shared:core:presentation")
 
 include(":shared:data:datasources")
 include(":shared:data:repository")

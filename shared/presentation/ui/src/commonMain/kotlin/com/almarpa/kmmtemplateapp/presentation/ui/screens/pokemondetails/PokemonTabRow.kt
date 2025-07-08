@@ -6,8 +6,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.almarpa.kmmtemplateapp.core.ui.composables.tabrow.SwipeableTabRow
-import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
+import com.almarpa.kmmtemplateapp.core.presentation.composables.tabrow.SwipeableTabRow
+import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
 import com.almarpa.kmmtemplateapp.domain.models.PokemonDetails
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonDetailsMock
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res

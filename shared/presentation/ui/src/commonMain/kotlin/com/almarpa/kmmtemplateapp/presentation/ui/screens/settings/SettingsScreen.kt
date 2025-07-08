@@ -31,10 +31,10 @@ import androidx.compose.ui.unit.sp
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.common.model.enums.LocaleEnum
 import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
-import com.almarpa.kmmtemplateapp.core.ui.composables.dropdown.CustomDropdown
-import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.DefaultTopAppBar
-import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
-import com.almarpa.kmmtemplateapp.core.ui.utils.getDeviceLocale
+import com.almarpa.kmmtemplateapp.core.presentation.composables.dropdown.CustomDropdown
+import com.almarpa.kmmtemplateapp.core.presentation.composables.topappbar.DefaultTopAppBar
+import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
+import com.almarpa.kmmtemplateapp.core.presentation.utils.getDeviceLocale
 import com.almarpa.kmmtemplateapp.domain.models.UserData
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res

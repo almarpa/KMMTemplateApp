@@ -57,9 +57,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import coil3.compose.SubcomposeAsyncImage
-import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
-import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
-import com.almarpa.kmmtemplateapp.core.ui.utils.isTablet
+import com.almarpa.kmmtemplateapp.core.presentation.composables.spacer.CustomSpacer
+import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
+import com.almarpa.kmmtemplateapp.core.presentation.utils.isTablet
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.kmpalette.loader.rememberNetworkLoader
 import com.kmpalette.rememberDominantColorState

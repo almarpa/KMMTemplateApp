@@ -26,9 +26,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.almarpa.kmmtemplateapp.core.ui.composables.error.ErrorPlaceholderView
-import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
-import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
+import com.almarpa.kmmtemplateapp.core.presentation.composables.error.ErrorPlaceholderView
+import com.almarpa.kmmtemplateapp.core.presentation.composables.loader.FullScreenLoader
+import com.almarpa.kmmtemplateapp.core.presentation.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes

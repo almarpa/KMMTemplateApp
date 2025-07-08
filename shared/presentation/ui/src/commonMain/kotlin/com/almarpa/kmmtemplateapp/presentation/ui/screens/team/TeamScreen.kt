@@ -25,10 +25,10 @@ import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
-import com.almarpa.kmmtemplateapp.core.ui.composables.error.ErrorPlaceholderView
-import com.almarpa.kmmtemplateapp.core.ui.composables.loader.FullScreenLoader
-import com.almarpa.kmmtemplateapp.core.ui.composables.topappbar.AnimatedTopAppBar
-import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
+import com.almarpa.kmmtemplateapp.core.presentation.composables.error.ErrorPlaceholderView
+import com.almarpa.kmmtemplateapp.core.presentation.composables.loader.FullScreenLoader
+import com.almarpa.kmmtemplateapp.core.presentation.composables.topappbar.AnimatedTopAppBar
+import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions

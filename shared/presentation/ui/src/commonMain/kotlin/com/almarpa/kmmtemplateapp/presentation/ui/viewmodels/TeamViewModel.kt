@@ -1,9 +1,9 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
-import com.almarpa.kmmtemplateapp.core.ui.viewmodels.BaseViewModel
-import com.almarpa.kmmtemplateapp.core.ui.viewmodels.event.EmptyUiEvent
-import com.almarpa.kmmtemplateapp.core.ui.viewmodels.state.BaseUiState
+import com.almarpa.kmmtemplateapp.core.presentation.viewmodels.BaseViewModel
+import com.almarpa.kmmtemplateapp.core.presentation.viewmodels.event.EmptyUiEvent
+import com.almarpa.kmmtemplateapp.core.presentation.viewmodels.state.BaseUiState
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.domain.usecases.features.CreateTeamMemberUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.FetchTeamMembersUseCase

@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
+import com.almarpa.kmmtemplateapp.core.presentation.composables.spacer.CustomSpacer
 import com.almarpa.kmmtemplateapp.domain.models.TypeX
 import com.almarpa.kmmtemplateapp.domain.models.TypeXX
 import com.almarpa.kmmtemplateapp.domain.models.enums.PokemonTypeEnum

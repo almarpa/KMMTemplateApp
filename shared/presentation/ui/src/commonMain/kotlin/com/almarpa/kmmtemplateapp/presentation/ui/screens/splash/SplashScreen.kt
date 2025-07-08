@@ -21,7 +21,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
+import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.pokeball_filled
 import kotlinx.coroutines.delay

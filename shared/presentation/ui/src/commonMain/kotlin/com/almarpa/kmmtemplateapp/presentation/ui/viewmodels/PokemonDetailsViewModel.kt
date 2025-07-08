@@ -4,9 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
 import com.almarpa.kmmtemplateapp.core.common.model.entities.onError
 import com.almarpa.kmmtemplateapp.core.common.model.entities.onSuccess
-import com.almarpa.kmmtemplateapp.core.ui.viewmodels.BaseViewModel
-import com.almarpa.kmmtemplateapp.core.ui.viewmodels.event.EmptyUiEvent
-import com.almarpa.kmmtemplateapp.core.ui.viewmodels.state.BaseUiState
+import com.almarpa.kmmtemplateapp.core.presentation.viewmodels.BaseViewModel
+import com.almarpa.kmmtemplateapp.core.presentation.viewmodels.event.EmptyUiEvent
+import com.almarpa.kmmtemplateapp.core.presentation.viewmodels.state.BaseUiState
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.domain.models.PokemonDetails
 import com.almarpa.kmmtemplateapp.domain.usecases.features.AddPokemonToTeamUseCase

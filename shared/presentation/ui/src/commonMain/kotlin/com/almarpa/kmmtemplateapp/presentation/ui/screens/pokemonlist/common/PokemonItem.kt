@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithSharedElementTransition
 import com.almarpa.kmmtemplateapp.core.common.extensions.shimmerLoadingAnimation
-import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
+import com.almarpa.kmmtemplateapp.core.presentation.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.kmpalette.loader.rememberNetworkLoader
 import com.kmpalette.rememberDominantColorState

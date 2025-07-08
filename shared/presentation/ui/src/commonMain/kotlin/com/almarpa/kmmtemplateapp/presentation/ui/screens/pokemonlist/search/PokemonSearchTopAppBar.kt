@@ -19,7 +19,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
+import com.almarpa.kmmtemplateapp.core.presentation.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState

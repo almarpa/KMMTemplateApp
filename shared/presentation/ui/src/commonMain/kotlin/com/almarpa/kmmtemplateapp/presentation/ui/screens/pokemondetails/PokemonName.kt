@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
+import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonMock
 import org.jetbrains.compose.ui.tooling.preview.Preview

@@ -33,11 +33,11 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.shared.core.common)
             implementation(projects.shared.core.di)
-            implementation(projects.shared.core.ui)
+            implementation(projects.shared.core.presentation)
             implementation(projects.shared.domain.models)
             implementation(projects.shared.domain.usecases)
 
-            implementation(libs.bundles.core.ui)
+            implementation(libs.bundles.core.presentation)
 
             implementation(compose.runtime)
             implementation(compose.material3)
@@ -49,7 +49,7 @@ kotlin {
         androidMain {
             dependencies {
                 implementation(libs.bundles.android.core)
-                implementation(libs.bundles.android.ui)
+                implementation(libs.bundles.android.presentation)
                 implementation(libs.ktor.client.okhttp)
 
                 implementation(compose.uiTooling)

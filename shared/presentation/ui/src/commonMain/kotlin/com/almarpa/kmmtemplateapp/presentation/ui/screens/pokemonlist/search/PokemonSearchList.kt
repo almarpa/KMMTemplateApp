@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithLazyGridAnimationPreview
-import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
-import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
-import com.almarpa.kmmtemplateapp.core.ui.utils.isLandscapeOrientation
+import com.almarpa.kmmtemplateapp.core.presentation.composables.spacer.CustomSpacer
+import com.almarpa.kmmtemplateapp.core.presentation.previews.AppThemePreview
+import com.almarpa.kmmtemplateapp.core.presentation.utils.isLandscapeOrientation
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.common.PokemonItem

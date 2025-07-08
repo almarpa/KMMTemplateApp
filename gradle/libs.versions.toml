@@ -186,7 +186,7 @@ core-data = [
     "sqlite-bundled",
 ]
 
-core-ui = [
+core-presentation = [
     "kotlinx-coroutines-core",
     "kotlinx-datetime",
     "koin-core",
@@ -229,7 +229,7 @@ ios-data-core = [
     "ktor-client-ios",
 ]
 
-android-ui = [
+android-presentation = [
     "androidx-appcompat",
     "androidx-activityCompose",
     "androidx-lifecycle-viewmodel",

@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
+import com.almarpa.kmmtemplateapp.core.presentation.composables.spacer.CustomSpacer
 import com.almarpa.kmmtemplateapp.domain.models.Stat
 import com.almarpa.kmmtemplateapp.domain.models.StatX
 import com.almarpa.kmmtemplateapp.domain.models.enums.StatNameEnum

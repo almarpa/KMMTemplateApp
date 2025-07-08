@@ -8,7 +8,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
-import com.almarpa.kmmtemplateapp.core.ui.theme.AppTheme
+import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
 import com.almarpa.kmmtemplateapp.presentation.ui.App
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsUiState
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsViewModel

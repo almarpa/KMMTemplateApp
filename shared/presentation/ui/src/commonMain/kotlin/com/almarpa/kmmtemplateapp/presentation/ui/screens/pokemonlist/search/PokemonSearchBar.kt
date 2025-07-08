@@ -23,7 +23,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
-import com.almarpa.kmmtemplateapp.core.ui.previews.AppThemePreview
+import com.almarpa.kmmtemplateapp.core.presentation.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SearchUiState

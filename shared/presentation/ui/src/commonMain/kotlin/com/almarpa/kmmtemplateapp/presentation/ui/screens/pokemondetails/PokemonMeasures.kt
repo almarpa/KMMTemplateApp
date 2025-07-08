@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.almarpa.kmmtemplateapp.core.common.model.enums.UnitFormatEnum
-import com.almarpa.kmmtemplateapp.core.ui.composables.spacer.CustomSpacer
+import com.almarpa.kmmtemplateapp.core.presentation.composables.spacer.CustomSpacer
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.menu_drawer_btn
 import org.jetbrains.compose.resources.stringResource

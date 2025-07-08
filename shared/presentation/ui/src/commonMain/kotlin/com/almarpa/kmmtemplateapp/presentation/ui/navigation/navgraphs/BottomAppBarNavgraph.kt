@@ -8,7 +8,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.almarpa.kmmtemplateapp.core.ui.utils.serializableType
+import com.almarpa.kmmtemplateapp.core.presentation.utils.serializableType
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes

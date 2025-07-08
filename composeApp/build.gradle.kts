@@ -41,7 +41,7 @@ android {
 dependencies {
     implementation(projects.shared.presentation.ui)
     implementation(projects.shared.core.common)
-    implementation(projects.shared.core.ui)
+    implementation(projects.shared.core.presentation)
     implementation(projects.shared.domain.models)
 
     implementation(libs.bundles.android.core)
