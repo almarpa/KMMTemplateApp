@@ -36,7 +36,7 @@ A multiplatform project for Android and iOS developed with Kotlin Multiplatform 
     │   │   └── presentation
     │   │       └── ui      # Compose Multiplatform UI components
     │   ├── androidMain    # Android-specific implementations
-    │   └── iosMain       # iOS-specific implementations (if any)
+    │   └── iosMain       # iOS-specific implementations
     └── build.gradle.kts
 ```
 
