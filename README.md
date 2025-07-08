@@ -13,6 +13,7 @@ A multiplatform project for Android and iOS developed with Kotlin Multiplatform 
 - REST Api integration with Ktor and Ktorfit.
 - Shared UI with Jetpack Compose (Compose Multiplatform).
 - Dependency injection with Koin.
+- User settings management.
 
 ## ⚙️ Project Structure
 ```plaintext
@@ -49,6 +50,5 @@ A multiplatform project for Android and iOS developed with Kotlin Multiplatform 
 <img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Detail.png?raw=true" width=30%>
 <img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Team.png?raw=true" width=30%>
 <img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/NewMember?raw=true" width=30%>
-<img src="https://github.com/almarpa/KMMTemplateApp/blob/develop/composeApp/src/main/res/snapshots/Drawer.png?raw=true" width=30%>
 </h3>
 
