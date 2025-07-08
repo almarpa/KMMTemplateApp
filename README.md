@@ -4,34 +4,35 @@
 [![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.6.0-blue)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Proyecto multiplataforma para Android e iOS desarrollado con Kotlin Multiplatform Mobile (KMM). Comparte lógica de negocio, modelos y código UI entre plataformas utilizando Compose Multiplatform.
+A multiplatform project for Android and iOS developed with Kotlin Multiplatform Mobile (KMM). It shares business logic, models, and UI code across platforms using Compose Multiplatform framework.
 
-## 🚀 Características
-- Código compartido para lógica de negocio y UI
-- Arquitecta modular limpia (capa de datos, dominio y presentación)
-- Inyección de dependencias multiplataforma
-- UI unificada con Jetpack Compose (Android) y SwiftUI (iOS)
+## 🚀 Features
+- Shared code for business logic and UI
+- Clean modular architecture (data, domain and presentation layers)
+- Dependency injection with Koin
+- Shared UI with Jetpack Compose (Compose Multiplatform)
 
-## ⚙️ Estructura del Proyecto
-
+## ⚙️ Project Structure
 ```plaintext
 /
-├── androidApp              # Aplicación Android
-├── iosApp                 # Aplicación iOS
-└── shared                 # Código compartido
+├── androidApp             # Android application
+├── iosApp                 # iOS application
+└── shared                 # Shared code
     ├── build.gradle.kts
     ├── src
-    │   ├── commonMain     # Código común a todas las plataformas
-    │   │   ├── core       # Utilidades y extensiones
-    │   │   ├── di        # Inyección de dependencias (Koin/Kodein)
+    │   ├── commonMain     # Common code for all platforms
+    │   │   ├── core       # Utilities and extensions
+    │   │   ├── di         # Dependency injection
     │   │   ├── domain
-    │   │   │   ├── models      # Modelos de datos
-    │   │   │   ├── repository  # Interfaces de repositorios
-    │   │   │   └── usecases    # Casos de uso
+    │   │   │   ├── models      # Data models
+    │   │   │   ├── repository  # Repository interfaces
+    │   │   │   └── usecases    # Use cases
     │   │   ├── data
-    │   │   │   ├── datasources # Orígenes de datos (local/remoto)
-    │   │   │   └── repository  # Implementaciones de repositorios
+    │   │   │   ├── datasources # Data sources (local & remote)
+    │   │   │   └── repository  # Repository implementations
     │   │   └── presentation
-    │   │       └── ui      # Componentes UI Compose Multiplatform
-    │   └── androidMain    # Implementaciones específicas Android
+    │   │       └── ui      # Compose Multiplatform UI components
+    │   ├── androidMain    # Android-specific implementations
+    │   └── iosMain       # iOS-specific implementations (if any)
     └── build.gradle.kts
+```
