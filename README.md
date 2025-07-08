@@ -1,14 +1,37 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# Nombre del Proyecto
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.9.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.6.0-blue)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+Proyecto multiplataforma para Android e iOS desarrollado con Kotlin Multiplatform Mobile (KMM). Comparte lógica de negocio, modelos y código UI entre plataformas utilizando Compose Multiplatform.
 
+## 🚀 Características
+- Código compartido para lógica de negocio y UI
+- Arquitecta modular limpia (capa de datos, dominio y presentación)
+- Inyección de dependencias multiplataforma
+- UI unificada con Jetpack Compose (Android) y SwiftUI (iOS)
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## ⚙️ Estructura del Proyecto
+
+```plaintext
+/
+├── androidApp              # Aplicación Android
+├── iosApp                 # Aplicación iOS
+└── shared                 # Código compartido
+    ├── build.gradle.kts
+    ├── src
+    │   ├── commonMain     # Código común a todas las plataformas
+    │   │   ├── core       # Utilidades y extensiones
+    │   │   ├── di        # Inyección de dependencias (Koin/Kodein)
+    │   │   ├── domain
+    │   │   │   ├── models      # Modelos de datos
+    │   │   │   ├── repository  # Interfaces de repositorios
+    │   │   │   └── usecases    # Casos de uso
+    │   │   ├── data
+    │   │   │   ├── datasources # Orígenes de datos (local/remoto)
+    │   │   │   └── repository  # Implementaciones de repositorios
+    │   │   └── presentation
+    │   │       └── ui      # Componentes UI Compose Multiplatform
+    │   └── androidMain    # Implementaciones específicas Android
+    └── build.gradle.kts
