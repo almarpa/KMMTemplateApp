@@ -31,8 +31,7 @@ google-services.json
 
 # Android Profiling
 *.hprof
-=======
-<<<<<<< HEAD
+
 # These are some examples of commonly ignored file patterns.
 # You should customize this list as applicable to your project.
 # Learn more about .gitignore:
@@ -50,9 +49,6 @@ dist/
 
 # Log files
 *.log
-
-# Package files
-*.jar
 
 # Maven
 target/
