@@ -2,6 +2,7 @@
 .gradle/
 build/
 .kotlin/
+
 # Local configuration file (sdk path, etc)
 local.properties
 
@@ -39,7 +40,6 @@ google-services.json
 
 # Node artifact files
 node_modules/
-dist/
 
 # Compiled Java class files
 *.class
@@ -47,15 +47,9 @@ dist/
 # Compiled Python bytecode
 *.py[cod]
 
-# Log files
-*.log
-
 # Maven
 target/
 dist/
-
-# JetBrains IDE
-.idea/
 
 # Unit test reports
 TEST*.xml
@@ -80,14 +74,10 @@ Thumbs.db
 *.wmv
 
 # Initial
-*.iml
 .gradle
 **/build/
 xcuserdata
 !src/**/build/
-local.properties
-.idea
-.DS_Store
 captures
 .externalNativeBuild
 .cxx
