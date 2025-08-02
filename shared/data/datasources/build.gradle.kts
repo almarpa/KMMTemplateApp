@@ -93,6 +93,9 @@ afterEvaluate {
     tasks.named("kspDebugKotlinAndroid") {
         dependsOn("kspCommonMainKotlinMetadata")
     }
+    tasks.named("kspReleaseKotlinAndroid") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
     tasks.named("kspKotlinIosSimulatorArm64") {
         dependsOn("kspCommonMainKotlinMetadata")
     }
