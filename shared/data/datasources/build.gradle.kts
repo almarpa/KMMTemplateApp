@@ -92,8 +92,19 @@ android {
 }
 
 afterEvaluate {
-    // Ensure that tasks depend on the common main metadata task: kspDebugKotlinAndroid, kspReleaseKotlinAndroid, kspKotlinIosSimulatorArm64, kspKotlinIosArm64, kspKotlinIosX64
-    tasks.matching { it.name.startsWith("ksp") && it.name.contains("Kotlin") }.configureEach {
+    tasks.named("kspDebugKotlinAndroid") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+    tasks.named("kspReleaseKotlinAndroid") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+    tasks.named("kspKotlinIosSimulatorArm64") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+    tasks.named("kspKotlinIosArm64") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+    tasks.named("kspKotlinIosX64") {
         dependsOn("kspCommonMainKotlinMetadata")
     }
 }
