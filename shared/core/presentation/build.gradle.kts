@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.ksp)
 }
 kotlin {
+    jvmToolchain(17)
+
     androidTarget {
         compilations.all {
             kotlinOptions {
