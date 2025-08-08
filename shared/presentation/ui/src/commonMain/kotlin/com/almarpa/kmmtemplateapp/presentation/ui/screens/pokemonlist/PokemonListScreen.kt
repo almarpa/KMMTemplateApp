@@ -31,8 +31,8 @@ import com.almarpa.kmmtemplateapp.core.presentation.composables.loader.FullScree
 import com.almarpa.kmmtemplateapp.core.presentation.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navigationbar.AnimatedBottomAppBar
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.list.PokemonList
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.search.PokemonSearchTopAppBar
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.PokemonListUiState
