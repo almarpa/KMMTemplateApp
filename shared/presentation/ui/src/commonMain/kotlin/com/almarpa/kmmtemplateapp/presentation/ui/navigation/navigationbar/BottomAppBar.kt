@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 data class BottomAppBarItem(

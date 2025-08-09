@@ -5,7 +5,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.settings.SettingsScreen
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsViewModel
 import org.koin.compose.viewmodel.koinViewModel

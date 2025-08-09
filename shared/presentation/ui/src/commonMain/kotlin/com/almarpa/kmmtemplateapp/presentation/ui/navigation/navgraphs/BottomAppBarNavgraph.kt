@@ -11,7 +11,7 @@ import androidx.navigation.toRoute
 import com.almarpa.kmmtemplateapp.core.presentation.utils.serializableType
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails.PokemonDetailsScreen
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.PokemonListScreen
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.team.TeamScreen

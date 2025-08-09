@@ -8,8 +8,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.rememberNavController
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.drawer.Drawer
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 import kotlinx.coroutines.launch
 
 @Composable

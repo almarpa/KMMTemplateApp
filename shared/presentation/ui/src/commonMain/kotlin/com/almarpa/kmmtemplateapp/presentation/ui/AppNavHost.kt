@@ -11,10 +11,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs.bottomAppBarNavGraph
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs.drawerNavGraph
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs.splashNavGraph
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 
 @Composable
 fun TemplateNavHost(
