@@ -1,8 +1,6 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.common
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -29,6 +27,8 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithSharedElementTransition
 import com.almarpa.kmmtemplateapp.core.common.extensions.shimmerLoadingAnimation
+import com.almarpa.kmmtemplateapp.core.presentation.animations.WithAnimatedVisibilityScope
+import com.almarpa.kmmtemplateapp.core.presentation.animations.WithSharedTransitionScope
 import com.almarpa.kmmtemplateapp.core.presentation.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.kmpalette.loader.rememberNetworkLoader
@@ -40,9 +40,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.PokemonItem(
+fun PokemonItem(
     modifier: Modifier = Modifier,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     pokemon: Pokemon,
     onPokemonItemClick: (Pokemon) -> Unit = { },
 ) {
@@ -81,22 +80,26 @@ fun SharedTransitionScope.PokemonItem(
                 ),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            SubcomposeAsyncImage(
-                model = pokemon.url,
-                contentDescription = "Pokemon Image",
-                contentScale = ContentScale.FillBounds,
-                modifier = Modifier
-                    .fillMaxWidth(.8f)
-                    .aspectRatio(1f)
-                    .padding(10.dp)
-                    .clip(shape = RoundedCornerShape(40.dp))
-                    .then(
-                        modifierWithSharedElementTransition(
-                            state = rememberSharedContentState(key = "item-image${pokemon.id}"),
-                            animatedVisibilityScope = animatedVisibilityScope,
-                        )
+            WithSharedTransitionScope {
+                WithAnimatedVisibilityScope {
+                    SubcomposeAsyncImage(
+                        model = pokemon.url,
+                        contentDescription = "Pokemon Image",
+                        contentScale = ContentScale.FillBounds,
+                        modifier = Modifier
+                            .fillMaxWidth(.8f)
+                            .aspectRatio(1f)
+                            .padding(10.dp)
+                            .clip(shape = RoundedCornerShape(40.dp))
+                            .then(
+                                modifierWithSharedElementTransition(
+                                    state = rememberSharedContentState(key = "item-image${pokemon.id}"),
+                                    animatedVisibilityScope = this,
+                                )
+                            )
                     )
-            )
+                }
+            }
 
             Text(
                 text = pokemon.name.uppercase().takeIf {
@@ -122,7 +125,6 @@ fun SharedTransitionScope.PokemonItem(
 fun PokemonItemPreview() {
     AppThemePreview {
         PokemonItem(
-            animatedVisibilityScope = it,
             pokemon = Pokemon(
                 id = 1,
                 url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",

@@ -1,8 +1,6 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,6 +24,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.almarpa.kmmtemplateapp.core.presentation.animations.WithSharedTransitionScope
 import com.almarpa.kmmtemplateapp.core.presentation.composables.error.ErrorPlaceholderView
 import com.almarpa.kmmtemplateapp.core.presentation.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.presentation.previews.AppThemePreview
@@ -49,8 +48,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
     ExperimentalComposeUiApi::class
 )
 @Composable
-fun SharedTransitionScope.PokemonListScreen(
-    animatedVisibilityScope: AnimatedVisibilityScope,
+fun PokemonListScreen(
     drawerState: DrawerState,
     currentRoute: Routes,
     searchUiState: SearchUiState,
@@ -75,7 +73,6 @@ fun SharedTransitionScope.PokemonListScreen(
         modifier = Modifier.nestedScroll(scrollBehaviour.nestedScrollConnection),
         topBar = {
             PokemonSearchTopAppBar(
-                animatedVisibilityScope = animatedVisibilityScope,
                 drawerState = drawerState,
                 scrollBehaviour = scrollBehaviour,
                 uiState = searchUiState,
@@ -92,7 +89,6 @@ fun SharedTransitionScope.PokemonListScreen(
         content = { paddingValues ->
             PokemonListContent(
                 modifier = Modifier.padding(paddingValues = paddingValues),
-                animatedVisibilityScope = animatedVisibilityScope,
                 pokemonListUiState = pokemonListUiState,
                 onReload = { onReload() },
                 onNavigateToPokemonDetail = { pokemon ->
@@ -102,13 +98,15 @@ fun SharedTransitionScope.PokemonListScreen(
             )
         },
         bottomBar = {
-            AnimatedBottomAppBar(
-                modifier = Modifier.renderInSharedTransitionScopeOverlay(zIndexInOverlay = 1f),
-                isVisible = isBottomAppBarVisible,
-                currentRoute = currentRoute,
-            ) { newRoute ->
-                coroutineScope.launch { drawerState.close() }
-                onBottomBarItemClick(newRoute)
+            WithSharedTransitionScope {
+                AnimatedBottomAppBar(
+                    modifier = Modifier.renderInSharedTransitionScopeOverlay(zIndexInOverlay = 1f),
+                    isVisible = isBottomAppBarVisible,
+                    currentRoute = currentRoute,
+                ) { newRoute ->
+                    coroutineScope.launch { drawerState.close() }
+                    onBottomBarItemClick(newRoute)
+                }
             }
         },
     )
@@ -116,9 +114,8 @@ fun SharedTransitionScope.PokemonListScreen(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.PokemonListContent(
+fun PokemonListContent(
     modifier: Modifier = Modifier,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     pokemonListUiState: PokemonListUiState,
     onReload: () -> Unit,
     onNavigateToPokemonDetail: (Pokemon) -> Unit,
@@ -143,7 +140,6 @@ fun SharedTransitionScope.PokemonListContent(
 
             is PokemonListUiState.Success -> {
                 PokemonList(
-                    animatedVisibilityScope = animatedVisibilityScope,
                     pokemonList = pokemonListUiState.pokemonList,
                     onPokemonItemClick = { onNavigateToPokemonDetail(it) }
                 )
@@ -158,7 +154,6 @@ fun SharedTransitionScope.PokemonListContent(
 fun PokemonListScreenPreview() {
     AppThemePreview {
         PokemonListScreen(
-            animatedVisibilityScope = it,
             drawerState = DrawerState(DrawerValue.Closed),
             currentRoute = Routes.PokemonList,
             searchUiState = SearchUiState.Success(getPokemonListMock()),
@@ -178,7 +173,6 @@ fun PokemonListScreenPreview() {
 fun PokemonListScreenWithSearchActivePreview() {
     AppThemePreview {
         PokemonListScreen(
-            animatedVisibilityScope = it,
             drawerState = DrawerState(DrawerValue.Closed),
             currentRoute = Routes.PokemonList,
             searchUiState = SearchUiState.Error,

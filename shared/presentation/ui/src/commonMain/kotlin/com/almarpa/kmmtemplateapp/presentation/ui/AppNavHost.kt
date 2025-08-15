@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.almarpa.kmmtemplateapp.core.presentation.animations.ProvideSharedTransitionScope
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs.bottomAppBarNavGraph
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs.drawerNavGraph
@@ -17,25 +18,27 @@ import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navgraphs.splashNav
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 
 @Composable
-fun TemplateNavHost(
+fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     startDestination: Routes,
-    drawerState: DrawerState, navigationActions: NavigationActions,
+    drawerState: DrawerState,
+    navigationActions: NavigationActions,
 ) {
     SharedTransitionLayout {
-        NavHost(
-            navController = navController,
-            startDestination = startDestination,
-            modifier = modifier,
-        ) {
-            splashNavGraph(navigationActions)
-            bottomAppBarNavGraph(
-                sharedTransitionScope = this@SharedTransitionLayout,
-                drawerState = drawerState,
-                navigationActions = navigationActions
-            )
-            drawerNavGraph(navigationActions)
+        ProvideSharedTransitionScope {
+            NavHost(
+                modifier = modifier,
+                navController = navController,
+                startDestination = startDestination,
+            ) {
+                splashNavGraph(navigationActions)
+                bottomAppBarNavGraph(
+                    drawerState = drawerState,
+                    navigationActions = navigationActions
+                )
+                drawerNavGraph(navigationActions)
+            }
         }
     }
 }

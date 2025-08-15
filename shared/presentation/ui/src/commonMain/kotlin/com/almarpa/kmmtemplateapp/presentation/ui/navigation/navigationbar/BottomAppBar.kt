@@ -49,7 +49,7 @@ fun BottomAppBar(
 
 @Composable
 @Preview()
-fun TemplateBottomAppBarPreview() {
+fun BottomAppBarPreview() {
     AppTheme {
         BottomAppBar(
             currentRoute = Routes.PokemonList,

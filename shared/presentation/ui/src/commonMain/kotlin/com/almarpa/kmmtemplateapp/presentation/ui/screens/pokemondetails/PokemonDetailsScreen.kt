@@ -1,8 +1,6 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemondetails
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -54,6 +52,8 @@ import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithSharedElementTransition
 import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
+import com.almarpa.kmmtemplateapp.core.presentation.animations.WithAnimatedVisibilityScope
+import com.almarpa.kmmtemplateapp.core.presentation.animations.WithSharedTransitionScope
 import com.almarpa.kmmtemplateapp.core.presentation.composables.dialogs.SimpleActionAlertDialog
 import com.almarpa.kmmtemplateapp.core.presentation.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.presentation.composables.snackbar.CustomSnackBar
@@ -87,8 +87,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalComposeUiApi::class)
 @Composable
-fun SharedTransitionScope.PokemonDetailsScreen(
-    animatedVisibilityScope: AnimatedVisibilityScope,
+fun PokemonDetailsScreen(
     pokemon: Pokemon,
     pokemonDetailsUiState: PokemonDetailsUiState,
     onFetchDetails: () -> Unit,
@@ -122,7 +121,6 @@ fun SharedTransitionScope.PokemonDetailsScreen(
         PokemonDetailsContent(
             pokemon = pokemon,
             pokemonDetailsUiState = pokemonDetailsUiState,
-            animatedVisibilityScope = animatedVisibilityScope,
             onFetchDetails = { onFetchDetails() },
         ) { pokemon, isAdded ->
             onAddTeamMember(pokemon, isAdded)
@@ -137,10 +135,9 @@ fun SharedTransitionScope.PokemonDetailsScreen(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun SharedTransitionScope.PokemonDetailsContent(
+private fun PokemonDetailsContent(
     pokemon: Pokemon,
     pokemonDetailsUiState: PokemonDetailsUiState,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     onFetchDetails: () -> Unit,
     onAddTeamMember: (Pokemon, Boolean) -> Unit,
 ) {
@@ -172,7 +169,6 @@ private fun SharedTransitionScope.PokemonDetailsContent(
         )
 
         PokemonImageAnimation(
-            animatedVisibilityScope = animatedVisibilityScope,
             pokemon = pokemon,
             pokemonImageSize = 200.dp
         )
@@ -304,8 +300,7 @@ fun PokemonInfo(pokemon: Pokemon, details: PokemonDetails) {
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.PokemonImageAnimation(
-    animatedVisibilityScope: AnimatedVisibilityScope,
+fun PokemonImageAnimation(
     pokemon: Pokemon,
     pokemonImageSize: Dp = 200.dp,
 ) {
@@ -316,19 +311,23 @@ fun SharedTransitionScope.PokemonImageAnimation(
             .padding(if (isTablet()) 4.dp else 12.dp),
         contentAlignment = Alignment.Center,
     ) {
-        SubcomposeAsyncImage(
-            model = pokemon.url,
-            contentDescription = null,
-            modifier = Modifier
-                .height(if (isTablet()) pokemonImageSize.plus(50.dp) else pokemonImageSize)
-                .aspectRatio(1f)
-                .then(
-                    modifierWithSharedElementTransition(
-                        state = rememberSharedContentState(key = "item-image${pokemon.id}"),
-                        animatedVisibilityScope = animatedVisibilityScope,
-                    )
+        WithSharedTransitionScope {
+            WithAnimatedVisibilityScope {
+                SubcomposeAsyncImage(
+                    model = pokemon.url,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .height(if (isTablet()) pokemonImageSize.plus(50.dp) else pokemonImageSize)
+                        .aspectRatio(1f)
+                        .then(
+                            modifierWithSharedElementTransition(
+                                state = rememberSharedContentState(key = "item-image${pokemon.id}"),
+                                animatedVisibilityScope = this,
+                            )
+                        )
                 )
-        )
+            }
+        }
     }
 }
 
@@ -349,7 +348,6 @@ fun AppErrorDialog(isVisible: Boolean, appError: AppError, onAccept: () -> Unit)
 fun PokemonDetailsScreenPreview() {
     AppThemePreview {
         PokemonDetailsScreen(
-            animatedVisibilityScope = it,
             pokemon = getPokemonMock(),
             pokemonDetailsUiState = PokemonDetailsUiState.Success(getPokemonDetailsMock()),
             onFetchDetails = {},
@@ -373,7 +371,6 @@ fun AddMemberButtonPreview() {
 fun PokemonImageAnimationPreview() {
     AppThemePreview {
         PokemonImageAnimation(
-            animatedVisibilityScope = it,
             pokemon = getPokemonMock(),
         )
     }
@@ -397,7 +394,6 @@ fun PokemonCardPreview() {
 fun PokemonDetailsErrorScreenPreview() {
     AppThemePreview {
         PokemonDetailsScreen(
-            animatedVisibilityScope = it,
             pokemon = getPokemonMock(),
             pokemonDetailsUiState = PokemonDetailsUiState.Error(mockNotFoundAppError()),
             onFetchDetails = {},

@@ -1,8 +1,6 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.search
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -32,8 +30,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.PokemonSearchTopAppBar(
-    animatedVisibilityScope: AnimatedVisibilityScope,
+fun PokemonSearchTopAppBar(
     drawerState: DrawerState = DrawerState(DrawerValue.Closed),
     scrollBehaviour: TopAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
     uiState: SearchUiState,
@@ -73,7 +70,6 @@ fun SharedTransitionScope.PokemonSearchTopAppBar(
         )
         if (isSearchActive) {
             PokemonSearchBar(
-                animatedVisibilityScope = animatedVisibilityScope,
                 uiState = uiState,
                 onSearch = { onSearch(it) },
                 onCancel = {
@@ -103,7 +99,6 @@ fun SearchIcon(onIconClick: () -> Unit) {
 fun InactiveSearchTopAppBarPreview() {
     AppThemePreview {
         PokemonSearchTopAppBar(
-            animatedVisibilityScope = it,
             uiState = SearchUiState.Success(getPokemonListMock()),
             drawerState = DrawerState(DrawerValue.Closed),
         ) {}
@@ -116,7 +111,6 @@ fun InactiveSearchTopAppBarPreview() {
 fun ActiveSearchTopAppBarPreview() {
     AppThemePreview {
         PokemonSearchTopAppBar(
-            animatedVisibilityScope = it,
             uiState = SearchUiState.Success(getPokemonListMock()),
             drawerState = DrawerState(DrawerValue.Closed),
             isSearchActive = true

@@ -1,8 +1,6 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.search
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,8 +23,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.PokemonSearchList(
-    animatedVisibilityScope: AnimatedVisibilityScope,
+fun PokemonSearchList(
     pokemonList: List<Pokemon>,
     onPokemonItemClick: (Pokemon) -> Unit = { },
 ) {
@@ -47,7 +44,6 @@ fun SharedTransitionScope.PokemonSearchList(
         ) { index ->
             PokemonItem(
                 modifier = modifierWithLazyGridAnimationPreview(index, columns),
-                animatedVisibilityScope = animatedVisibilityScope,
                 pokemon = pokemonList[index],
                 onPokemonItemClick = { onPokemonItemClick(it) },
             )
@@ -62,7 +58,6 @@ fun SharedTransitionScope.PokemonSearchList(
 fun PokemonListPreview() {
     AppThemePreview {
         PokemonSearchList(
-            animatedVisibilityScope = it,
             pokemonList = getPokemonListMock(),
             onPokemonItemClick = { },
         )

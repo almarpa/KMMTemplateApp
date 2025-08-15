@@ -31,7 +31,7 @@ fun Drawer(
     ModalDrawerSheet(
         drawerContainerColor = MaterialTheme.colorScheme.surfaceContainerLow
     ) {
-        TemplateAppLogo(
+        AppLogo(
             modifier = Modifier.padding(horizontal = 28.dp, vertical = 24.dp),
         )
         NavigationDrawerItem(
@@ -61,7 +61,7 @@ fun Drawer(
 }
 
 @Composable
-private fun TemplateAppLogo(modifier: Modifier = Modifier) {
+private fun AppLogo(modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         Text(
             text = stringResource(Res.string.app_name),

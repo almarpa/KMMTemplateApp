@@ -1,8 +1,6 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.search
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
@@ -34,9 +32,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.PokemonSearchBar(
+fun PokemonSearchBar(
     modifier: Modifier = Modifier,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     uiState: SearchUiState,
     onSearch: (String) -> Unit,
     onSelected: (Pokemon) -> Unit,
@@ -90,7 +87,6 @@ fun SharedTransitionScope.PokemonSearchBar(
     ) {
         if (uiState !is SearchUiState.Idle) {
             PokemonSearchBarContent(
-                animatedVisibilityScope = animatedVisibilityScope,
                 uiState = uiState,
                 onSelected = { onSelected(it) }
             )
@@ -105,7 +101,6 @@ fun SharedTransitionScope.PokemonSearchBar(
 fun ActivatedSearchTopBarPreview() {
     AppThemePreview {
         PokemonSearchBar(
-            animatedVisibilityScope = it,
             uiState = SearchUiState.Success(getPokemonListMock()),
             onCancel = {},
             onSearch = {},

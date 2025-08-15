@@ -29,7 +29,7 @@ fun App() {
         drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
     ) {
-        TemplateNavHost(
+        AppNavHost(
             navController = navController,
             drawerState = drawerState,
             startDestination = Routes.Splash,
