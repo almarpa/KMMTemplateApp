@@ -6,15 +6,8 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(17)
-
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
-        }
-    }
+    jvmToolchain(21)
+    androidTarget()
 
     listOf(
         iosX64(),
@@ -61,7 +54,7 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }

@@ -1,22 +1,22 @@
 package com.almarpa.kmmtemplateapp.core.presentation.theme
 
 import android.app.Activity
-import android.graphics.Color
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 
 @Composable
 actual fun SystemAppearance(darkMode: Boolean) {
     val view = LocalView.current
-    val systemBarColor = Color.TRANSPARENT
+    val context = LocalContext.current
+    val window = (context as Activity).window
+
     LaunchedEffect(darkMode) {
-        val window = (view.context as Activity).window
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = systemBarColor
-        window.navigationBarColor = systemBarColor
-        WindowCompat.getInsetsController(window, window.decorView).apply {
+        WindowInsetsControllerCompat(window, view).apply {
             isAppearanceLightStatusBars = darkMode
             isAppearanceLightNavigationBars = darkMode
         }
