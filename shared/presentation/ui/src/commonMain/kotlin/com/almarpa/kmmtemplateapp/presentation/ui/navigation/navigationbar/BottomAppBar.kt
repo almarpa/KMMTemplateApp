@@ -41,7 +41,7 @@ fun BottomAppBar(
                 icon = item.icon,
                 label = { item.label },
                 selected = currentRoute == item.route,
-                onClick = { onRouteSelected(item.route) },
+                onClick = { if (currentRoute != item.route) onRouteSelected(item.route) },
             )
         }
     }

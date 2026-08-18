@@ -31,7 +31,6 @@ class PokemonDetailsRepositoryImpl(
     private suspend fun getLocalPokemonDetails(pokemonID: Int): PokemonDetails? =
         pokemonDetailsLocalDataSource.getPokemonDetails(pokemonID.toString())?.toDomain()
 
-
     private suspend fun getRemotePokemonDetails(pokemonID: Int): Result<PokemonDetails, AppError> =
         pokemonRemoteDataSource.getPokemonDetails(pokemonID).map { remoteResponse ->
             remoteResponse.toDomain().also { savePokemonDetails(it) }

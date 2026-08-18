@@ -17,9 +17,6 @@
     <string name="stat_speed">Spd</string>
     <string name="stat_special_attack">S. Atk</string>
     <string name="stat_special_defense">S. Def</string>
-    <string name="empty_string">""</string>
-    <string name="dark_mode">Dark mode</string>
-    <string name="dark_mode_description">Choose between dark mode or light mode to customize the app's appearance to your preferences.</string>
     <string name="common_accept">Accept</string>
     <string name="common_cancel">Cancel</string>
     <string name="about">About</string>
@@ -29,10 +26,13 @@
     <string name="pokemon_name">Name</string>
     <string name="insert_name">Add name</string>
     <string name="add_photo">Add image URL</string>
-    <string name="language">Language</string>
     <string name="stats">Stats</string>
     <string name="moves">Moves</string>
     <string name="pokemon_added_to_team">¡Pokemon joined to team!</string>
+    <string name="empty_string">""</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="dark_mode_description">Choose between dark mode or light mode to customize the app's appearance to your preferences.</string>
+    <string name="language">Language</string>
     <string name="app_error_title">Error</string>
     <string name="language_english">English</string>
     <string name="language_spanish">Spanish</string>

@@ -56,7 +56,7 @@ fun TeamScreen(
     var isFabContainerFullScreen by rememberSaveable { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
-    BackHandler(isFabContainerFullScreen && isIosPlatform()) { isFabContainerFullScreen = false }
+    BackHandler(isFabContainerFullScreen) { isFabContainerFullScreen = false }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,

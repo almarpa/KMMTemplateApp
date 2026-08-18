@@ -83,3 +83,8 @@ val TypeDragon = Color(0xFF6F35FC)
 val TypeDark = Color(0xFF705746)
 val TypeSteel = Color(0xFFB7B7CE)
 val TypeFairy = Color(0xFFD685AD)
+
+val Platinum = Color(0xFFE5E4E2)
+val Silver = Color(0xFFB8B8B8)
+val DarkSilver = Color(0xFF7D7D7D)
+

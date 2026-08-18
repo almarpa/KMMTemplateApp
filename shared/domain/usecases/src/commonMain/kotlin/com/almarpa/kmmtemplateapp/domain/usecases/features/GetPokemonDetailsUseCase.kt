@@ -7,5 +7,5 @@ import com.almarpa.kmmtemplateapp.domain.repository.PokemonDetailsRepository
 
 class GetPokemonDetailsUseCase(private val repository: PokemonDetailsRepository) {
     suspend operator fun invoke(pokemonId: Int): Result<PokemonDetails, AppError> =
-        this.repository.getPokemonDetails(pokemonId)
+        repository.getPokemonDetails(pokemonId)
 }

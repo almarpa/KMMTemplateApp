@@ -46,7 +46,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -79,6 +81,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AnimatedFabContainer(
     modifier: Modifier = Modifier,
@@ -86,6 +89,10 @@ fun AnimatedFabContainer(
     onFabContainerStateChanged: (Boolean) -> Unit,
     onSave: (Pokemon) -> Unit,
 ) {
+    BackHandler(enabled = fabContainerState) {
+        onFabContainerStateChanged(false)
+    }
+    
     with(updateTransition(targetState = fabContainerState, label = "fabContainerTransition")) {
         val backgroundColor = getBackgroundColor()
         val cornerRadius = getCornerRadius()
@@ -308,15 +315,15 @@ fun AddPokemonFab(onFabButtonPressed: () -> Unit) {
         Box {
             Icon(
                 modifier = Modifier
-                    .size(40.dp)
-                    .offset(x = (-16).dp, y = (-12).dp)
+                    .size(24.dp)
+                    .offset(x = (-8).dp, y = (-6).dp)
                     .zIndex(1f),
                 imageVector = Icons.Filled.Add,
                 contentDescription = stringResource(Res.string.menu_drawer_btn),
                 tint = Color.White
             )
             Image(
-                modifier = Modifier.width(50.dp),
+                modifier = Modifier.width(36.dp),
                 painter = painterResource(Res.drawable.pokeball_filled),
                 contentDescription = "PokeballImage",
             )

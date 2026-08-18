@@ -28,7 +28,13 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("debug")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -47,6 +53,7 @@ dependencies {
     implementation(libs.bundles.android.core)
 
     implementation(libs.androidx.activityCompose)
+    implementation(libs.androidx.core.splashscreen)
 
     implementation(libs.compose.runtime.android)
     implementation(libs.compose.foundation)

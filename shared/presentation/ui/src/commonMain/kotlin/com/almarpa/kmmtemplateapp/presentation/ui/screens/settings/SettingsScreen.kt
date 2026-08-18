@@ -1,19 +1,25 @@
 package com.almarpa.kmmtemplateapp.presentation.ui.screens.settings
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.LightMode
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -26,8 +32,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.common.model.enums.LocaleEnum
 import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
@@ -93,9 +100,13 @@ fun SettingsContent(
     )
 
     Column(
-        modifier = modifier.padding(top = 16.dp).wrapContentSize().fillMaxWidth(),
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
     ) {
-        CardItem {
+        Spacer(modifier = Modifier.height(8.dp))
+
+        SettingsGroup(title = stringResource(Res.string.language)) {
             LanguagesSection(
                 languages = locales,
                 currentLanguage = stringResource(currentLocale),
@@ -103,7 +114,13 @@ fun SettingsContent(
             )
         }
 
-        CardItem {
+        HorizontalDivider(
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
+            thickness = 1.dp,
+            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+        )
+
+        SettingsGroup(title = stringResource(Res.string.dark_mode)) {
             DarkModeSection(
                 themeState = userData.theme,
                 onChange = { isChecked -> onThemeChange(isChecked) },
@@ -113,23 +130,19 @@ fun SettingsContent(
 }
 
 @Composable
-private fun CardItem(
-    isVisible: Boolean = true,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit,
+private fun SettingsGroup(
+    title: String,
+    content: @Composable ColumnScope.() -> Unit,
 ) {
-    if (isVisible) {
-        Card(
-            modifier = modifier.padding(8.dp),
-            shape = RoundedCornerShape(10.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface,
-            ),
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-        ) {
-            content()
-        }
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.primary,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        )
+        content()
     }
 }
 
@@ -139,73 +152,108 @@ fun LanguagesSection(
     currentLanguage: String,
     onLanguageChange: (String) -> Unit,
 ) {
-    Row(
-        modifier = Modifier.padding(vertical = 16.dp, horizontal = 32.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            modifier = Modifier.weight(1f),
-            text = stringResource(Res.string.language),
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.tertiary,
-            fontSize = 18.sp
-        )
-        Row(
-            modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.End
-        ) {
+    SettingsRow(
+        icon = Icons.Default.Language,
+        title = stringResource(Res.string.language),
+        isVerticalAction = true,
+        action = {
             CustomDropdown(
+                modifier = Modifier.fillMaxWidth(),
                 items = languages.mapValues { item -> stringResource(item.value) },
                 selected = currentLanguage,
                 onClickItem = { selection -> onLanguageChange(selection) })
         }
-    }
+    )
 }
 
 @Composable
 fun DarkModeSection(themeState: AppThemeEnum, onChange: (Boolean) -> Unit) {
+    SettingsRow(
+        icon = if (themeState == AppThemeEnum.DARK) Icons.Default.DarkMode else Icons.Default.LightMode,
+        title = stringResource(Res.string.dark_mode),
+        subtitle = stringResource(Res.string.dark_mode_description),
+        action = {
+            Switch(
+                checked = themeState == AppThemeEnum.DARK,
+                onCheckedChange = { onChange(it) },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Color.White,
+                    checkedTrackColor = MaterialTheme.colorScheme.primary
+                ),
+                thumbContent = {
+                    Icon(
+                        imageVector = if (themeState == AppThemeEnum.DARK) {
+                            Icons.Filled.DarkMode
+                        } else {
+                            Icons.Filled.LightMode
+                        },
+                        tint = MaterialTheme.colorScheme.primaryContainer,
+                        contentDescription = null,
+                        modifier = Modifier.size(SwitchDefaults.IconSize),
+                    )
+                })
+        }
+    )
+}
+
+@Composable
+private fun SettingsRow(
+    icon: ImageVector,
+    title: String,
+    subtitle: String? = null,
+    isVerticalAction: Boolean = false,
+    action: @Composable () -> Unit,
+) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp, horizontal = 32.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 64.dp)
+            .padding(16.dp),
+        verticalAlignment = if (isVerticalAction) Alignment.Top else Alignment.CenterVertically
     ) {
-        Column(
-            modifier = Modifier.weight(1f)
+        Box(
+            modifier = Modifier
+                .size(36.dp)
+                .background(
+                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+                    shape = RoundedCornerShape(8.dp)
+                ),
+            contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = stringResource(Res.string.dark_mode),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.tertiary,
-                maxLines = 1,
-                fontSize = 18.sp
-            )
-            Text(
-                modifier = Modifier.padding(top = 8.dp, end = 8.dp),
-                text = stringResource(Res.string.dark_mode_description),
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.secondary,
-                maxLines = 3
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(20.dp)
             )
         }
 
-        Switch(
-            checked = themeState == AppThemeEnum.DARK,
-            onCheckedChange = { onChange(it) },
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.White,
-                checkedTrackColor = MaterialTheme.colorScheme.primary
-            ),
-            thumbContent = {
-                Icon(
-                    imageVector = if (themeState == AppThemeEnum.DARK) {
-                        Icons.Filled.DarkMode
-                    } else {
-                        Icons.Filled.LightMode
-                    },
-                    tint = MaterialTheme.colorScheme.primaryContainer,
-                    contentDescription = null,
-                    modifier = Modifier.size(SwitchDefaults.IconSize),
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 16.dp)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            if (subtitle != null) {
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-            })
+            }
+            if (isVerticalAction) {
+                Spacer(modifier = Modifier.height(12.dp))
+                action()
+            }
+        }
+        if (!isVerticalAction) {
+            action()
+        }
     }
 }
 
