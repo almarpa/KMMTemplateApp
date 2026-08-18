@@ -98,7 +98,7 @@ fun Modifier.applyAlphaScaleAnimation(index: Int, columns: Int): Modifier {
         durationMillis = 400,
         delayMillis = index % columns * 50,
         easing = LinearOutSlowInEasing
-    )@
+    )
     val transitionState = remember {
         MutableTransitionState(AnimState.PLACING).apply { targetState = AnimState.PLACED }
     }
