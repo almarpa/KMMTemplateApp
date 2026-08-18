@@ -87,7 +87,7 @@ fun SharedTransitionScope.modifierWithSharedElementTransition(
 @Composable
 fun modifierWithLazyGridAnimationPreview(index: Int, columns: Int) =
     if (!LocalInspectionMode.current) {
-        Modifier7.applyAlphaScaleAnimation(index, columns)
+        Modifier.applyAlphaScaleAnimation(index, columns)
     } else {
         Modifier
     }
