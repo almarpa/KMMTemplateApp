@@ -1,6 +1,9 @@
 package com.almarpa.kmmtemplateapp.core.presentation.utils
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.CoreGraphics.CGRectGetHeight
 import platform.CoreGraphics.CGRectGetWidth
@@ -27,3 +30,5 @@ actual fun setAppLanguage(locale: String) {
 }
 
 actual fun getDeviceLocale(): String = NSLocale.currentLocale.languageCode
+
+actual fun backButtonImageVector(): ImageVector = Icons.AutoMirrored.Filled.ArrowBackIos

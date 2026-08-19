@@ -2,7 +2,10 @@ package com.almarpa.kmmtemplateapp.core.presentation.utils
 
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.intl.Locale
 import androidx.core.os.LocaleListCompat
@@ -26,3 +29,5 @@ actual fun setAppLanguage(locale: String) {
 }
 
 actual fun getDeviceLocale(): String = Locale.current.language
+
+actual fun backButtonImageVector(): ImageVector = Icons.AutoMirrored.Filled.ArrowBack

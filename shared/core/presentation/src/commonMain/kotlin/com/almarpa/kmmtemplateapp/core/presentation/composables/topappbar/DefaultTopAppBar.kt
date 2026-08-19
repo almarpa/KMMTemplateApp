@@ -1,7 +1,6 @@
 package com.almarpa.kmmtemplateapp.core.presentation.composables.topappbar
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -13,6 +12,10 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
+import com.almarpa.kmmtemplateapp.core.presentation.utils.backButtonImageVector
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -20,6 +23,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun DefaultTopAppBar(
     modifier: Modifier = Modifier,
     title: String = "",
+    icon: ImageVector = backButtonImageVector(),
     onBackPressed: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
@@ -35,7 +39,8 @@ fun DefaultTopAppBar(
                 onClick = { onBackPressed.invoke() }
             ) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                    modifier = Modifier.padding(start = if (isIosPlatform()) 8.dp else 0.dp),
+                    imageVector = icon,
                     contentDescription = "menu_drawer_btn",
                     tint = MaterialTheme.colorScheme.tertiary
                 )
