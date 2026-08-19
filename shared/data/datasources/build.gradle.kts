@@ -1,25 +1,37 @@
-import de.jensklingenberg.ktorfit.gradle.ErrorCheckingMode
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.androidKmpLibrary)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.room)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.ktorfit)
 }
 
 kotlin {
     jvmToolchain(21)
-    androidTarget()
+
+    android {
+        namespace = "${libs.versions.applicationId.get()}.data.datasource"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
+        }
+        
+        androidResources {
+            enable = true
+        }
+    }
 
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "DataDatasources"
+    ).forEach { target ->
+        target.binaries.framework {
+            baseName = "DataDatasource"
             isStatic = true
         }
     }
@@ -30,7 +42,12 @@ kotlin {
             implementation(projects.shared.domain.models)
 
             implementation(libs.bundles.core.common)
-            implementation(libs.bundles.core.data)
+            implementation(libs.bundles.core.datasource)
+            implementation(libs.bundles.core.api)
+        }
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
 
         androidMain.dependencies {
@@ -43,61 +60,18 @@ kotlin {
         }
 
         commonTest.dependencies {
-            implementation(kotlin("test"))
-        }
-
-        dependencies {
-            // ksp(libs.androidx.room.compiler) Not working, alternative below
-            add("kspAndroid", libs.androidx.room.compiler)
-            add("kspIosSimulatorArm64", libs.androidx.room.compiler)
-            add("kspIosX64", libs.androidx.room.compiler)
-            add("kspIosArm64", libs.androidx.room.compiler)
-        }
-
-        room {
-            schemaDirectory("$projectDir/schemas")
-        }
-
-        ktorfit {
-            errorCheckingMode = ErrorCheckingMode.ERROR
-            generateQualifiedTypeName = true
+            implementation(libs.kotlin.test)
         }
     }
 }
 
-android {
-    namespace = "${libs.versions.applicationId.get()}.data.datasources"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-
-    sourceSets["main"].apply {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-        res.srcDirs("src/androidMain/resources")
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
 }
 
-afterEvaluate {
-    tasks.named("kspDebugKotlinAndroid") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
-    tasks.named("kspReleaseKotlinAndroid") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
-    tasks.named("kspKotlinIosSimulatorArm64") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
-    tasks.named("kspKotlinIosArm64") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
-    tasks.named("kspKotlinIosX64") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
+room {
+    schemaDirectory("$projectDir/schemas")
 }

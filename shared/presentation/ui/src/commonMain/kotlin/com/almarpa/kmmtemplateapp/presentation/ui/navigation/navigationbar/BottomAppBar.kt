@@ -52,7 +52,7 @@ fun BottomAppBar(
 fun BottomAppBarPreview() {
     AppTheme {
         BottomAppBar(
-            currentRoute = Routes.PokemonList,
+            currentRoute = Routes.HomeDestination.PokemonList,
             bottomAppBarItems = listOf(
                 BottomAppBarItem(
                     icon = {
@@ -64,7 +64,7 @@ fun BottomAppBarPreview() {
                     },
                     label = "Pokedex",
                     color = MaterialTheme.colorScheme.primary,
-                    route = Routes.PokemonList,
+                    route = Routes.HomeDestination.PokemonList,
                 ),
                 BottomAppBarItem(
                     icon = {
@@ -76,7 +76,7 @@ fun BottomAppBarPreview() {
                     },
                     label = "Team",
                     color = MaterialTheme.colorScheme.primary,
-                    route = Routes.Team,
+                    route = Routes.HomeDestination.Team,
                 )
             ),
             onRouteSelected = {},

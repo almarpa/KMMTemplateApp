@@ -155,7 +155,7 @@ fun PokemonListScreenPreview() {
     AppThemePreview {
         PokemonListScreen(
             drawerState = DrawerState(DrawerValue.Closed),
-            currentRoute = Routes.PokemonList,
+            currentRoute = Routes.HomeDestination.PokemonList,
             searchUiState = SearchUiState.Success(getPokemonListMock()),
             pokemonListUiState = PokemonListUiState.Success(getPokemonListMock()),
             onReload = {},
@@ -174,7 +174,7 @@ fun PokemonListScreenWithSearchActivePreview() {
     AppThemePreview {
         PokemonListScreen(
             drawerState = DrawerState(DrawerValue.Closed),
-            currentRoute = Routes.PokemonList,
+            currentRoute = Routes.HomeDestination.PokemonList,
             searchUiState = SearchUiState.Error,
             pokemonListUiState = PokemonListUiState.Success(getPokemonListMock()),
             onReload = {},

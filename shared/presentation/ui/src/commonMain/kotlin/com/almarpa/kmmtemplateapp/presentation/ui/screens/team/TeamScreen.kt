@@ -23,8 +23,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
-import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
 import com.almarpa.kmmtemplateapp.core.presentation.composables.error.ErrorPlaceholderView
 import com.almarpa.kmmtemplateapp.core.presentation.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.presentation.composables.topappbar.AnimatedTopAppBar
@@ -52,6 +50,7 @@ fun TeamScreen(
     uiState: TeamUiState,
     onRetry: () -> Unit,
     onSave: (pokemon: Pokemon) -> Unit,
+    onBottomBarItemClick: (Routes) -> Unit,
 ) {
     var isFabContainerFullScreen by rememberSaveable { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
@@ -86,11 +85,7 @@ fun TeamScreen(
                 currentRoute = currentRoute,
             ) { onRouteSelected ->
                 coroutineScope.launch { drawerState.close() }
-                if (onRouteSelected == Routes.PokemonList) {
-                    navigationActions.navigateToPokemonList()
-                } else {
-                    navigationActions.navigateToTeamList()
-                }
+                onBottomBarItemClick(onRouteSelected)
             }
         }
     )
@@ -152,11 +147,12 @@ fun TeamScreenFabPreview() {
     AppTheme {
         TeamScreen(
             drawerState = DrawerState(DrawerValue.Closed),
-            currentRoute = Routes.Team,
-            navigationActions = NavigationActions(rememberNavController()),
+            currentRoute = Routes.HomeDestination.Team,
+            navigationActions = NavigationActions(mutableListOf()),
             uiState = TeamUiState.Success(getPokemonListMock()),
             onRetry = {},
-            onSave = {}
+            onSave = {},
+            onBottomBarItemClick = {}
         )
     }
 }
@@ -168,11 +164,12 @@ fun TeamEmptyContentFabPreview() {
     AppTheme {
         TeamScreen(
             drawerState = DrawerState(DrawerValue.Closed),
-            currentRoute = Routes.Team,
-            navigationActions = NavigationActions(rememberNavController()),
+            currentRoute = Routes.HomeDestination.Team,
+            navigationActions = NavigationActions(mutableListOf()),
             uiState = TeamUiState.Success(listOf()),
             onRetry = {},
-            onSave = {}
+            onSave = {},
+            onBottomBarItemClick = {}
         )
     }
 }

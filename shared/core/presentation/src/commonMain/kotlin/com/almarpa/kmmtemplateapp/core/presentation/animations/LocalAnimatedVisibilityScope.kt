@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 
-private val LocalAnimatedVisibilityScope = compositionLocalOf<AnimatedVisibilityScope> {
-    error("AnimatedVisibilityScope must be provided first")
+val LocalAnimatedVisibilityScope = compositionLocalOf<AnimatedVisibilityScope?> {
+    null
 }
 
 @Composable
@@ -21,7 +21,10 @@ fun AnimatedVisibilityScope.ProvideAnimatedVisibilityScope(
 
 @Composable
 fun WithAnimatedVisibilityScope(block: @Composable AnimatedVisibilityScope.() -> Unit) {
-    with(LocalAnimatedVisibilityScope.current) {
-        block()
+    val scope = LocalAnimatedVisibilityScope.current
+    if (scope != null) {
+        with(scope) {
+            block()
+        }
     }
 }

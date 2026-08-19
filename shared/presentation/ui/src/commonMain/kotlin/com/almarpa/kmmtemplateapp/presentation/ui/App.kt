@@ -6,7 +6,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.toMutableStateList
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.drawer.Drawer
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun App() {
-    val navController = rememberNavController()
-    val navigationActions = remember(navController) { NavigationActions(navController) }
+    val backStack = remember { listOf<Routes>(Routes.Splash).toMutableStateList() }
+    val navigationActions = remember(backStack) { NavigationActions(backStack) }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
 
@@ -30,9 +30,8 @@ fun App() {
         gesturesEnabled = drawerState.isOpen,
     ) {
         AppNavHost(
-            navController = navController,
+            backStack = backStack,
             drawerState = drawerState,
-            startDestination = Routes.Splash,
             navigationActions = navigationActions,
         )
     }

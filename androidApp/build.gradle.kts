@@ -1,7 +1,5 @@
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.composeCompiler)
 }
 
@@ -55,6 +53,7 @@ dependencies {
     implementation(libs.androidx.activityCompose)
     implementation(libs.androidx.core.splashscreen)
 
-    implementation(libs.compose.runtime.android)
+    implementation(libs.compose.runtime)
     implementation(libs.compose.foundation)
+    debugImplementation(libs.compose.ui.tooling)
 }

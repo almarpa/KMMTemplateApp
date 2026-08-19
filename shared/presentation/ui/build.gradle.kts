@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.androidKmpLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.composeCompiler)
@@ -9,7 +9,20 @@ plugins {
 
 kotlin {
     jvmToolchain(21)
-    androidTarget()
+
+    android {
+        namespace = "${libs.versions.applicationId.get()}.presentation.ui"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+        }
+
+        androidResources {
+            enable = true
+        }
+    }
 
     listOf(
         iosX64(),
@@ -57,36 +70,5 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-    }
-}
-
-android {
-    namespace = "${libs.versions.applicationId.get()}.presentation.ui"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
-
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-
-    sourceSets["main"].apply {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-        res.srcDirs("src/androidMain/resources")
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    buildFeatures {
-        compose = true
-    }
-
-    dependencies {
-        debugImplementation(compose.uiTooling)
-        debugImplementation(compose.preview)
     }
 }

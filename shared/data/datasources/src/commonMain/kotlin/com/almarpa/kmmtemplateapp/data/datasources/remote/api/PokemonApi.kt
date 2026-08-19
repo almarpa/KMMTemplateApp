@@ -1,9 +1,10 @@
 package com.almarpa.kmmtemplateapp.data.datasources.remote.api
 
 import com.almarpa.kmmtemplateapp.data.datasources.models.response.PokemonResultResponse
-import de.jensklingenberg.ktorfit.http.GET
-import de.jensklingenberg.ktorfit.http.Path
-import de.jensklingenberg.ktorfit.http.Query
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
 import io.ktor.client.statement.HttpResponse
 
 interface PokemonApi {
@@ -12,14 +13,26 @@ interface PokemonApi {
         const val BASE_URL = "https://pokeapi.co/"
     }
 
-    @GET("api/v2/pokemon")
     suspend fun getPokemons(
-        @Query("limit") limit: Int? = 2000,
-        @Query("offset") offset: Int? = 0,
+        limit: Int? = 2000,
+        offset: Int? = 0,
     ): PokemonResultResponse
 
-    @GET("api/v2/pokemon/{pokemonID}")
     suspend fun getPokemon(
-        @Path("pokemonID") pokemonId: Int
+        pokemonId: Int
     ): HttpResponse
+}
+
+class PokemonApiImpl(private val client: HttpClient) : PokemonApi {
+
+    override suspend fun getPokemons(limit: Int?, offset: Int?): PokemonResultResponse {
+        return client.get("${PokemonApi.BASE_URL}api/v2/pokemon") {
+            parameter("limit", limit)
+            parameter("offset", offset)
+        }.body()
+    }
+
+    override suspend fun getPokemon(pokemonId: Int): HttpResponse {
+        return client.get("${PokemonApi.BASE_URL}api/v2/pokemon/$pokemonId")
+    }
 }

@@ -34,8 +34,6 @@ import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.kmpalette.loader.rememberNetworkLoader
 import com.kmpalette.rememberDominantColorState
 import io.ktor.http.Url
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -50,7 +48,6 @@ fun PokemonItem(
     val dominantColorState = rememberDominantColorState(
         loader = networkLoader,
         defaultColor = defaultDominantColor,
-        coroutineContext = Dispatchers.IO,
     )
 
     LaunchedEffect(pokemon.url) {

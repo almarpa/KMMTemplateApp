@@ -11,11 +11,10 @@ import com.almarpa.kmmtemplateapp.data.datasources.local.features.impl.DataStore
 import com.almarpa.kmmtemplateapp.data.datasources.local.features.impl.PokemonDetailsLocalDataSourceImpl
 import com.almarpa.kmmtemplateapp.data.datasources.local.features.impl.PokemonLocalDataSourceImpl
 import com.almarpa.kmmtemplateapp.data.datasources.remote.api.PokemonApi
-import com.almarpa.kmmtemplateapp.data.datasources.remote.api.createPokemonApi
+import com.almarpa.kmmtemplateapp.data.datasources.remote.api.PokemonApiImpl
 import com.almarpa.kmmtemplateapp.data.datasources.remote.features.PokemonRemoteDataSource
 import com.almarpa.kmmtemplateapp.data.datasources.remote.features.impl.PokemonRemoteDataSourceImpl
 import com.almarpa.kmmtemplateapp.data.datasources.remote.httpclient.HttpClientFactory
-import de.jensklingenberg.ktorfit.Ktorfit
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.bind
@@ -31,12 +30,7 @@ object DataSourcesInjector : KoinModules {
         module {
             // Ktor
             single<PokemonApi> {
-                Ktorfit
-                    .Builder()
-                    .httpClient(HttpClientFactory.create(get()))
-                    .baseUrl(PokemonApi.BASE_URL)
-                    .build()
-                    .createPokemonApi()
+                PokemonApiImpl(HttpClientFactory.create(get()))
             }
 
             // Room

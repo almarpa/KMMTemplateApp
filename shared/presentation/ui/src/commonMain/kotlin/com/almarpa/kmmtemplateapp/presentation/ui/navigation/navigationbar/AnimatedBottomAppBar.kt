@@ -36,12 +36,12 @@ fun AnimatedBottomAppBar(
             },
             label = stringResource(Res.string.team_title),
             color = MaterialTheme.colorScheme.tertiary,
-            route = Routes.PokemonList,
+            route = Routes.HomeDestination.PokemonList,
         ),
         BottomAppBarItem(
             icon = {
                 Icon(
-                    if (currentRoute == Routes.Team) {
+                    if (currentRoute == Routes.HomeDestination.Team) {
                         Icons.Filled.People
                     } else {
                         Icons.Outlined.PeopleOutline
@@ -52,7 +52,7 @@ fun AnimatedBottomAppBar(
             },
             label = stringResource(Res.string.team_title),
             color = MaterialTheme.colorScheme.tertiary,
-            route = Routes.Team,
+            route = Routes.HomeDestination.Team,
         ),
     )
 

@@ -10,16 +10,6 @@
 -keep class org.koin.** { *; }
 -dontwarn org.koin.**
 
-# Ktorfit (Reglas específicas para evitar "Missing class")
--keep class de.jensklingenberg.ktorfit.** { *; }
--dontwarn de.jensklingenberg.ktorfit.**
--keepattributes *Annotation*
-
-# Mantener las interfaces de los servicios de Ktorfit (las que usas para las APIs)
--keep interface * {
-    @de.jensklingenberg.ktorfit.http.* <methods>;
-}
-
 # Ktor
 -keep class io.ktor.** { *; }
 -dontwarn io.ktor.**

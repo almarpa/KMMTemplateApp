@@ -30,7 +30,7 @@ dependencyResolutionManagement {
 }
 
 // Modules
-include(":composeApp")
+include(":androidApp")
 
 include(":shared:core:common")
 include(":shared:core:di")

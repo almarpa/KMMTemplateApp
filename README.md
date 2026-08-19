@@ -10,7 +10,7 @@ A multiplatform project for Android and iOS developed with Kotlin Multiplatform 
 - Shared code for business logic and UI.
 - Clean modular architecture (data, domain and presentation layers).
 - Data persistence with Room and Datastore.
-- REST Api integration with Ktor and Ktorfit.
+- REST Api integration with Ktor.
 - Shared UI with Jetpack Compose (Compose Multiplatform).
 - Dependency injection with Koin.
 - User preferences management.

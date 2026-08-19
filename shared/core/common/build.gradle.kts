@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.androidKmpLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.ksp)
@@ -8,7 +8,20 @@ plugins {
 
 kotlin {
     jvmToolchain(21)
-    androidTarget()
+    
+    android {
+        namespace = "${libs.versions.applicationId.get()}.core.common"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+        }
+
+        androidResources {
+            enable = true
+        }
+    }
 
     listOf(
         iosX64(),
@@ -32,23 +45,5 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.bundles.android.core)
         }
-    }
-}
-
-android {
-    namespace = "${libs.versions.applicationId.get()}.core.common"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-
-    sourceSets["main"].apply {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-        res.srcDirs("src/androidMain/resources")
-    }
-
-    buildFeatures {
-        compose = true
     }
 }
