@@ -30,17 +30,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
 import com.almarpa.kmmtemplateapp.core.common.model.enums.LocaleEnum
-import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
 import com.almarpa.kmmtemplateapp.core.presentation.composables.dropdown.CustomDropdown
 import com.almarpa.kmmtemplateapp.core.presentation.composables.topappbar.DefaultTopAppBar
 import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
+import com.almarpa.kmmtemplateapp.core.presentation.theme.LocalThemeIsDark
 import com.almarpa.kmmtemplateapp.core.presentation.utils.getDeviceLocale
 import com.almarpa.kmmtemplateapp.domain.models.UserData
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsUiState
@@ -63,8 +62,6 @@ fun SettingsScreen(
     onThemeChange: (Boolean) -> Unit = {},
     onBackPressed: () -> Unit = {},
 ) {
-    BackHandler(isIosPlatform()) { onBackPressed() }
-
     Scaffold(containerColor = MaterialTheme.colorScheme.surface, topBar = {
         DefaultTopAppBar(title = stringResource(Res.string.settings_title)) {
             onBackPressed()
@@ -168,13 +165,18 @@ fun LanguagesSection(
 
 @Composable
 fun DarkModeSection(themeState: AppThemeEnum, onChange: (Boolean) -> Unit) {
+    val isChecked = when (themeState) {
+        AppThemeEnum.DARK -> true
+        AppThemeEnum.LIGHT -> false
+        AppThemeEnum.AUTO -> LocalThemeIsDark.current
+    }
     SettingsRow(
-        icon = if (themeState == AppThemeEnum.DARK) Icons.Default.DarkMode else Icons.Default.LightMode,
+        icon = if (isChecked) Icons.Default.DarkMode else Icons.Default.LightMode,
         title = stringResource(Res.string.dark_mode),
         subtitle = stringResource(Res.string.dark_mode_description),
         action = {
             Switch(
-                checked = themeState == AppThemeEnum.DARK,
+                checked = isChecked,
                 onCheckedChange = { onChange(it) },
                 colors = SwitchDefaults.colors(
                     checkedThumbColor = Color.White,
@@ -182,7 +184,7 @@ fun DarkModeSection(themeState: AppThemeEnum, onChange: (Boolean) -> Unit) {
                 ),
                 thumbContent = {
                     Icon(
-                        imageVector = if (themeState == AppThemeEnum.DARK) {
+                        imageVector = if (isChecked) {
                             Icons.Filled.DarkMode
                         } else {
                             Icons.Filled.LightMode

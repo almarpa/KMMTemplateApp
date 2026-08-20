@@ -16,7 +16,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
@@ -92,6 +93,11 @@ fun modifierWithLazyGridAnimationPreview(index: Int, columns: Int) =
         Modifier
     }
 
+private val AnimStateSaver = Saver<MutableTransitionState<AnimState>, AnimState>(
+    save = { it.currentState },
+    restore = { MutableTransitionState(it).apply { targetState = AnimState.PLACED } }
+)
+
 @Composable
 fun Modifier.applyAlphaScaleAnimation(index: Int, columns: Int): Modifier {
     val animation: FiniteAnimationSpec<Float> = tween(
@@ -99,10 +105,10 @@ fun Modifier.applyAlphaScaleAnimation(index: Int, columns: Int): Modifier {
         delayMillis = index % columns * 50,
         easing = LinearOutSlowInEasing
     )
-    val transitionState = remember {
+    val transitionState = rememberSaveable(saver = AnimStateSaver) {
         MutableTransitionState(AnimState.PLACING).apply { targetState = AnimState.PLACED }
     }
-    val transition = rememberTransition(transitionState)
+    val transition = rememberTransition(transitionState, label = "AlphaScaleAnimation")
     val alpha by transition.animateFloat(transitionSpec = { animation }, label = "") { state ->
         when (state) {
             AnimState.PLACING -> 0f

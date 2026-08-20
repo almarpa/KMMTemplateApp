@@ -60,15 +60,9 @@ class SettingsViewModel(
         }
     }
 
-    fun setAppTheme(isChecked: Boolean) {
+    fun setAppTheme(theme: AppThemeEnum) {
         viewModelScope.launch {
-            setAppThemeUseCase(
-                if (isChecked) {
-                    AppThemeEnum.DARK.name
-                } else {
-                    AppThemeEnum.LIGHT.name
-                }
-            )
+            setAppThemeUseCase(theme.name)
         }
     }
 

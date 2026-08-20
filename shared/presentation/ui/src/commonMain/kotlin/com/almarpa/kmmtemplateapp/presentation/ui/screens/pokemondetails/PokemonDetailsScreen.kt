@@ -17,8 +17,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -42,7 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.backhandler.BackHandler
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -51,11 +53,10 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.common.errorhandler.entities.AppError
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithSharedElementTransition
-import com.almarpa.kmmtemplateapp.core.common.platform.isIosPlatform
+import com.almarpa.kmmtemplateapp.core.common.extensions.shimmerLoadingAnimation
 import com.almarpa.kmmtemplateapp.core.presentation.animations.WithAnimatedVisibilityScope
 import com.almarpa.kmmtemplateapp.core.presentation.animations.WithSharedTransitionScope
 import com.almarpa.kmmtemplateapp.core.presentation.composables.dialogs.SimpleActionAlertDialog
-import com.almarpa.kmmtemplateapp.core.presentation.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.presentation.composables.snackbar.CustomSnackBar
 import com.almarpa.kmmtemplateapp.core.presentation.composables.snackbar.SnackbarController
 import com.almarpa.kmmtemplateapp.core.presentation.composables.snackbar.SnackbarEvent
@@ -110,8 +111,6 @@ fun PokemonDetailsScreen(
             onActionPerformed = { snackbarEvent.action?.action?.invoke() },
         )
     }
-
-    BackHandler(isIosPlatform()) { onBackPressed() }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -236,7 +235,13 @@ fun PokemonCard(
         verticalArrangement = Arrangement.Center
     ) {
         when (pokemonDetailsUiState) {
-            is PokemonDetailsUiState.Loading -> FullScreenLoader()
+            is PokemonDetailsUiState.Loading -> {
+                PokemonInfo(
+                    pokemon = pokemon,
+                    details = null,
+                    isLoading = true
+                )
+            }
 
             is PokemonDetailsUiState.Error -> {
                 AppErrorContent(pokemonDetailsUiState, onRetry)
@@ -245,7 +250,8 @@ fun PokemonCard(
             is PokemonDetailsUiState.Success -> {
                 PokemonInfo(
                     pokemon = pokemon,
-                    details = pokemonDetailsUiState.details
+                    details = pokemonDetailsUiState.details,
+                    isLoading = false
                 )
             }
         }
@@ -255,7 +261,7 @@ fun PokemonCard(
 @Composable
 fun AppErrorContent(
     pokemonDetailsUiState: PokemonDetailsUiState.Error,
-    onRetry: () -> Unit
+    onRetry: () -> Unit,
 ) {
     var isErrorVisible by rememberSaveable { mutableStateOf(false) }
 
@@ -275,7 +281,11 @@ fun AppErrorContent(
 }
 
 @Composable
-fun PokemonInfo(pokemon: Pokemon, details: PokemonDetails) {
+fun PokemonInfo(
+    pokemon: Pokemon,
+    details: PokemonDetails?,
+    isLoading: Boolean = false,
+) {
     Column {
         PokemonName(
             modifier = Modifier.padding(
@@ -284,16 +294,113 @@ fun PokemonInfo(pokemon: Pokemon, details: PokemonDetails) {
             pokemon = pokemon
         )
         CustomSpacer(height = 16)
-        PokemonType(types = details.types)
-        PokemonMeasures(
-            pokemonWeight = details.weight,
-            pokemonHeight = details.height
-        )
-        PokemonTabRow(
-            modifier = Modifier.heightIn(
-                max = 300.dp // due to nested scroll need to have a defined height
-            ),
-            pokemonDetails = details
+        if (isLoading || details == null) {
+            PokemonInfoShimmer()
+        } else {
+            PokemonType(types = details.types)
+            PokemonMeasures(
+                pokemonWeight = details.weight,
+                pokemonHeight = details.height
+            )
+            PokemonTabRow(
+                modifier = Modifier.heightIn(
+                    max = 300.dp // due to nested scroll need to have a defined height
+                ),
+                pokemonDetails = details
+            )
+        }
+    }
+}
+
+@Composable
+fun PokemonInfoShimmer() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Types Shimmer
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(30.dp)
+                    .clip(CircleShape)
+                    .shimmerLoadingAnimation()
+            )
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(30.dp)
+                    .clip(CircleShape)
+                    .shimmerLoadingAnimation()
+            )
+        }
+
+        CustomSpacer(height = 16)
+
+        // Measures Shimmer
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .shimmerLoadingAnimation()
+                )
+                CustomSpacer(height = 4)
+                Box(
+                    modifier = Modifier
+                        .width(60.dp)
+                        .height(20.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .shimmerLoadingAnimation()
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .height(60.dp)
+                    .width(1.dp)
+                    .background(Color.LightGray)
+            )
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .shimmerLoadingAnimation()
+                )
+                CustomSpacer(height = 4)
+                Box(
+                    modifier = Modifier
+                        .width(60.dp)
+                        .height(20.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .shimmerLoadingAnimation()
+                )
+            }
+        }
+
+        CustomSpacer(height = 16)
+
+        // Tabs Shimmer
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(300.dp)
+                .padding(horizontal = 16.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .shimmerLoadingAnimation()
         )
     }
 }
@@ -396,6 +503,21 @@ fun PokemonDetailsErrorScreenPreview() {
         PokemonDetailsScreen(
             pokemon = getPokemonMock(),
             pokemonDetailsUiState = PokemonDetailsUiState.Error(mockNotFoundAppError()),
+            onFetchDetails = {},
+            onAddTeamMember = { _, _ -> },
+            onBackPressed = {},
+        )
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Composable
+@Preview
+fun PokemonDetailsLoadingScreenPreview() {
+    AppThemePreview {
+        PokemonDetailsScreen(
+            pokemon = getPokemonMock(),
+            pokemonDetailsUiState = PokemonDetailsUiState.Loading,
             onFetchDetails = {},
             onAddTeamMember = { _, _ -> },
             onBackPressed = {},

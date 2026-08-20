@@ -2,7 +2,6 @@ package com.almarpa.kmmtemplateapp.presentation.ui.screens.team
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,13 +10,10 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -40,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
 import com.almarpa.kmmtemplateapp.core.presentation.theme.DarkSilver
+import com.almarpa.kmmtemplateapp.core.presentation.theme.LocalThemeIsDark
 import com.almarpa.kmmtemplateapp.core.presentation.theme.Platinum
 import com.almarpa.kmmtemplateapp.core.presentation.theme.Silver
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
@@ -70,7 +67,7 @@ fun MemberItem(pokemon: Pokemon, pagerState: PagerState, page: Int) {
         ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
 
     val containerColor = Color(pokemon.color)
-    val isDark = isSystemInDarkTheme()
+    val isDark = LocalThemeIsDark.current
 
     Card(
         modifier = Modifier
@@ -79,7 +76,9 @@ fun MemberItem(pokemon: Pokemon, pagerState: PagerState, page: Int) {
             .shadow(
                 elevation = 30.dp,
                 shape = RoundedCornerShape(32.dp),
-                spotColor = if (isDark) containerColor.copy(alpha = 0.8f) else Color.Black.copy(alpha = 0.2f),
+                spotColor = if (isDark) containerColor.copy(alpha = 0.8f) else Color.Black.copy(
+                    alpha = 0.2f
+                ),
                 ambientColor = Color.Black.copy(alpha = 0.5f)
             )
             .border(
@@ -106,10 +105,7 @@ fun MemberItem(pokemon: Pokemon, pagerState: PagerState, page: Int) {
         Box(modifier = Modifier.fillMaxSize()) {
             MemberCardDecorations()
 
-            MemberContent(
-                pokemon = pokemon,
-                pageOffset = pageOffset
-            )
+            MemberContent(pokemon = pokemon,)
         }
     }
 }
@@ -163,8 +159,7 @@ private fun MemberCardDecorations() {
 @Composable
 private fun MemberContent(
     pokemon: Pokemon,
-    pageOffset: Float,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier

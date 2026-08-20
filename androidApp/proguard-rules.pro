@@ -19,3 +19,9 @@
 # Compose
 -keep class androidx.compose.** { *; }
 -dontwarn androidx.compose.**
+
+# Room and SQLite Bundled
+-keep class androidx.room.** { *; }
+-keep class androidx.sqlite.driver.bundled.** { *; }
+-keep class androidx.sqlite.db.** { *; }
+-dontwarn androidx.sqlite.driver.bundled.**

@@ -1,4 +1,4 @@
-package com.almarpa.kmmtemplateapp.presentation.ui.navigation.graphs
+package com.almarpa.kmmtemplateapp.presentation.ui.navigation.navdisplays
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -13,7 +13,6 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.config.mainSavedStateConfig
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.PokemonListScreen
@@ -25,10 +24,9 @@ import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun HomeNavigation(
+fun HomeNavDisplay(
     drawerState: DrawerState,
     onNavigateToDetail: (Pokemon) -> Unit,
-    navigationActions: NavigationActions,
 ) {
     val homeBackStack = rememberNavBackStack(
         mainSavedStateConfig,
@@ -76,7 +74,6 @@ fun HomeNavigation(
                 TeamScreen(
                     drawerState = drawerState,
                     currentRoute = currentDestination,
-                    navigationActions = navigationActions,
                     uiState = teamUiState,
                     onRetry = { teamViewModel.loadData() },
                     onSave = { pokemon ->

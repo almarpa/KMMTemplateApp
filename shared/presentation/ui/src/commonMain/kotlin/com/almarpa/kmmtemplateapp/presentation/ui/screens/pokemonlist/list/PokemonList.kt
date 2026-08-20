@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.almarpa.kmmtemplateapp.core.common.extensions.modifierWithLazyGridAnimationPreview
-import com.almarpa.kmmtemplateapp.core.presentation.composables.spacer.CustomSpacer
 import com.almarpa.kmmtemplateapp.core.presentation.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.core.presentation.utils.isLandscapeOrientation
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
@@ -27,11 +26,11 @@ fun PokemonList(
     val columns = if (isLandscapeOrientation()) 4 else 2
 
     LazyVerticalGrid(
+        modifier = Modifier.fillMaxSize(),
         columns = GridCells.Fixed(columns),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier.fillMaxSize(),
     ) {
         items(
             count = pokemonList.size,
@@ -42,7 +41,6 @@ fun PokemonList(
                 pokemon = pokemonList[index],
                 onPokemonItemClick = { onPokemonItemClick(it) },
             )
-            CustomSpacer(height = 16, width = 16)
         }
     }
 }

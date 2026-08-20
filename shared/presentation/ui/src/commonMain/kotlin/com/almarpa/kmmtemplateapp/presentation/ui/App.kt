@@ -9,6 +9,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.toMutableStateList
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.drawer.Drawer
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navdisplays.AppNavDisplay
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 import kotlinx.coroutines.launch
 
@@ -29,7 +30,7 @@ fun App() {
         drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
     ) {
-        AppNavHost(
+        AppNavDisplay(
             backStack = backStack,
             drawerState = drawerState,
             navigationActions = navigationActions,

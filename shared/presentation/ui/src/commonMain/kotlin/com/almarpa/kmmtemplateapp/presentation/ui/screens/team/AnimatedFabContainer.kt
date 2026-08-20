@@ -48,7 +48,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -58,6 +57,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import coil3.compose.SubcomposeAsyncImage
 import com.almarpa.kmmtemplateapp.core.presentation.composables.spacer.CustomSpacer
 import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
@@ -89,10 +91,13 @@ fun AnimatedFabContainer(
     onFabContainerStateChanged: (Boolean) -> Unit,
     onSave: (Pokemon) -> Unit,
 ) {
-    BackHandler(enabled = fabContainerState) {
-        onFabContainerStateChanged(false)
+    val navigationEventState =
+        rememberNavigationEventState<NavigationEventInfo>(NavigationEventInfo.None)
+
+    NavigationBackHandler(state = navigationEventState) {
+        if (fabContainerState) onFabContainerStateChanged(false)
     }
-    
+
     with(updateTransition(targetState = fabContainerState, label = "fabContainerTransition")) {
         val backgroundColor = getBackgroundColor()
         val cornerRadius = getCornerRadius()

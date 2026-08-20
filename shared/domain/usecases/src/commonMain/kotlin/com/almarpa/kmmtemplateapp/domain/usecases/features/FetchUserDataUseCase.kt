@@ -13,7 +13,9 @@ class FetchUserDataUseCase(private val repository: PreferencesRepository) {
     ) { locale, theme ->
         UserData(
             locale = locale,
-            theme = theme?.let { AppThemeEnum.valueOf(it) } ?: AppThemeEnum.AUTO
+            theme = theme?.let {
+                runCatching { AppThemeEnum.valueOf(it) }.getOrDefault(AppThemeEnum.AUTO)
+            } ?: AppThemeEnum.AUTO
         )
     }
 }

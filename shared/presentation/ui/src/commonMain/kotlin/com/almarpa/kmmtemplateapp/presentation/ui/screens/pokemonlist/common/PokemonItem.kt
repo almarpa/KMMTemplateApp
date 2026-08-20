@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,19 +44,30 @@ fun PokemonItem(
     pokemon: Pokemon,
     onPokemonItemClick: (Pokemon) -> Unit = { },
 ) {
-    val defaultDominantColor = MaterialTheme.colorScheme.onSurface
+    val themeDefaultColor = MaterialTheme.colorScheme.onSurface
+    val initialColor = remember(pokemon.id, themeDefaultColor) {
+        if (pokemon.color != 0) Color(pokemon.color) else themeDefaultColor
+    }
     val networkLoader = rememberNetworkLoader()
     val dominantColorState = rememberDominantColorState(
         loader = networkLoader,
-        defaultColor = defaultDominantColor,
+        defaultColor = initialColor,
     )
 
-    LaunchedEffect(pokemon.url) {
-        dominantColorState.updateFrom(Url(pokemon.url))
+    val isColorLoaded = remember(pokemon.color, dominantColorState.result) {
+        pokemon.color != 0 || dominantColorState.result != null
     }
 
-    LaunchedEffect(dominantColorState.color) {
-        pokemon.color = dominantColorState.color.toArgb()
+    LaunchedEffect(pokemon.url) {
+        if (pokemon.color == 0) {
+            dominantColorState.updateFrom(Url(pokemon.url))
+        }
+    }
+
+    LaunchedEffect(dominantColorState.result) {
+        if (dominantColorState.result != null) {
+            pokemon.color = dominantColorState.color.toArgb()
+        }
     }
 
     Card(
@@ -73,7 +85,7 @@ fun PokemonItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .shimmerLoadingAnimation(
-                    isLoadingCompleted = dominantColorState.result?.paletteOrNull != null
+                    isLoadingCompleted = isColorLoaded
                 ),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -99,9 +111,7 @@ fun PokemonItem(
             }
 
             Text(
-                text = pokemon.name.uppercase().takeIf {
-                    dominantColorState.result?.paletteOrNull != null
-                }.orEmpty(),
+                text = pokemon.name.uppercase().takeIf { isColorLoaded }.orEmpty(),
                 textAlign = TextAlign.Center,
                 color = Color.White,
                 fontWeight = FontWeight.SemiBold,

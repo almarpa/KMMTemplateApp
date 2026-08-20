@@ -21,15 +21,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.unit.dp
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import com.almarpa.kmmtemplateapp.core.presentation.composables.error.ErrorPlaceholderView
 import com.almarpa.kmmtemplateapp.core.presentation.composables.loader.FullScreenLoader
 import com.almarpa.kmmtemplateapp.core.presentation.composables.topappbar.AnimatedTopAppBar
 import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
 import com.almarpa.kmmtemplateapp.presentation.ui.mocks.getPokemonListMock
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.NavigationActions
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.navigationbar.AnimatedBottomAppBar
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.TeamUiState
@@ -46,7 +47,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun TeamScreen(
     drawerState: DrawerState,
     currentRoute: Routes,
-    navigationActions: NavigationActions,
     uiState: TeamUiState,
     onRetry: () -> Unit,
     onSave: (pokemon: Pokemon) -> Unit,
@@ -54,8 +54,12 @@ fun TeamScreen(
 ) {
     var isFabContainerFullScreen by rememberSaveable { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
+    val navigationEventState =
+        rememberNavigationEventState<NavigationEventInfo>(NavigationEventInfo.None)
 
-    BackHandler(isFabContainerFullScreen) { isFabContainerFullScreen = false }
+    NavigationBackHandler(state = navigationEventState) {
+        if (isFabContainerFullScreen) isFabContainerFullScreen = false
+    }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -148,7 +152,6 @@ fun TeamScreenFabPreview() {
         TeamScreen(
             drawerState = DrawerState(DrawerValue.Closed),
             currentRoute = Routes.HomeDestination.Team,
-            navigationActions = NavigationActions(mutableListOf()),
             uiState = TeamUiState.Success(getPokemonListMock()),
             onRetry = {},
             onSave = {},
@@ -165,7 +168,6 @@ fun TeamEmptyContentFabPreview() {
         TeamScreen(
             drawerState = DrawerState(DrawerValue.Closed),
             currentRoute = Routes.HomeDestination.Team,
-            navigationActions = NavigationActions(mutableListOf()),
             uiState = TeamUiState.Success(listOf()),
             onRetry = {},
             onSave = {},
