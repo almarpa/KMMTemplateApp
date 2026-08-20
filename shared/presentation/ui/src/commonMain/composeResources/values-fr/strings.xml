@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <string name="app_name">KMMTemplateApp</string>
+    <string name="app_name">PokéDex</string>
     <string name="toolbar_title">KMMTemplateApp</string>
     <string name="pokedex_title">Pokédex</string>
     <string name="pokemon_list_title">Liste</string>

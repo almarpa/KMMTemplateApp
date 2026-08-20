@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import com.almarpa.kmmtemplateapp.core.presentation.previews.AppThemePreview
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
@@ -42,6 +43,7 @@ fun PokemonSearchBar(
     var searchText by remember { mutableStateOf("") }
     val focusRequester = remember { FocusRequester() }
     var isSearchInputLoaded by remember { mutableStateOf(false) }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     SearchBar(
         modifier = modifier
@@ -56,11 +58,11 @@ fun PokemonSearchBar(
         inputField = {
             SearchBarDefaults.InputField(
                 query = searchText,
-                onQueryChange = {
-                    searchText = it
-                    onSearch(searchText)
+                onQueryChange = { newText: String ->
+                    searchText = newText
+                    onSearch(newText)
                 },
-                onSearch = { onSearch(searchText) },
+                onSearch = { keyboardController?.hide() },
                 enabled = true,
                 expanded = true,
                 onExpandedChange = { },
