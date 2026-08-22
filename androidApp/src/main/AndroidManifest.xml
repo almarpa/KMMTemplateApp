@@ -18,6 +18,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:configChanges="uiMode|orientation|screenSize|screenLayout|smallestScreenSize"
             android:theme="@style/Theme.App.Starting">
 
             <intent-filter>

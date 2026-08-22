@@ -17,16 +17,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun CustomDropdown(
     modifier: Modifier = Modifier,
     items: Map<String, String>,
-    selected: String,
-    onClickItem: (selection: String) -> Unit = {},
+    selectedKey: String,
+    onClickItem: (selectionKey: String) -> Unit = {},
 ) {
     var expanded by remember { mutableStateOf(false) }
+    val selectedValue = items[selectedKey] ?: items.values.firstOrNull().orEmpty()
 
     ExposedDropdownMenuBox(
         modifier = modifier,
@@ -36,12 +38,12 @@ fun CustomDropdown(
         TextField(
             modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true),
             readOnly = true,
-            value = selected,
+            value = selectedValue,
             onValueChange = { },
             trailingIcon = { TrailingIcon(expanded = expanded) },
             colors = TextFieldDefaults.colors(
-                focusedTextColor = MaterialTheme.colorScheme.secondary,
-                unfocusedTextColor = MaterialTheme.colorScheme.secondary,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
             )
         )
         ExposedDropdownMenu(
@@ -49,8 +51,15 @@ fun CustomDropdown(
             onDismissRequest = { expanded = false }
         ) {
             items.forEach { item ->
+                val isSelected = item.key == selectedKey
                 DropdownMenuItem(
-                    text = { Text(text = item.value) },
+                    text = {
+                        Text(
+                            text = item.value,
+                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        )
+                    },
                     onClick = {
                         expanded = false
                         onClickItem(item.key)
@@ -65,7 +74,7 @@ fun CustomDropdown(
 @Composable
 fun CustomDropdownPreview() {
     CustomDropdown(
-        items = mapOf(),
-        selected = "Test",
+        items = mapOf("Test" to "Test"),
+        selectedKey = "Test",
     )
 }

@@ -8,4 +8,15 @@ enum class LocaleEnum(val value: String) {
     FR("fr"),
     ZH("zh"),
     IT("it");
+
+    companion object {
+        fun fromString(locale: String?): LocaleEnum {
+            val normalized = locale?.takeIf { it.isNotBlank() }
+                ?.substringBefore("-")
+                ?.substringBefore("_")
+                ?.lowercase()
+
+            return entries.find { it.value == normalized } ?: EN
+        }
+    }
 }

@@ -15,13 +15,13 @@ fun MainViewController() = ComposeUIViewController {
     val userState by settingsViewModel.uiState.collectAsStateWithLifecycle()
     val isDarkTheme = when (val state = userState) {
         is SettingsUiState.Success ->
-            when (state.userData.theme) {
+            when (state.theme) {
                 AppThemeEnum.DARK -> true
                 AppThemeEnum.LIGHT -> false
                 AppThemeEnum.AUTO -> isSystemInDarkTheme()
             }
 
-        else -> true // By default
+        else -> isSystemInDarkTheme()
     }
 
     AppTheme(isDarkTheme = isDarkTheme) {

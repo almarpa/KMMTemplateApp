@@ -7,7 +7,6 @@ import com.almarpa.kmmtemplateapp.core.presentation.utils.setAppLanguage
 import com.almarpa.kmmtemplateapp.core.presentation.viewmodels.BaseViewModel
 import com.almarpa.kmmtemplateapp.core.presentation.viewmodels.event.EmptyUiEvent
 import com.almarpa.kmmtemplateapp.core.presentation.viewmodels.state.BaseUiState
-import com.almarpa.kmmtemplateapp.domain.models.UserData
 import com.almarpa.kmmtemplateapp.domain.usecases.features.FetchUserDataUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SetAppLocaleUseCase
 import com.almarpa.kmmtemplateapp.domain.usecases.features.SetAppThemeUseCase
@@ -28,8 +27,9 @@ import org.jetbrains.compose.resources.StringResource
 sealed interface SettingsUiState : BaseUiState {
     data object Loading : SettingsUiState
     data class Success(
-        val userData: UserData,
+        val theme: AppThemeEnum,
         val locales: Map<String, StringResource>,
+        val selectedLocaleKey: String,
     ) : SettingsUiState
 }
 
@@ -43,10 +43,11 @@ class SettingsViewModel(
 
     init {
         fetchUserDataUseCase()
-            .map {
+            .map { userData ->
                 SettingsUiState.Success(
-                    userData = it,
-                    locales = getAppLocales()
+                    theme = userData.theme,
+                    locales = getAppLocales(),
+                    selectedLocaleKey = userData.locale.value
                 )
             }
             .onEach { newState -> _uiState.value = newState }

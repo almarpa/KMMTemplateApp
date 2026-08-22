@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
             val isDarkTheme = when (val state = settingsState) {
                 is SettingsUiState.Success ->
-                    when (state.userData.theme) {
+                    when (state.theme) {
                         AppThemeEnum.DARK -> true
                         AppThemeEnum.LIGHT -> false
                         AppThemeEnum.AUTO -> isSystemInDarkTheme()

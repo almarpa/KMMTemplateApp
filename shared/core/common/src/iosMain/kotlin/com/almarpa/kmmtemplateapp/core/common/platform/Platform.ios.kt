@@ -1,6 +1,9 @@
 package com.almarpa.kmmtemplateapp.core.common.platform
 
 import com.almarpa.kmmtemplateapp.core.common.model.enums.PlatformType
+import platform.Foundation.NSLocale
+import platform.Foundation.currentLocale
+import platform.Foundation.languageCode
 import platform.UIKit.UIDevice
 
 class IOSPlatform : Platform {
@@ -9,6 +12,9 @@ class IOSPlatform : Platform {
             platformType = PlatformType.IOS,
             version = UIDevice.currentDevice.systemVersion
         )
+
+    override val deviceLocale: String
+        get() = NSLocale.currentLocale.languageCode
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()

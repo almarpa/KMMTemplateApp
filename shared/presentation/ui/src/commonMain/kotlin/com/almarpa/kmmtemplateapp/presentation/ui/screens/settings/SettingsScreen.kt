@@ -40,13 +40,10 @@ import com.almarpa.kmmtemplateapp.core.presentation.composables.dropdown.CustomD
 import com.almarpa.kmmtemplateapp.core.presentation.composables.topappbar.DefaultTopAppBar
 import com.almarpa.kmmtemplateapp.core.presentation.theme.AppTheme
 import com.almarpa.kmmtemplateapp.core.presentation.theme.LocalThemeIsDark
-import com.almarpa.kmmtemplateapp.core.presentation.utils.getDeviceLocale
-import com.almarpa.kmmtemplateapp.domain.models.UserData
 import com.almarpa.kmmtemplateapp.presentation.ui.viewmodels.SettingsUiState
 import kmmtemplateapp.shared.presentation.ui.generated.resources.Res
 import kmmtemplateapp.shared.presentation.ui.generated.resources.dark_mode
 import kmmtemplateapp.shared.presentation.ui.generated.resources.dark_mode_description
-import kmmtemplateapp.shared.presentation.ui.generated.resources.empty_string
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language
 import kmmtemplateapp.shared.presentation.ui.generated.resources.language_english
 import kmmtemplateapp.shared.presentation.ui.generated.resources.settings_title
@@ -71,8 +68,9 @@ fun SettingsScreen(
             is SettingsUiState.Success -> {
                 SettingsContent(
                     modifier = Modifier.padding(paddingValues),
-                    userData = uiState.userData,
+                    theme = uiState.theme,
                     locales = uiState.locales,
+                    selectedLocaleKey = uiState.selectedLocaleKey,
                     onLanguageChange = { onLanguageChange(it) },
                     onThemeChange = { onThemeChange(it) },
                 )
@@ -86,16 +84,12 @@ fun SettingsScreen(
 @Composable
 fun SettingsContent(
     modifier: Modifier,
-    userData: UserData,
+    theme: AppThemeEnum,
     locales: Map<String, StringResource>,
+    selectedLocaleKey: String,
     onLanguageChange: (String) -> Unit,
     onThemeChange: (Boolean) -> Unit,
 ) {
-    val currentLocale: StringResource = locales.getOrElse(
-        key = userData.locale ?: getDeviceLocale(),
-        defaultValue = { Res.string.empty_string }
-    )
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -106,7 +100,7 @@ fun SettingsContent(
         SettingsGroup(title = stringResource(Res.string.language)) {
             LanguagesSection(
                 languages = locales,
-                currentLanguage = stringResource(currentLocale),
+                currentLanguageKey = selectedLocaleKey,
                 onLanguageChange = { onLanguageChange(it) }
             )
         }
@@ -119,7 +113,7 @@ fun SettingsContent(
 
         SettingsGroup(title = stringResource(Res.string.dark_mode)) {
             DarkModeSection(
-                themeState = userData.theme,
+                themeState = theme,
                 onChange = { isChecked -> onThemeChange(isChecked) },
             )
         }
@@ -146,7 +140,7 @@ private fun SettingsGroup(
 @Composable
 fun LanguagesSection(
     languages: Map<String, StringResource>,
-    currentLanguage: String,
+    currentLanguageKey: String,
     onLanguageChange: (String) -> Unit,
 ) {
     SettingsRow(
@@ -157,7 +151,7 @@ fun LanguagesSection(
             CustomDropdown(
                 modifier = Modifier.fillMaxWidth(),
                 items = languages.mapValues { item -> stringResource(item.value) },
-                selected = currentLanguage,
+                selectedKey = currentLanguageKey,
                 onClickItem = { selection -> onLanguageChange(selection) })
         }
     )
@@ -265,13 +259,11 @@ fun SettingsScreenPreview() {
     AppTheme {
         SettingsScreen(
             SettingsUiState.Success(
-                userData = UserData(
-                    locale = LocaleEnum.EN.name,
-                    theme = AppThemeEnum.DARK
-                ),
+                theme = AppThemeEnum.DARK,
                 locales = mapOf(
-                    LocaleEnum.EN.name to Res.string.language_english
+                    LocaleEnum.EN.value to Res.string.language_english
                 ),
+                selectedLocaleKey = "en"
             ),
         )
     }

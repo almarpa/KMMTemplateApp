@@ -1,6 +1,8 @@
 package com.almarpa.kmmtemplateapp.domain.usecases.features
 
 import com.almarpa.kmmtemplateapp.core.common.model.enums.AppThemeEnum
+import com.almarpa.kmmtemplateapp.core.common.model.enums.LocaleEnum
+import com.almarpa.kmmtemplateapp.core.common.platform.getPlatform
 import com.almarpa.kmmtemplateapp.domain.models.UserData
 import com.almarpa.kmmtemplateapp.domain.repository.PreferencesRepository
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +14,7 @@ class FetchUserDataUseCase(private val repository: PreferencesRepository) {
         repository.getAppTheme(),
     ) { locale, theme ->
         UserData(
-            locale = locale,
+            locale = LocaleEnum.fromString(locale ?: getPlatform().deviceLocale),
             theme = theme?.let {
                 runCatching { AppThemeEnum.valueOf(it) }.getOrDefault(AppThemeEnum.AUTO)
             } ?: AppThemeEnum.AUTO
