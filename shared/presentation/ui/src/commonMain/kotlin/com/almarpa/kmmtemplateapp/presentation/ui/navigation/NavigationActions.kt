@@ -23,7 +23,7 @@ class NavigationActions(private val backStack: MutableList<NavKey>) {
 
     val navigateBack: () -> Unit = {
         if (backStack.size > 1) {
-            backStack.removeLast()
+            backStack.removeAt(backStack.lastIndex)
         }
     }
 }

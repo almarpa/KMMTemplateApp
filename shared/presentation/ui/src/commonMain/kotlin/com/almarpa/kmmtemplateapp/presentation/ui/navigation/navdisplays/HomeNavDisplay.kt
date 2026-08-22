@@ -37,7 +37,7 @@ fun HomeNavDisplay(
 
     NavDisplay(
         backStack = homeBackStack,
-        onBack = { if (homeBackStack.size > 1) homeBackStack.removeLast() },
+        onBack = { if (homeBackStack.size > 1) homeBackStack.removeAt(homeBackStack.lastIndex) },
         entryDecorators = listOf(
             rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator()
