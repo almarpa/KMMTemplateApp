@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
         applicationId = libs.versions.applicationId.get()
-        versionCode = 1
+        versionCode = 2
         versionName = "1.0.0"
     }
 
