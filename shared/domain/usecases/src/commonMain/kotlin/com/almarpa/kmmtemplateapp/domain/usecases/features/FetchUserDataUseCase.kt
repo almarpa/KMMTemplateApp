@@ -13,8 +13,9 @@ class FetchUserDataUseCase(private val repository: PreferencesRepository) {
         repository.getAppLocale(),
         repository.getAppTheme(),
     ) { locale, theme ->
+        val resolvedLocale = locale.takeIf { it?.isNotBlank() == true } ?: getPlatform().deviceLocale
         UserData(
-            locale = LocaleEnum.fromString(locale ?: getPlatform().deviceLocale),
+            locale = LocaleEnum.fromString(resolvedLocale),
             theme = theme?.let {
                 runCatching { AppThemeEnum.valueOf(it) }.getOrDefault(AppThemeEnum.AUTO)
             } ?: AppThemeEnum.AUTO
