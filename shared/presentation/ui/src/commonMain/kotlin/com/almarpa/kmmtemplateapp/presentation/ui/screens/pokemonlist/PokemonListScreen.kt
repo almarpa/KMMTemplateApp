@@ -22,8 +22,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import com.almarpa.kmmtemplateapp.core.presentation.animations.WithSharedTransitionScope
 import com.almarpa.kmmtemplateapp.core.presentation.composables.error.ErrorPlaceholderView
 import com.almarpa.kmmtemplateapp.core.presentation.composables.loader.FullScreenLoader
@@ -64,7 +66,16 @@ fun PokemonListScreen(
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     val coroutineScope = rememberCoroutineScope()
 
-    BackHandler { /* Do nothing */ }
+    val navigationEventState =
+        rememberNavigationEventState<NavigationEventInfo>(NavigationEventInfo.None)
+
+    NavigationBackHandler(state = navigationEventState) {
+        if (isSearchActive) {
+            isSearchActive = false
+            isBottomAppBarVisible = true
+            onDismissSearch()
+        }
+    }
 
     LaunchedEffect(Unit) { isBottomAppBarVisible = true }
 

@@ -49,7 +49,7 @@ class SettingsViewModel(
                     locales = getAppLocales()
                 )
             }
-            .onEach { _uiState.value = it }
+            .onEach { newState -> _uiState.value = newState }
             .launchIn(viewModelScope)
     }
 

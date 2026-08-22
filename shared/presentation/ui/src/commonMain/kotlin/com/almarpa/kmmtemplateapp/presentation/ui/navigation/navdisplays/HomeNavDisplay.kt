@@ -13,7 +13,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.almarpa.kmmtemplateapp.domain.models.Pokemon
-import com.almarpa.kmmtemplateapp.presentation.ui.navigation.config.mainSavedStateConfig
+import com.almarpa.kmmtemplateapp.presentation.ui.navigation.config.homeSavedStateConfig
 import com.almarpa.kmmtemplateapp.presentation.ui.navigation.routes.Routes
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.pokemonlist.PokemonListScreen
 import com.almarpa.kmmtemplateapp.presentation.ui.screens.team.TeamScreen
@@ -29,7 +29,7 @@ fun HomeNavDisplay(
     onNavigateToDetail: (Pokemon) -> Unit,
 ) {
     val homeBackStack = rememberNavBackStack(
-        mainSavedStateConfig,
+        homeSavedStateConfig,
         Routes.HomeDestination.PokemonList
     )
 

@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val settingsViewModel = koinViewModel<SettingsViewModel>()
             val settingsState by settingsViewModel.uiState.collectAsStateWithLifecycle()
+
             val isDarkTheme = when (val state = settingsState) {
                 is SettingsUiState.Success ->
                     when (state.userData.theme) {
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                         AppThemeEnum.AUTO -> isSystemInDarkTheme()
                     }
 
-                else -> true // By default
+                else -> isSystemInDarkTheme()
             }
 
             AppTheme(isDarkTheme = isDarkTheme) {
